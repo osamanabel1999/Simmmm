@@ -1,4 +1,4 @@
-package com.mycaptain.simulatorfly
+package com.captain.simulatorfly
 
 import io.flutter.embedding.android.FlutterActivity
 
