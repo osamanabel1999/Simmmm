@@ -39,3 +39,5 @@ export 'activate_license.dart' show activateLicense;
 export 'generate_new_license.dart' show generateNewLicense;
 export 'send_m_s_f_s_command.dart' show sendMSFSCommand;
 export 'listen_to_m_s_f_s_data.dart' show listenToMSFSData;
+export 'get_flight_data.dart' show getFlightData;
+export 'send_flight_command.dart' show sendFlightCommand;

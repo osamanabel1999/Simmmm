@@ -553,7 +553,7 @@ class _IPpageWidgetState extends State<IPpageWidget> {
                           _model.codeTextController.text,
                         );
                         if (_model.status == 'Success') {
-                          context.pushNamed(HomePageWidget.routeName);
+                          context.pushNamed(HomePageXPLANEWidget.routeName);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -734,7 +734,7 @@ class _IPpageWidgetState extends State<IPpageWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
-                      context.pushNamed(MsfsWidget.routeName);
+                      context.pushNamed(HomePageMSFSWidget.routeName);
                     },
                     text: 'Button',
                     options: FFButtonOptions(

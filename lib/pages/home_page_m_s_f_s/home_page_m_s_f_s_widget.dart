@@ -21,28 +21,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-import 'home_page_model.dart';
-export 'home_page_model.dart';
+import 'home_page_m_s_f_s_model.dart';
+export 'home_page_m_s_f_s_model.dart';
 
-class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({super.key});
+class HomePageMSFSWidget extends StatefulWidget {
+  const HomePageMSFSWidget({super.key});
 
-  static String routeName = 'HomePage';
-  static String routePath = '/homePage';
+  static String routeName = 'HomePageMSFS';
+  static String routePath = '/homePageMSFS';
 
   @override
-  State<HomePageWidget> createState() => _HomePageWidgetState();
+  State<HomePageMSFSWidget> createState() => _HomePageMSFSWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
-  late HomePageModel _model;
+class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
+  late HomePageMSFSModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomePageModel());
+    _model = createModel(context, () => HomePageMSFSModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -34773,19 +34773,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 Expanded(
                                                   child: Container(
                                                     width: double.infinity,
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        1.0,
+                                                    height: double.infinity,
                                                     child: custom_widgets
-                                                        .CustomFMCWebView(
+                                                        .PilotScratchPad(
                                                       width: double.infinity,
-                                                      height: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .height *
-                                                          1.0,
-                                                      initialUrl:
-                                                          'http://${FFAppState().ipPC}:9090',
+                                                      height: double.infinity,
                                                     ),
                                                   ),
                                                 ),
@@ -37125,21 +37117,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'FMC operations are currently optimized for B737 Zibo only. A320 MCDU integration is coming soon. Stay tuned!',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration: Duration(milliseconds: 5000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                    ),
-                                  );
                                   FFAppState().TabNumber = 10;
                                   safeSetState(() {});
                                 },
@@ -37159,7 +37136,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                   alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Text(
-                                    'FMC',
+                                    'SCRATCH',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

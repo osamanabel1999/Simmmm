@@ -3,10 +3,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/instant_timer.dart';
 import '/index.dart';
-import 'home_page_widget.dart' show HomePageWidget;
+import 'home_page_x_p_l_a_n_e_widget.dart' show HomePageXPLANEWidget;
 import 'package:flutter/material.dart';
 
-class HomePageModel extends FlutterFlowModel<HomePageWidget> {
+class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
   ///  Local state fields for this page.
 
   int currentStep = 1;
@@ -19,48 +19,48 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (GetAirportInfo)] action in HomePage widget.
+  // Stores action output result for [Backend Call - API (GetAirportInfo)] action in HomePageXPLANE widget.
   ApiCallResponse? airportResulxxxxx;
-  // Stores action output result for [Backend Call - API (GetSimBriefFlight)] action in HomePage widget.
+  // Stores action output result for [Backend Call - API (GetSimBriefFlight)] action in HomePageXPLANE widget.
   ApiCallResponse? simbreifResponse;
-  // Stores action output result for [Backend Call - API (getMetarRaw)] action in HomePage widget.
+  // Stores action output result for [Backend Call - API (getMetarRaw)] action in HomePageXPLANE widget.
   ApiCallResponse? metarResult;
-  // Stores action output result for [Backend Call - API (getTafRaw)] action in HomePage widget.
+  // Stores action output result for [Backend Call - API (getTafRaw)] action in HomePageXPLANE widget.
   ApiCallResponse? tafResult;
   InstantTimer? instantTimer;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePage widget.
+  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageXPLANE widget.
   double? headingoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePage widget.
+  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageXPLANE widget.
   double? xoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePage widget.
+  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageXPLANE widget.
   double? zoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePage widget.
+  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageXPLANE widget.
   double? lAToutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePage widget.
+  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageXPLANE widget.
   double? lONoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePage widget.
+  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageXPLANE widget.
   double? sPDoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePage widget.
+  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageXPLANE widget.
   double? aLToutput;
-  // Stores action output result for [Custom Action - calculateXPlanePosition] action in HomePage widget.
+  // Stores action output result for [Custom Action - calculateXPlanePosition] action in HomePageXPLANE widget.
   dynamic autoResult;
-  // Stores action output result for [Custom Action - moveAircraftBackward] action in HomePage widget.
+  // Stores action output result for [Custom Action - moveAircraftBackward] action in HomePageXPLANE widget.
   dynamic threeNMfinall;
-  // Stores action output result for [Custom Action - moveAircraftBackward] action in HomePage widget.
+  // Stores action output result for [Custom Action - moveAircraftBackward] action in HomePageXPLANE widget.
   dynamic tenNMfinall;
-  // Stores action output result for [Custom Action - moveAircraftBackward] action in HomePage widget.
+  // Stores action output result for [Custom Action - moveAircraftBackward] action in HomePageXPLANE widget.
   dynamic zeroNMfinall;
-  // Stores action output result for [Custom Action - calculateBaseLegPosition] action in HomePage widget.
+  // Stores action output result for [Custom Action - calculateBaseLegPosition] action in HomePageXPLANE widget.
   dynamic leftbase;
-  // Stores action output result for [Custom Action - calculateRightBasePosition] action in HomePage widget.
+  // Stores action output result for [Custom Action - calculateRightBasePosition] action in HomePageXPLANE widget.
   dynamic rightBase;
-  // Stores action output result for [Custom Action - calculateLeftDownwindPosition] action in HomePage widget.
+  // Stores action output result for [Custom Action - calculateLeftDownwindPosition] action in HomePageXPLANE widget.
   dynamic leftDownwind;
-  // Stores action output result for [Custom Action - calculateLeft45EntryPosition] action in HomePage widget.
+  // Stores action output result for [Custom Action - calculateLeft45EntryPosition] action in HomePageXPLANE widget.
   dynamic left45;
-  // Stores action output result for [Custom Action - calculateRight45EntryPosition] action in HomePage widget.
+  // Stores action output result for [Custom Action - calculateRight45EntryPosition] action in HomePageXPLANE widget.
   dynamic right45;
-  // Stores action output result for [Custom Action - calculateRightDownwindPosition] action in HomePage widget.
+  // Stores action output result for [Custom Action - calculateRightDownwindPosition] action in HomePageXPLANE widget.
   dynamic rightDownwind;
   // State field(s) for AircraftType widget.
   String? aircraftTypeValue1;

@@ -15,18 +15,19 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:math' as math;
+import 'package:flutter_tts/flutter_tts.dart';
 
 class RadarMap extends StatefulWidget {
   const RadarMap({
     Key? key,
     this.width,
     this.height,
-    this.userNetworkId, // <-- تم إضافة متغير الآي دي الخاص باليوزر هنا
+    this.userNetworkId,
   }) : super(key: key);
 
   final double? width;
   final double? height;
-  final String? userNetworkId; // <-- لاستقبال الآي دي من الـ App State
+  final String? userNetworkId;
 
   @override
   _RadarMapState createState() => _RadarMapState();
@@ -37,7 +38,7 @@ class _RadarMapState extends State<RadarMap> {
   List<Marker> _airportMarkers = [];
   bool showVatsim = true;
   bool showIvao = true;
-  bool showAirports = false; // <-- تم تغيير الافتراضي ليكون مقفول
+  bool showAirports = false;
   bool showCallsigns = false;
   bool showRadarMode = false;
 
@@ -45,20 +46,25 @@ class _RadarMapState extends State<RadarMap> {
   bool showRightMenu = false;
   String currentMapStyle =
       'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-
-  // --- متغير جديد للتحكم في طبقة الطقس (مطر، حرارة، رياح) ---
   String activeWeatherLayer = 'NONE';
 
   final MapController _mapController = MapController();
   Map<String, dynamic>? selectedItem;
   Timer? _refreshTimer;
-  Timer? _clockTimer; // <-- مؤقت لتحديث ساعة الزولو
-  String zuluTime = ""; // <-- متغير لتخزين الوقت
+  Timer? _clockTimer;
+  String zuluTime = "";
+
+  List<dynamic> rawVatsimPlanes = [];
+  List<dynamic> rawIvaoPlanes = [];
+  List<dynamic> rawAirports = [];
+  final TextEditingController _searchController = TextEditingController();
+  bool showSearchDropdown = false;
+  List<Map<String, dynamic>> searchResults = [];
 
   @override
   void initState() {
     super.initState();
-    _updateClock(); // تشغيل الساعة فوراً
+    _updateClock();
     _clockTimer =
         Timer.periodic(const Duration(seconds: 1), (_) => _updateClock());
     _refreshTimer =
@@ -71,12 +77,12 @@ class _RadarMapState extends State<RadarMap> {
 
   @override
   void dispose() {
-    _clockTimer?.cancel(); // إيقاف الساعة عند الخروج
+    _clockTimer?.cancel();
     _refreshTimer?.cancel();
+    _searchController.dispose();
     super.dispose();
   }
 
-  // --- دالة تحديث توقيت الزولو ---
   void _updateClock() {
     final now = DateTime.now().toUtc();
     if (mounted) {
@@ -87,7 +93,6 @@ class _RadarMapState extends State<RadarMap> {
     }
   }
 
-  // --- دالة مساعدة للحصول على رابط الطقس المناسب ---
   String _getWeatherUrl(String type) {
     const apiKey = "d2b9c49baa0f1dac5a0dada3a4c94cc1";
     if (type == 'RAIN')
@@ -99,48 +104,133 @@ class _RadarMapState extends State<RadarMap> {
     return "";
   }
 
+  void _onSearchChanged(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        searchResults = [];
+        showSearchDropdown = false;
+      });
+      return;
+    }
+
+    String q = query.toLowerCase();
+    List<Map<String, dynamic>> results = [];
+
+    for (var ap in rawAirports) {
+      String icao = (ap['icao'] ?? "").toString().toLowerCase();
+      String iata = (ap['iata'] ?? "").toString().toLowerCase();
+      String name = (ap['name'] ?? "").toString().toLowerCase();
+      if (icao.contains(q) || iata.contains(q) || name.contains(q)) {
+        results.add({
+          'type': 'AIRPORT',
+          'title': '${ap['icao']} - ${ap['name']}',
+          'data': ap
+        });
+      }
+    }
+
+    for (var p in rawVatsimPlanes) {
+      String callsign = (p['callsign'] ?? "").toString().toLowerCase();
+      if (callsign.contains(q)) {
+        results.add({
+          'type': 'PLANE',
+          'title': '${p['callsign']} (VATSIM)',
+          'data': p,
+          'net': 'VATSIM',
+          'isVatsim': true
+        });
+      }
+    }
+
+    for (var p in rawIvaoPlanes) {
+      String callsign = (p['callsign'] ?? "").toString().toLowerCase();
+      if (callsign.contains(q)) {
+        results.add({
+          'type': 'PLANE',
+          'title': '${p['callsign']} (IVAO)',
+          'data': p,
+          'net': 'IVAO',
+          'isVatsim': false
+        });
+      }
+    }
+
+    setState(() {
+      searchResults = results.take(6).toList();
+      showSearchDropdown = results.isNotEmpty;
+    });
+  }
+
+  void _onSearchResultSelected(Map<String, dynamic> result) {
+    setState(() {
+      showSearchDropdown = false;
+      _searchController.clear();
+      FocusScope.of(context).unfocus();
+
+      selectedItem = {
+        'type': result['type'],
+        'data': result['data'],
+        if (result['type'] == 'PLANE') 'net': result['net'],
+        if (result['type'] == 'PLANE') 'isVatsim': result['isVatsim']
+      };
+    });
+
+    if (result['type'] == 'AIRPORT') {
+      double lat = double.parse(result['data']['lat'].toString());
+      double lon = double.parse(result['data']['lon'].toString());
+      _mapController.move(ll.LatLng(lat, lon), 13.0);
+    } else if (result['type'] == 'PLANE') {
+      bool isVatsim = result['isVatsim'];
+      double lat = isVatsim
+          ? (result['data']['latitude'] ?? 0.0).toDouble()
+          : (result['data']['lastTrack']?['latitude'] ?? 0.0).toDouble();
+      double lon = isVatsim
+          ? (result['data']['longitude'] ?? 0.0).toDouble()
+          : (result['data']['lastTrack']?['longitude'] ?? 0.0).toDouble();
+      _mapController.move(ll.LatLng(lat, lon), 10.0);
+    }
+  }
+
   Future<void> _fetchAirports() async {
     try {
       final response = await http.get(Uri.parse(
           'https://gist.githubusercontent.com/tdreyno/4278655/raw/airports.json'));
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
+        rawAirports = data;
         setState(() {
           _airportMarkers = data
               .map((ap) => Marker(
                     point: ll.LatLng(double.parse(ap['lat'].toString()),
                         double.parse(ap['lon'].toString())),
-                    width: 80, // تم تكبير المساحة لاحتواء الدائرة والنص
+                    width: 80,
                     height: 60,
                     child: GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () => setState(() => selectedItem = {
-                            'type': 'AIRPORT', // تحديد النوع كمطار
+                            'type': 'AIRPORT',
                             'data': ap,
                           }),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // الدائرة المميزة للمطار
                           Container(
                             width: 14,
                             height: 14,
                             decoration: BoxDecoration(
-                              color: Colors.purpleAccent, // لون مميز للمطارات
+                              color: Colors.cyanAccent,
                               shape: BoxShape.circle,
                               border:
                                   Border.all(color: Colors.white, width: 1.5),
                               boxShadow: const [
                                 BoxShadow(
-                                  color: Colors.black54,
-                                  blurRadius: 2.0,
-                                  offset: Offset(1.0, 1.0),
-                                )
+                                    color: Colors.black54,
+                                    blurRadius: 2.0,
+                                    offset: Offset(1.0, 1.0))
                               ],
                             ),
                           ),
                           const SizedBox(height: 2),
-                          // نص الإيكاو تحت الدائرة
                           Text(
                             ap['icao']?.toString() ?? '',
                             style: const TextStyle(
@@ -149,10 +239,9 @@ class _RadarMapState extends State<RadarMap> {
                                 fontWeight: FontWeight.bold,
                                 shadows: [
                                   Shadow(
-                                    blurRadius: 2.0,
-                                    color: Colors.black,
-                                    offset: Offset(1.0, 1.0),
-                                  ),
+                                      blurRadius: 2.0,
+                                      color: Colors.black,
+                                      offset: Offset(1.0, 1.0)),
                                 ]),
                           ),
                         ],
@@ -173,6 +262,7 @@ class _RadarMapState extends State<RadarMap> {
             .get(Uri.parse('https://data.vatsim.net/v3/vatsim-data.json'));
         if (res.statusCode == 200) {
           final pilots = json.decode(res.body)['pilots'] as List;
+          rawVatsimPlanes = pilots;
           for (var p in pilots)
             tempPlanes.add(_buildPlaneMarker(p, Colors.amber, "VATSIM", true));
         }
@@ -184,6 +274,7 @@ class _RadarMapState extends State<RadarMap> {
             .get(Uri.parse('https://api.ivao.aero/v2/tracker/whazzup'));
         if (res.statusCode == 200) {
           final pilots = json.decode(res.body)['clients']['pilots'] as List;
+          rawIvaoPlanes = pilots;
           for (var p in pilots)
             tempPlanes
                 .add(_buildPlaneMarker(p, Colors.greenAccent, "IVAO", false));
@@ -217,27 +308,21 @@ class _RadarMapState extends State<RadarMap> {
         : (p['lastTrack']?['verticalSpeed'] ?? 0).toInt();
 
     IconData trendIcon = Icons.horizontal_rule;
-    if (vs > 50) {
+    if (vs > 50)
       trendIcon = Icons.arrow_upward;
-    } else if (vs < -50) {
-      trendIcon = Icons.arrow_downward;
-    }
+    else if (vs < -50) trendIcon = Icons.arrow_downward;
 
-    // --- كود الصياعة: تحديد ما إذا كانت الطيارة تخص المستخدم ---
     String planeId =
         isVatsim ? p['cid']?.toString() ?? "" : p['userId']?.toString() ?? "";
-
     Color markerColor = baseColor;
     bool isUserPlane = false;
 
-    // لو الآي دي موجود في التطبيق وبيطابق آي دي الطيارة، غير اللون لوردي فسفوري
     if (widget.userNetworkId != null &&
         widget.userNetworkId!.isNotEmpty &&
         planeId == widget.userNetworkId) {
       markerColor = Colors.redAccent;
       isUserPlane = true;
     }
-    // ------------------------------------------------------------
 
     return Marker(
       point: ll.LatLng(lat, lon),
@@ -300,21 +385,17 @@ class _RadarMapState extends State<RadarMap> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (showCallsigns)
-                  Text(
-                    callsign,
-                    style: TextStyle(
-                      color: markerColor,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      shadows: const [
-                        Shadow(
-                          blurRadius: 2.0,
-                          color: Colors.black,
-                          offset: Offset(1.0, 1.0),
-                        ),
-                      ],
-                    ),
-                  ),
+                  Text(callsign,
+                      style: TextStyle(
+                          color: markerColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          shadows: const [
+                            Shadow(
+                                blurRadius: 2.0,
+                                color: Colors.black,
+                                offset: Offset(1.0, 1.0))
+                          ])),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () => setState(() => selectedItem = {
@@ -335,248 +416,279 @@ class _RadarMapState extends State<RadarMap> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        FlutterMap(
-          mapController: _mapController,
-          options: MapOptions(
-              initialCenter: ll.LatLng(30.0, 31.0),
-              initialZoom: 7,
-              onTap: (_, __) => setState(() => selectedItem = null)),
-          children: [
-            // طبقة الخريطة الأساسية
-            TileLayer(
-                urlTemplate: currentMapStyle, subdomains: ['a', 'b', 'c', 'd']),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          FlutterMap(
+            mapController: _mapController,
+            options: MapOptions(
+                initialCenter: ll.LatLng(30.0, 31.0),
+                initialZoom: 7,
+                onTap: (_, __) {
+                  FocusScope.of(context).unfocus();
+                  setState(() {
+                    selectedItem = null;
+                    showSearchDropdown = false;
+                  });
+                }),
+            children: [
+              TileLayer(
+                  urlTemplate: currentMapStyle,
+                  subdomains: ['a', 'b', 'c', 'd']),
+              if (activeWeatherLayer != 'NONE')
+                Opacity(
+                    opacity: 1.0,
+                    child: TileLayer(
+                        urlTemplate: _getWeatherUrl(activeWeatherLayer))),
+              if (showAirports) MarkerLayer(markers: _airportMarkers),
+              MarkerLayer(markers: _planeMarkers),
+            ],
+          ),
 
-            // طبقة الطقس (تظهر فقط إذا تم اختيار نوع طقس) وتكون فوق الخريطة وتحت المطارات
-            if (activeWeatherLayer != 'NONE')
-              Opacity(
-                opacity: 1.0, // الشفافية هنا بتشتغل على أي ويدجت
-                child: TileLayer(
-                  urlTemplate: _getWeatherUrl(activeWeatherLayer),
+          // --- شريط البحث بالكامل فوق ---
+          Positioned(
+            top: 15,
+            left: 15,
+            right: 15,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.85),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        color: Colors.cyanAccent.withOpacity(0.6), width: 1.5),
+                    boxShadow: const [
+                      BoxShadow(color: Colors.black45, blurRadius: 4)
+                    ],
+                  ),
+                  child: TextField(
+                    controller: _searchController,
+                    autofocus: false,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold),
+                    onChanged: _onSearchChanged,
+                    decoration: InputDecoration(
+                      hintText: "Search ICAO, Callsign...",
+                      hintStyle:
+                          const TextStyle(color: Colors.white54, fontSize: 12),
+                      prefixIcon: const Icon(Icons.search,
+                          color: Colors.cyanAccent, size: 18),
+                      suffixIcon: _searchController.text.isNotEmpty
+                          ? IconButton(
+                              icon: const Icon(Icons.close,
+                                  color: Colors.white70, size: 16),
+                              onPressed: () {
+                                _searchController.clear();
+                                setState(() {
+                                  showSearchDropdown = false;
+                                  searchResults.clear();
+                                });
+                                FocusScope.of(context).unfocus();
+                              },
+                            )
+                          : null,
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                    ),
+                  ),
                 ),
-              ),
-
-            if (showAirports) MarkerLayer(markers: _airportMarkers),
-            MarkerLayer(markers: _planeMarkers),
-          ],
-        ),
-
-        // --- ساعة الزولو (Zulu Time) فوق خالص على اليمين ---
-        Positioned(
-          top: 15,
-          right: 10,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.black
-                  .withOpacity(0.7), // خلي الأسود شفاف شوية عشان يبان زجاجي
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: const Color(0xFF00E5FF)
-                    .withOpacity(0.5), // نفس لون الخط بس شفاف
-                width: 1.5,
-              ),
+                if (showSearchDropdown)
+                  Container(
+                    margin: const EdgeInsets.only(top: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0F172A).withOpacity(0.95),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.white24),
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: searchResults.length,
+                      itemBuilder: (context, index) {
+                        final res = searchResults[index];
+                        IconData icn = res['type'] == 'AIRPORT'
+                            ? Icons.local_airport
+                            : Icons.flight;
+                        Color icnColor = res['type'] == 'AIRPORT'
+                            ? Colors.cyanAccent
+                            : (res['isVatsim'] == true
+                                ? Colors.amber
+                                : Colors.greenAccent);
+                        return ListTile(
+                          dense: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 12),
+                          leading: Icon(icn, color: icnColor, size: 20),
+                          title: Text(res['title'],
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold)),
+                          onTap: () => _onSearchResultSelected(res),
+                        );
+                      },
+                    ),
+                  )
+              ],
             ),
-            child: Text(
-              zuluTime,
-              style: const TextStyle(
-                color: Color(0xFF00E5FF),
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'monospace',
-                shadows: [
-                  Shadow(
-                    blurRadius: 5,
+          ),
+
+          // --- ساعة الزولو (Zulu Time) في مكان أحسن وأشيك ---
+          Positioned(
+            bottom: 25,
+            right: 15,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.8),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                    color: const Color(0xFF00E5FF).withOpacity(0.6),
+                    width: 1.5),
+              ),
+              child: Text(
+                zuluTime,
+                style: const TextStyle(
                     color: Color(0xFF00E5FF),
-                  ),
-                ],
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'monospace',
+                    shadows: [Shadow(blurRadius: 5, color: Color(0xFF00E5FF))]),
               ),
             ),
           ),
-        ),
 
-        // --- القائمة اللي على الشمال ---
-        Positioned(
-          top: 65, // <-- نزلناها شوية عشان التناسق
-          left: 10,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (showLeftMenu)
-                Container(
-                  width: 110,
-                  decoration: BoxDecoration(
-                      color: Colors.black87,
-                      border: Border.all(color: Colors.white24)),
-                  child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    _menuBtn("VATSIM", showVatsim, () {
-                      setState(() => showVatsim = !showVatsim);
-                      _fetchPlanes();
-                    }),
-                    _menuBtn("IVAO", showIvao, () {
-                      setState(() => showIvao = !showIvao);
-                      _fetchPlanes();
-                    }),
-                    _menuBtn("AIRPORT", showAirports,
-                        () => setState(() => showAirports = !showAirports)),
-                    _menuBtn("CALLSIGN", showCallsigns, () {
-                      // <-- تم التعديل
-                      setState(() => showCallsigns = !showCallsigns);
-                      _fetchPlanes();
-                    }),
-                    _menuBtn("RADAR", showRadarMode, () {
-                      setState(() => showRadarMode = !showRadarMode);
-                      _fetchPlanes();
-                    }),
-                  ]),
-                ),
-              GestureDetector(
-                onTap: () => setState(() => showLeftMenu = !showLeftMenu),
-                child: Container(
-                  margin: const EdgeInsets.only(left: 4),
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.black87,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.white24),
+          // --- القائمة اللي على الشمال ---
+          Positioned(
+            top: 65,
+            left: 15,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (showLeftMenu)
+                  Container(
+                    width: 110,
+                    decoration: BoxDecoration(
+                        color: Colors.black87,
+                        border: Border.all(color: Colors.white24)),
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      _menuBtn("VATSIM", showVatsim, () {
+                        setState(() => showVatsim = !showVatsim);
+                        _fetchPlanes();
+                      }),
+                      _menuBtn("IVAO", showIvao, () {
+                        setState(() => showIvao = !showIvao);
+                        _fetchPlanes();
+                      }),
+                      _menuBtn("AIRPORT", showAirports,
+                          () => setState(() => showAirports = !showAirports)),
+                      _menuBtn("CALLSIGN", showCallsigns, () {
+                        setState(() => showCallsigns = !showCallsigns);
+                        _fetchPlanes();
+                      }),
+                      _menuBtn("RADAR", showRadarMode, () {
+                        setState(() => showRadarMode = !showRadarMode);
+                        _fetchPlanes();
+                      }),
+                    ]),
                   ),
-                  child: Icon(
-                    showLeftMenu ? Icons.chevron_left : Icons.menu,
-                    color: Colors.white,
-                    size: 20,
+                GestureDetector(
+                  onTap: () => setState(() => showLeftMenu = !showLeftMenu),
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 4),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.black87,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white24)),
+                    child: Icon(showLeftMenu ? Icons.chevron_left : Icons.menu,
+                        color: Colors.white, size: 20),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
 
-        // --- القائمة اللي على اليمين تحت الساعة ---
-        Positioned(
-          top: 65, // <-- نزلناها تحت الساعة بالظبط
-          right: 10,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () => setState(() => showRightMenu = !showRightMenu),
-                child: Container(
-                  margin: const EdgeInsets.only(right: 4),
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.black87,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.white24),
-                  ),
-                  child: Icon(
-                    showRightMenu ? Icons.chevron_right : Icons.layers,
-                    color: Colors.white,
-                    size: 20,
+          // --- القائمة اللي على اليمين ---
+          Positioned(
+            top: 65,
+            right: 15,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () => setState(() => showRightMenu = !showRightMenu),
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 4),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.black87,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white24)),
+                    child: Icon(
+                        showRightMenu ? Icons.chevron_right : Icons.layers,
+                        color: Colors.white,
+                        size: 20),
                   ),
                 ),
-              ),
-              if (showRightMenu)
-                Container(
-                  width: 110,
-                  decoration: BoxDecoration(
-                      color: Colors.black87,
-                      border: Border.all(color: Colors.white24)),
-                  child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    _menuBtn("DARK", currentMapStyle.contains('dark'), () {
-                      setState(() => currentMapStyle =
-                          'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png');
-                    }),
-                    _menuBtn("SATELLITE", currentMapStyle.contains('ArcGIS'),
-                        () {
-                      setState(() => currentMapStyle =
-                          'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
-                    }),
-                    const Divider(color: Colors.white24, height: 1), // فاصل
-                    // أزرار الطقس باستخدام الدالة الجديدة ليكون لونها مختلف (برتقالي)
-                    _weatherMenuBtn("RAIN", activeWeatherLayer == 'RAIN', () {
-                      setState(() => activeWeatherLayer =
-                          activeWeatherLayer == 'RAIN' ? 'NONE' : 'RAIN');
-                    }),
-                    _weatherMenuBtn("TEMP", activeWeatherLayer == 'TEMP', () {
-                      setState(() => activeWeatherLayer =
-                          activeWeatherLayer == 'TEMP' ? 'NONE' : 'TEMP');
-                    }),
-                    _weatherMenuBtn("WIND", activeWeatherLayer == 'WIND', () {
-                      setState(() => activeWeatherLayer =
-                          activeWeatherLayer == 'WIND' ? 'NONE' : 'WIND');
-                    }),
-                  ]),
-                ),
-            ],
+                if (showRightMenu)
+                  Container(
+                    width: 110,
+                    decoration: BoxDecoration(
+                        color: Colors.black87,
+                        border: Border.all(color: Colors.white24)),
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      _menuBtn("DARK", currentMapStyle.contains('dark'), () {
+                        setState(() => currentMapStyle =
+                            'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png');
+                      }),
+                      _menuBtn("SATELLITE", currentMapStyle.contains('ArcGIS'),
+                          () {
+                        setState(() => currentMapStyle =
+                            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
+                      }),
+                      const Divider(color: Colors.white24, height: 1),
+                      _weatherMenuBtn("RAIN", activeWeatherLayer == 'RAIN', () {
+                        setState(() => activeWeatherLayer =
+                            activeWeatherLayer == 'RAIN' ? 'NONE' : 'RAIN');
+                      }),
+                      _weatherMenuBtn("TEMP", activeWeatherLayer == 'TEMP', () {
+                        setState(() => activeWeatherLayer =
+                            activeWeatherLayer == 'TEMP' ? 'NONE' : 'TEMP');
+                      }),
+                      _weatherMenuBtn("WIND", activeWeatherLayer == 'WIND', () {
+                        setState(() => activeWeatherLayer =
+                            activeWeatherLayer == 'WIND' ? 'NONE' : 'WIND');
+                      }),
+                    ]),
+                  ),
+              ],
+            ),
           ),
-        ),
 
-        // --- عرض نوافذ المعلومات حسب العنصر المحدد (طيارة أو مطار) ---
-        if (selectedItem != null && selectedItem!['type'] == 'PLANE')
-          _buildInfoBox(selectedItem!['data'], selectedItem!['net'],
-              selectedItem!['isVatsim']),
-        if (selectedItem != null && selectedItem!['type'] == 'AIRPORT')
-          _buildAirportInfoBox(selectedItem!['data']),
-      ],
+          if (selectedItem != null && selectedItem!['type'] == 'PLANE')
+            _buildInfoBox(selectedItem!['data'], selectedItem!['net'],
+                selectedItem!['isVatsim']),
+
+          if (selectedItem != null && selectedItem!['type'] == 'AIRPORT')
+            _buildAirportInfoBox(selectedItem!['data']),
+        ],
+      ),
     );
   }
 
-  // --- تصميم نافذة المطار لما يتم الضغط عليه ---
   Widget _buildAirportInfoBox(dynamic ap) {
-    String name = ap['name'] ?? "Unknown Airport";
-    String icao = ap['icao'] ?? "N/A";
-    String city = ap['city'] ?? "Unknown City";
-    String country = ap['country'] ?? "Unknown Country";
-
-    return Positioned(
-      bottom: 15,
-      left: 10,
-      right: 10,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: const Color(0xFF0F172A).withOpacity(0.95),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-              color: Colors.purpleAccent.withOpacity(0.5), width: 1.5),
-        ),
-        child: Row(
-          children: [
-            const Icon(Icons.local_airport,
-                color: Colors.purpleAccent, size: 40),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(name,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold)),
-                  Text("$city, $country",
-                      style:
-                          const TextStyle(color: Colors.white70, fontSize: 13)),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.purpleAccent.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(icao,
-                  style: const TextStyle(
-                      color: Colors.purpleAccent,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16)),
-            )
-          ],
-        ),
-      ),
+    return AdvancedAirportInfoBox(
+      ap: ap,
+      onClose: () => setState(() => selectedItem = null),
     );
   }
 
@@ -591,7 +703,6 @@ class _RadarMapState extends State<RadarMap> {
     String acft = isVatsim
         ? (p['flight_plan']?['aircraft_short'] ?? "ACFT")
         : (p['flightPlan']?['aircraft']['icaoCode'] ?? "ACFT");
-
     int alt = isVatsim
         ? (p['altitude'] ?? 0).toInt()
         : (p['lastTrack']?['altitude'] ?? 0).toInt();
@@ -604,7 +715,6 @@ class _RadarMapState extends State<RadarMap> {
     int hdg = isVatsim
         ? (p['heading'] ?? 0).toInt()
         : (p['lastTrack']?['heading'] ?? 0).toInt();
-
     String squawk = isVatsim
         ? "${p['transponder'] ?? '7000'}"
         : "${p['lastTrack']?['squawk'] ?? '7000'}";
@@ -686,19 +796,16 @@ class _RadarMapState extends State<RadarMap> {
                   Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8)),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: Image.network(
-                        logoUrl,
-                        width: 45,
-                        height: 45,
-                        fit: BoxFit.contain,
-                        errorBuilder: (c, e, s) => const Icon(Icons.flight,
-                            color: Colors.black54, size: 40),
-                      ),
+                      child: Image.network(logoUrl,
+                          width: 45,
+                          height: 45,
+                          fit: BoxFit.contain,
+                          errorBuilder: (c, e, s) => const Icon(Icons.flight,
+                              color: Colors.black54, size: 40)),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -715,13 +822,11 @@ class _RadarMapState extends State<RadarMap> {
                             style: const TextStyle(
                                 color: Colors.white70, fontSize: 13)),
                         const SizedBox(height: 4),
-                        Text(
-                          "Total Hrs: N/A (API) | Online: $timeOnline",
-                          style: const TextStyle(
-                              color: Colors.blueAccent,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        Text("Total Hrs: N/A (API) | Online: $timeOnline",
+                            style: const TextStyle(
+                                color: Colors.blueAccent,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -773,10 +878,9 @@ class _RadarMapState extends State<RadarMap> {
                   Align(
                     alignment: Alignment(alignX, 0),
                     child: Transform.rotate(
-                      angle: math.pi / 2,
-                      child: const Icon(Icons.airplanemode_active,
-                          color: Colors.blueAccent, size: 24),
-                    ),
+                        angle: math.pi / 2,
+                        child: const Icon(Icons.airplanemode_active,
+                            color: Colors.blueAccent, size: 24)),
                   ),
                 ],
               ),
@@ -793,9 +897,8 @@ class _RadarMapState extends State<RadarMap> {
                 ],
               ),
               const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                child: Divider(color: Colors.white10, height: 1),
-              ),
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Divider(color: Colors.white10, height: 1)),
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -821,16 +924,13 @@ class _RadarMapState extends State<RadarMap> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.black26,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.white10),
-                ),
-                child: Text(
-                  route,
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.white10)),
+                child: Text(route,
+                    style: const TextStyle(color: Colors.white70, fontSize: 12),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis),
               ),
             ],
           ),
@@ -839,18 +939,12 @@ class _RadarMapState extends State<RadarMap> {
     );
   }
 
-  Widget _stat(String l, String v) => Column(
-        children: [
-          Text(l, style: const TextStyle(color: Colors.white38, fontSize: 9)),
-          Text(v,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold)),
-        ],
-      );
-
-  // زرار القوائم العادية (لونه أزرق)
+  Widget _stat(String l, String v) => Column(children: [
+        Text(l, style: const TextStyle(color: Colors.white38, fontSize: 9)),
+        Text(v,
+            style: const TextStyle(
+                color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold))
+      ]);
   Widget _menuBtn(String label, bool active, VoidCallback onTap) => InkWell(
       onTap: onTap,
       child: Container(
@@ -863,8 +957,6 @@ class _RadarMapState extends State<RadarMap> {
                       color: active ? Colors.blueAccent : Colors.white,
                       fontSize: 9,
                       fontWeight: FontWeight.bold)))));
-
-  // زرار جديد مخصص للطقس (لونه برتقالي للتمييز)
   Widget _weatherMenuBtn(String label, bool active, VoidCallback onTap) =>
       InkWell(
           onTap: onTap,
@@ -879,4 +971,760 @@ class _RadarMapState extends State<RadarMap> {
                           color: active ? Colors.orangeAccent : Colors.white,
                           fontSize: 9,
                           fontWeight: FontWeight.bold)))));
+}
+
+// ============================================================================
+// 👇👇 الـ Widget الاحترافي الخاص بالمطار (محدث بالكامل حسب الطلب) 👇👇
+// ============================================================================
+
+class AdvancedAirportInfoBox extends StatefulWidget {
+  final dynamic ap;
+  final VoidCallback onClose;
+
+  const AdvancedAirportInfoBox({
+    Key? key,
+    required this.ap,
+    required this.onClose,
+  }) : super(key: key);
+
+  @override
+  _AdvancedAirportInfoBoxState createState() => _AdvancedAirportInfoBoxState();
+}
+
+class _AdvancedAirportInfoBoxState extends State<AdvancedAirportInfoBox> {
+  bool isLoading = true;
+  Map<String, dynamic>? fpdbData;
+
+  List<dynamic> vatsimControllers = [];
+  String vatsimAtis = "";
+  String vatsimMetar = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchAllData();
+  }
+
+  @override
+  void didUpdateWidget(covariant AdvancedAirportInfoBox oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.ap['icao'] != widget.ap['icao']) {
+      _fetchAllData();
+    }
+  }
+
+  Future<void> _fetchAllData() async {
+    setState(() => isLoading = true);
+    String icao = widget.ap['icao']?.toString().toUpperCase() ?? "";
+
+    try {
+      final fp = await http.get(
+          Uri.parse('https://api.flightplandatabase.com/nav/airport/$icao'));
+      if (fp.statusCode == 200) {
+        fpdbData = json.decode(fp.body);
+      }
+
+      final vat = await http
+          .get(Uri.parse('https://data.vatsim.net/v3/vatsim-data.json'));
+      if (vat.statusCode == 200) {
+        final vatData = json.decode(vat.body);
+        final controllers = vatData['controllers'] as List;
+        final atisList = vatData['atis'] as List;
+
+        vatsimControllers = controllers.where((c) {
+          String cs = c['callsign']?.toString() ?? "";
+          return cs.startsWith("${icao}_");
+        }).toList();
+
+        var atisNode = atisList.firstWhere((a) {
+          String cs = a['callsign']?.toString() ?? "";
+          return cs.startsWith("${icao}_");
+        }, orElse: () => null);
+
+        if (atisNode != null && atisNode['text_atis'] != null) {
+          if (atisNode['text_atis'] is List) {
+            vatsimAtis = (atisNode['text_atis'] as List).join("\n");
+          } else {
+            vatsimAtis = atisNode['text_atis'].toString();
+          }
+        }
+
+        final met = await http
+            .get(Uri.parse('https://metar.vatsim.net/metar.php?id=$icao'));
+        if (met.statusCode == 200) {
+          vatsimMetar = met.body.trim();
+        }
+      }
+    } catch (e) {}
+
+    if (mounted) setState(() => isLoading = false);
+  }
+
+  String _str(dynamic val, [String def = "-"]) =>
+      val != null ? val.toString() : def;
+
+  String _parseLighting(dynamic l) {
+    if (l == null) return "-";
+    if (l is bool) return l ? "YES" : "NO";
+    if (l is List) return l.join(", ");
+    return l.toString();
+  }
+
+  // دالة تنسيق الترددات لتظهر بصيغة 118.200 (محدثة لحل مشكلة الأرقام الكبيرة)
+  String _formatFreq(dynamic freqVal) {
+    if (freqVal == null) return "-";
+    String s = freqVal.toString();
+    double? d = double.tryParse(s);
+    if (d == null) return s;
+    if (d > 1000) {
+      String str = d.toInt().toString();
+      if (str.length >= 3) {
+        String formatted = "${str.substring(0, 3)}.${str.substring(3)}";
+        double? parsed = double.tryParse(formatted);
+        if (parsed != null) d = parsed;
+      }
+    }
+    return d.toStringAsFixed(3);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String name = widget.ap['name'] ?? "Unknown Airport";
+    String icao = widget.ap['icao'] ?? "N/A";
+    String city = widget.ap['city'] ?? "Unknown City";
+    String country = widget.ap['country'] ?? "Unknown Country";
+
+    // التعديل الأول: ضمان التقاط مفتاح الاياتا كابيتال أو سمول
+    String iata =
+        widget.ap['IATA'] ?? widget.ap['iata'] ?? widget.ap['iata_code'] ?? "-";
+
+    return Positioned(
+      bottom: 15,
+      left: 10,
+      right: 10,
+      child: Container(
+        constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.65),
+        decoration: BoxDecoration(
+          color: const Color(0xFF0F172A).withOpacity(0.95),
+          borderRadius: BorderRadius.circular(20),
+          border:
+              Border.all(color: Colors.cyanAccent.withOpacity(0.5), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.cyanAccent.withOpacity(0.1),
+                blurRadius: 15,
+                spreadRadius: 2)
+          ],
+        ),
+        child: DefaultTabController(
+          length: 3,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, right: 8, top: 12, bottom: 4),
+                child: Row(
+                  children: [
+                    const Icon(Icons.local_airport,
+                        color: Colors.cyanAccent, size: 36),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
+                          Text("$city, $country",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  color: Colors.white70, fontSize: 12)),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                          color: Colors.cyanAccent.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Text(icao,
+                          style: const TextStyle(
+                              color: Colors.cyanAccent,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15)),
+                    ),
+                    const SizedBox(width: 4),
+                    IconButton(
+                        icon: const Icon(Icons.close,
+                            color: Colors.white54, size: 20),
+                        onPressed: widget.onClose,
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints()),
+                  ],
+                ),
+              ),
+              const TabBar(
+                indicatorColor: Colors.cyanAccent,
+                labelColor: Colors.cyanAccent,
+                unselectedLabelColor: Colors.white54,
+                labelStyle:
+                    TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                tabs: [
+                  Tab(text: "INFO"),
+                  Tab(text: "RUNWAYS"),
+                  Tab(text: "WEATHER"),
+                ],
+              ),
+              Expanded(
+                child: isLoading
+                    ? const Center(
+                        child:
+                            CircularProgressIndicator(color: Colors.cyanAccent))
+                    : TabBarView(children: [
+                        _buildInfoTab(iata),
+                        _buildRunwaysTab(),
+                        _buildWeatherTab()
+                      ]),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoTab(String iataCode) {
+    String elevStr = "-";
+    if (fpdbData?['elevation'] != null) {
+      double? el = double.tryParse(fpdbData!['elevation'].toString());
+      if (el != null) elevStr = "${el.round()} ft";
+    }
+
+    // التعديل الثاني: تقريب الـ Variation لكسر واحد
+    String varStr = "-";
+    if (fpdbData?['magneticVariation'] != null) {
+      double? v = double.tryParse(fpdbData!['magneticVariation'].toString());
+      if (v != null) varStr = v.toStringAsFixed(1);
+    }
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Table(
+            border: TableBorder.all(color: Colors.white10),
+            columnWidths: const {
+              0: FlexColumnWidth(1),
+              1: FlexColumnWidth(1.8)
+            },
+            children: [
+              _infoRow("ICAO", fpdbData?['icao'] ?? widget.ap['icao'] ?? "-"),
+              _infoRow(
+                  "IATA", fpdbData?['IATA'] ?? fpdbData?['iata'] ?? iataCode),
+              _infoRow("COUNTRY",
+                  fpdbData?['country'] ?? widget.ap['country'] ?? "-"),
+              _infoRow("ELEVATION", elevStr),
+              _infoRow("LATITUDE",
+                  _str(fpdbData?['lat'], widget.ap['lat']?.toString() ?? "-")),
+              _infoRow("LONGITUDE",
+                  _str(fpdbData?['lon'], widget.ap['lon']?.toString() ?? "-")),
+              _infoRow("VARIATION", varStr),
+              _infoRow("TIMEZONE", _str(fpdbData?['timezone'])),
+              _infoRow("SUNRISE", _str(fpdbData?['times']?['sunrise'])),
+              _infoRow("SUNSET", _str(fpdbData?['times']?['sunset'])),
+            ],
+          ),
+          const SizedBox(height: 16),
+          if (fpdbData?['frequencies'] != null &&
+                  (fpdbData!['frequencies'] as List).isNotEmpty ||
+              vatsimControllers.isNotEmpty) ...[
+            const Text("REAL WORLD FREQUENCIES",
+                style: TextStyle(
+                    color: Colors.cyanAccent,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13)),
+            const SizedBox(height: 8),
+            Table(
+              border: TableBorder.all(color: Colors.white10),
+              children: [
+                TableRow(
+                  decoration:
+                      BoxDecoration(color: Colors.cyan.withOpacity(0.1)),
+                  children: [
+                    _cell("TYPE", isHeader: true),
+                    _cell("FREQ", isHeader: true),
+                    _cell("NAME", isHeader: true)
+                  ],
+                ),
+                // دمج ترددات الفاتسيم مع الترددات الحقيقية إن وجدت
+                ...vatsimControllers.map<TableRow>((c) => TableRow(children: [
+                      _cell(c['callsign']?.toString().split('_').last ?? "ATC"),
+                      _cell(_formatFreq(c['frequency'])),
+                      _cell(c['name'] ?? "-")
+                    ])),
+                if (fpdbData?['frequencies'] != null)
+                  ...(fpdbData!['frequencies'] as List)
+                      .map<TableRow>((f) => TableRow(children: [
+                            _cell(_str(f['type']).toUpperCase()),
+                            _cell(_formatFreq(f['frequency'])),
+                            _cell(_str(f['name']))
+                          ]))
+                      .toList()
+              ],
+            ),
+          ]
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRunwaysTab() {
+    if (fpdbData == null ||
+        fpdbData!['runways'] == null ||
+        (fpdbData!['runways'] as List).isEmpty) {
+      return const Center(
+          child: Text("No Runways Data Available",
+              style: TextStyle(color: Colors.white54)));
+    }
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(12),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Table(
+          border: TableBorder.all(color: Colors.white10),
+          defaultColumnWidth: const IntrinsicColumnWidth(),
+          children: [
+            TableRow(
+              decoration: BoxDecoration(color: Colors.cyan.withOpacity(0.1)),
+              children: [
+                _cell("R/W", isHeader: true),
+                _cell("LENGTH", isHeader: true),
+                _cell("WIDTH", isHeader: true),
+                _cell("SURFACE", isHeader: true),
+                _cell("BEARING", isHeader: true),
+                _cell("LIGHTING", isHeader: true)
+              ],
+            ),
+            ...(fpdbData!['runways'] as List).map<TableRow>((r) {
+              String lenStr = "-";
+              if (r['length'] != null) {
+                double? lVal = double.tryParse(r['length'].toString());
+                lenStr =
+                    lVal != null ? "${lVal.round()} ft" : "${r['length']} ft";
+              }
+              String widStr = "-";
+              if (r['width'] != null) {
+                double? wVal = double.tryParse(r['width'].toString());
+                widStr =
+                    wVal != null ? "${wVal.round()} ft" : "${r['width']} ft";
+              }
+
+              // التعديل الرابع: تعديل الـ Bearing ليظهر 3 أرقام بدون كسور
+              String bearingStr = "-";
+              dynamic bVal = r['bearing'] ?? r['heading'];
+              if (bVal != null) {
+                double? bDouble = double.tryParse(bVal.toString());
+                if (bDouble != null) {
+                  bearingStr = "${bDouble.round().toString().padLeft(3, '0')}°";
+                } else {
+                  String bString = bVal.toString().trim();
+                  if (bString.isNotEmpty && bString != "null") {
+                    bearingStr = "$bString°";
+                  }
+                }
+              }
+
+              return TableRow(children: [
+                _cell(_str(r['ident'])),
+                _cell(lenStr),
+                _cell(widStr),
+                _cell(_str(r['surface']).toUpperCase()),
+                _cell(bearingStr),
+                _cell(_parseLighting(r['lighting']))
+              ]);
+            }).toList()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWeatherTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // التعديل الخامس: METAR بالاعلى ثم الـ ATIS وحذف TAF نهائيا
+          const Text("METAR",
+              style: TextStyle(
+                  color: Colors.cyanAccent,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13)),
+          const SizedBox(height: 6),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                color: Colors.black45,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.white10)),
+            child: Text(
+              vatsimMetar.isNotEmpty ? vatsimMetar : "No METAR available.",
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  height: 1.4),
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Text("VATSIM ATIS",
+              style: TextStyle(
+                  color: Colors.cyanAccent,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13)),
+          const SizedBox(height: 6),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                color: Colors.black45,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.white10)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  vatsimAtis.isNotEmpty
+                      ? vatsimAtis
+                      : "No ATIS available on VATSIM.",
+                  style: const TextStyle(
+                      color: Colors.amberAccent,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      height: 1.4),
+                ),
+                if (vatsimAtis.isNotEmpty) ...[
+                  const SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.cyanAccent,
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        textStyle: const TextStyle(
+                            fontSize: 11, fontWeight: FontWeight.bold),
+                      ),
+                      icon: const Icon(Icons.volume_up, size: 16),
+                      label: const Text("LISTEN TO ATIS"),
+                      onPressed: () {
+                        professionalAtis(vatsimAtis);
+                      },
+                    ),
+                  ),
+                ]
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TableRow _infoRow(String k, String v) => TableRow(children: [
+        Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(k,
+                style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold))),
+        Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(v,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500)))
+      ]);
+  Widget _cell(String txt, {bool isHeader = false}) => Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: Text(txt,
+          style: TextStyle(
+              color: isHeader ? Colors.cyanAccent : Colors.white,
+              fontSize: 11,
+              fontWeight: isHeader ? FontWeight.bold : FontWeight.normal)));
+}
+
+// ============================================================================
+// 👇👇 كود الـ Custom Action المطلوب (professionalAtis) بدون أي تعديل 👇👇
+// ============================================================================
+
+Future professionalAtis(String rawMetar) async {
+  FlutterTts flutterTts = FlutterTts();
+
+  if (rawMetar == null || rawMetar.isEmpty) return;
+
+  String cleanText = rawMetar.replaceAll(RegExp(r'\(.*?\)'), '');
+  cleanText = cleanText.replaceAll('[', ' ').replaceAll(']', ' ');
+
+  cleanText = cleanText.toUpperCase();
+  cleanText = cleanText.replaceAll(RegExp(r'[,;:\.]'), ' ');
+
+  String speakDigit(String numStr) {
+    Map<String, String> numbers = {
+      '0': 'Zero',
+      '1': 'One',
+      '2': 'Two',
+      '3': 'Three',
+      '4': 'Four',
+      '5': 'Five',
+      '6': 'Six',
+      '7': 'Seven',
+      '8': 'Eight',
+      '9': 'Niner'
+    };
+    return numStr.split('').map((char) => numbers[char] ?? char).join(' ');
+  }
+
+  Map<String, String> phonetics = {
+    'A': 'Alpha',
+    'B': 'Bravo',
+    'C': 'Charlie',
+    'D': 'Delta',
+    'E': 'Echo',
+    'F': 'Foxtrot',
+    'G': 'Golf',
+    'H': 'Hotel',
+    'I': 'India',
+    'J': 'Juliet',
+    'K': 'Kilo',
+    'L': 'Lima',
+    'M': 'Mike',
+    'N': 'November',
+    'O': 'Oscar',
+    'P': 'Papa',
+    'Q': 'Quebec',
+    'R': 'Romeo',
+    'S': 'Sierra',
+    'T': 'Tango',
+    'U': 'Uniform',
+    'V': 'Victor',
+    'W': 'Whiskey',
+    'X': 'X-ray',
+    'Y': 'Yankee',
+    'Z': 'Zulu'
+  };
+
+  cleanText = cleanText.replaceAll(RegExp(r'\bWIND\b'), ' wind ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bATIS\b'), ' atis ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bBOTH\b'), ' both ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bHAVE\b'), ' have ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bNEED\b'), ' need ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bTO\b'), ' to ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bFROM\b'), ' from ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bHOLD\b'), ' hold ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bMODE\b'), ' mode ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bALL\b'), ' all ');
+
+  cleanText = cleanText.replaceAllMapped(RegExp(r'(\d{3})V(\d{3})'), (match) {
+    return " variable between ${speakDigit(match.group(1)!)} and ${speakDigit(match.group(2)!)} ";
+  });
+
+  cleanText = cleanText.replaceAll(RegExp(r'\+SHRA\b'), ' heavy shower rain ');
+  cleanText = cleanText.replaceAll(RegExp(r'\-SHRA\b'), ' light shower rain ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bTDZ\b'), ' touch down zone ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bCLRC\b'), ' clearance ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bREQ\b'), ' request ');
+  cleanText =
+      cleanText.replaceAll(RegExp(r'\bTOBT\b'), ' target off block time ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bRNAV\b'), ' r nav ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bACK\b'), ' acknowledge ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bSQK\b'), ' squawk ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bCTC\b'), ' contact ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bCLD\b'), ' cloud ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bTEMP\b'), ' temperature ');
+
+  cleanText = cleanText.replaceAll(RegExp(r'\bAPP\b'), ' approach ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bAPR\b'), ' approach ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bAPCH\b'), ' approach ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bAPCHS\b'), ' approaches ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bAPRS\b'), ' approaches ');
+
+  cleanText =
+      cleanText.replaceAll(RegExp(r'\b9999\b'), ' ten kilometers or more ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bVRB\b'), ' variable ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bBTN\b'), ' between ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bVIS\b'), ' visibility ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bCMB\b'), ' climb ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bDEG\b'), ' degrees ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bTCU\b'), ' towering cumulus ');
+
+  cleanText = cleanText.replaceAll(RegExp(r'\bILS\b'), ' i l s ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bVHF\b'), ' v h f ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bATC\b'), ' a t c ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bGLS\b'), ' glide slope ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bTRL\b'), ' transition level ');
+  cleanText =
+      cleanText.replaceAll(RegExp(r'\bNOSIG\b'), ' no significant change ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bARRS\b'), ' arrivals ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bARR\b'), ' arrival ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bARPT\b'), ' airport ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bDEP\b'), ' departure ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bAVBL\b'), ' available ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bDRCTN\b'), ' direction ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bCLSD\b'), ' closed ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bEXP\b'), ' expect ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bEQPT\b'), ' equipment ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bCAUT\b'), ' caution ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bDEPG\b'), ' departure ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bDEPS\b'), ' departures ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bLDG\b'), ' landing ');
+
+  cleanText = cleanText.replaceAllMapped(RegExp(r'(\d*)KT\b'), (match) {
+    String num = match.group(1) ?? "";
+    return "$num knots ";
+  });
+  cleanText = cleanText.replaceAllMapped(RegExp(r'(\d*)KM\b'), (match) {
+    String num = match.group(1) ?? "";
+    return "$num kilometers ";
+  });
+  cleanText = cleanText.replaceAllMapped(RegExp(r'(\d*)HPA\b'), (match) {
+    String num = match.group(1) ?? "";
+    return "$num hectopascals ";
+  });
+  cleanText = cleanText.replaceAllMapped(RegExp(r'(\d+)FT\b'), (match) {
+    return "${match.group(1)} feet ";
+  });
+  cleanText = cleanText.replaceAll(RegExp(r'\bFT\b'), ' feet ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bKT\b'), ' knots ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bKM\b'), ' kilometers ');
+
+  cleanText = cleanText.replaceAll('FEW', ' few ');
+  cleanText = cleanText.replaceAll('BKN', ' broken ');
+  cleanText = cleanText.replaceAll('SCT', ' scattered ');
+  cleanText = cleanText.replaceAll('OVC', ' overcast ');
+  cleanText = cleanText.replaceAll('CLR', ' clear ');
+  cleanText = cleanText.replaceAll('SKC', ' sky clear ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bRWY\b'), ' runway ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bRWYS\b'), ' runways ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bINFO\b'), ' information ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bSIMUL\b'), ' simultaneous ');
+  cleanText = cleanText.replaceAll(RegExp(r'\bADVS\b'), ' advice ');
+
+  cleanText = cleanText.replaceAllMapped(RegExp(r'\bT(\d{2})\b'), (match) {
+    return " temperature ${speakDigit(match.group(1)!)} ";
+  });
+  cleanText = cleanText.replaceAllMapped(RegExp(r'\bDP(\d{2})\b'), (match) {
+    return " dew point ${speakDigit(match.group(1)!)} ";
+  });
+
+  cleanText = cleanText.replaceAllMapped(
+      RegExp(r'INFORMATION\s+([A-Z])\b', caseSensitive: false), (match) {
+    String letter = match.group(1)!.toUpperCase();
+    return " information ${phonetics[letter] ?? letter} ";
+  });
+
+  cleanText =
+      cleanText.replaceAllMapped(RegExp(r'\bQNH[:\s]*(\d{4})\b'), (match) {
+    return " q n h ${speakDigit(match.group(1)!)} ";
+  });
+  cleanText = cleanText.replaceAllMapped(RegExp(r'\bA(\d{4})\b'), (match) {
+    return " altimeter ${speakDigit(match.group(1)!)} ";
+  });
+  cleanText = cleanText.replaceAllMapped(
+      RegExp(r'\b(\d{3}|VARIABLE)(\d{2,3})(G(\d{2,3}))?KNOTS\b'), (match) {
+    String dir =
+        match.group(1) == 'VARIABLE' ? 'Variable' : speakDigit(match.group(1)!);
+    String speed = speakDigit(match.group(2)!);
+    String gusts =
+        match.group(4) != null ? " gusts ${speakDigit(match.group(4)!)}" : "";
+    return " wind $dir at $speed $gusts knots ";
+  });
+  cleanText =
+      cleanText.replaceAllMapped(RegExp(r'\b(\d{2})\/(\d{2})\b'), (match) {
+    return " temperature ${speakDigit(match.group(1)!)} dewpoint ${speakDigit(match.group(2)!)} ";
+  });
+  cleanText = cleanText.replaceAllMapped(RegExp(r'\b(\d+)SM\b'), (match) {
+    return " visibility ${speakDigit(match.group(1)!)} statute miles ";
+  });
+  cleanText = cleanText.replaceAllMapped(RegExp(r'([0-9])(L|R|C)\b'), (match) {
+    String side = match.group(2) == 'L'
+        ? 'left'
+        : (match.group(2) == 'R' ? 'right' : 'center');
+    return " ${match.group(1)} $side ";
+  });
+
+  cleanText =
+      cleanText.replaceAll(RegExp(r'\bCAVOK\b'), ' ceiling and visibility ok ');
+  cleanText = cleanText.replaceAll('/', ' ');
+
+  cleanText =
+      cleanText.replaceAllMapped(RegExp(r'\b(TIME\s+)?(\d{4})Z\b'), (match) {
+    return " time ${speakDigit(match.group(2)!)} zulu ";
+  });
+
+  List<String> words = cleanText.split(RegExp(r'\s+'));
+  List<String> finalWords = [];
+  bool foundIcaoCode = false;
+
+  for (String word in words) {
+    if (word.isEmpty) continue;
+
+    if (!foundIcaoCode &&
+        word.length == 4 &&
+        RegExp(r'^[A-Z]{4}$').hasMatch(word)) {
+      String phoneticIcao = "";
+      for (int i = 0; i < word.length; i++) {
+        phoneticIcao += (phonetics[word[i]] ?? word[i]) + " ";
+      }
+      finalWords.add(phoneticIcao.trim());
+      foundIcaoCode = true;
+      continue;
+    }
+
+    if (word.length == 1) {
+      if (RegExp(r'^[A-Z]$').hasMatch(word) && phonetics.containsKey(word)) {
+        finalWords.add(phonetics[word]!);
+      } else {
+        finalWords.add(word);
+      }
+    } else if (word.contains(RegExp(r'[0-9]'))) {
+      String processedWord = "";
+      for (int i = 0; i < word.length; i++) {
+        String char = word[i];
+        if (RegExp(r'[0-9]').hasMatch(char)) {
+          processedWord += speakDigit(char) + " ";
+        } else if (RegExp(r'^[A-Z]$').hasMatch(char) &&
+            phonetics.containsKey(char)) {
+          processedWord += phonetics[char]! + " ";
+        } else {
+          processedWord += char;
+        }
+      }
+      finalWords.add(processedWord.trim());
+    } else {
+      finalWords.add(word);
+    }
+  }
+
+  String finalSpeech = finalWords.join(' ').toLowerCase();
+
+  await flutterTts.setLanguage("en-US");
+  await flutterTts.setPitch(0.85);
+  await flutterTts.setSpeechRate(0.42);
+  await flutterTts.setVolume(1.0);
+  await flutterTts.speak(finalSpeech);
 }

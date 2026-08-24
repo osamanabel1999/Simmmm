@@ -61,9 +61,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : IPpageWidget(),
         ),
         FFRoute(
-          name: HomePageWidget.routeName,
-          path: HomePageWidget.routePath,
-          builder: (context, params) => HomePageWidget(),
+          name: HomePageXPLANEWidget.routeName,
+          path: HomePageXPLANEWidget.routePath,
+          builder: (context, params) => HomePageXPLANEWidget(),
         ),
         FFRoute(
           name: TOCalculationWidget.routeName,
@@ -257,6 +257,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: MsfsWidget.routeName,
           path: MsfsWidget.routePath,
           builder: (context, params) => MsfsWidget(),
+        ),
+        FFRoute(
+          name: HomePageMSFSWidget.routeName,
+          path: HomePageMSFSWidget.routePath,
+          builder: (context, params) => HomePageMSFSWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

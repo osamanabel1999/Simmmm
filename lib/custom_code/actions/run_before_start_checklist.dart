@@ -21,18 +21,16 @@ Future<void> runBeforeStartChecklist() async {
   final FlutterTts flutterTts = FlutterTts();
   final RecorderController recorderController = RecorderController();
 
-  // === [ التعديل الأول: تهيئة مسار الصوت الخاص بـ iOS ] ===
+  // === [ تهيئة مسار الصوت الخاص بـ iOS ] ===
   if (Platform.isIOS) {
     await flutterTts.setSharedInstance(true);
     await flutterTts.setIosAudioCategory(
-      IosTextToSpeechAudioCategory
-          .playAndRecord, // إجبار النظام على السماح بالمايك والسماعة معاً
+      IosTextToSpeechAudioCategory.playAndRecord,
       [
         IosTextToSpeechAudioCategoryOptions.allowBluetooth,
         IosTextToSpeechAudioCategoryOptions.allowBluetoothA2DP,
         IosTextToSpeechAudioCategoryOptions.mixWithOthers,
-        IosTextToSpeechAudioCategoryOptions
-            .defaultToSpeaker // إخراج الصوت من المكبر الرئيسي وليس سماعة الأذن
+        IosTextToSpeechAudioCategoryOptions.defaultToSpeaker
       ],
       IosTextToSpeechAudioMode.defaultMode,
     );
@@ -41,13 +39,13 @@ Future<void> runBeforeStartChecklist() async {
   // إعدادات الصوت الاحترافية
   await flutterTts.setLanguage("en-US");
   await flutterTts.setSpeechRate(0.45);
-  await flutterTts.awaitSpeakCompletion(true); // استنى لما تخلص كلامك خالص
+  await flutterTts.awaitSpeakCompletion(true);
 
-  // === [ التعديل الثاني: التحقق الإجباري من المايك لتهيئة الـ Controller في iOS ] ===
+  // التحقق الإجباري من المايك
   final hasPermission = await recorderController.checkPermission();
   if (!hasPermission) {
     debugPrint("Microphone permission denied");
-    return; // إيقاف الكود لو المايك مش شغال لتجنب الـ Crash
+    return;
   }
 
   // قائمة Before Start
@@ -60,39 +58,44 @@ Future<void> runBeforeStartChecklist() async {
 
   // البداية
   await flutterTts.speak("BEFORE START CHECK LIST");
+  await flutterTts.stop(); // إيقاف إجباري لتحرير المايك للأيفون
 
   for (var step in checklist) {
     bool confirmed = false;
     while (!confirmed) {
-      // 1. ينطق السؤال ويستنى لما يخلص تماماً
+      // 1. ينطق السؤال
       await flutterTts.speak(step['q']!);
+      // 2. تحرير المايك فوراً بعد النطق لتجنب تسجيل الصمت في iOS
+      await flutterTts.stop();
 
-      // 2. فاصـل أمان 800 مللي ثانية (تمت الزيادة قليلاً لتسمح للأيفون بفتح قناة المايك)
+      // 3. فاصـل أمان
       await Future.delayed(const Duration(milliseconds: 800));
 
-      // 3. نجهز ملف التسجيل
+      // 4. نجهز ملف التسجيل بصيغة m4a الافتراضية المستقرة
       final dir = await getTemporaryDirectory();
       final path =
           '${dir.path}/audio_${DateTime.now().millisecondsSinceEpoch}.m4a';
 
-      // 4. ابدأ سجل رد المستخدم لمدة 3 ثواني
+      // 5. ابدأ سجل رد المستخدم (بدون خصائص معقدة تسبب أخطاء)
       await recorderController.record(path: path);
+
       await Future.delayed(const Duration(seconds: 3));
       final audioPath = await recorderController.stop();
 
       if (audioPath != null) {
-        // === [ التعديل الثالث: التأكد من أن الملف ليس فارغاً (حماية إضافية لـ iOS) ] ===
+        // التأكد من أن الملف ليس فارغاً
         final file = File(audioPath);
         if (await file.exists() && await file.length() > 0) {
-          // 5. تحليل الصوت باستخدام Groq والقاموس الذكي
+          // تحليل الصوت باستخدام Groq
           String result = await transcribeWithGroq(audioPath, apiKey);
+          debugPrint("Groq Result: $result");
 
-          // التحقق من الرد (يدعم الردود المتعددة)
+          // التحقق من الرد
           List<String> validAnswers = step['a']!.split('|');
           if (validAnswers.any((ans) => result.contains(ans))) {
             confirmed = true;
             await flutterTts.speak("Checked");
-            // فاصل زمني صغير قبل السؤال التالي لمنع تداخل الصوت
+            await flutterTts.stop(); // تحرير المايك مجدداً
             await Future.delayed(const Duration(milliseconds: 500));
           }
         }
@@ -100,8 +103,9 @@ Future<void> runBeforeStartChecklist() async {
     }
   }
 
-  // النهاية - تم التأكد من النص
+  // النهاية
   await flutterTts.speak("BEFORE START CHECK LIST COMPLETED");
+  await flutterTts.stop();
 }
 
 Future<String> transcribeWithGroq(String audioPath, String apiKey) async {
@@ -124,6 +128,8 @@ Future<String> transcribeWithGroq(String audioPath, String apiKey) async {
           jsonDecode(responseData)['text'].toString().toLowerCase().trim();
       String cleanText = rawText.replaceAll(RegExp(r'[^\w\s]'), '');
 
+      debugPrint("Raw Transcription: $cleanText");
+
       // القاموس الذكي الثابت
       Map<String, List<String>> dictionary = {
         'on and auto': ['on and auto', 'on & auto', 'on auto', 'and auto'],
@@ -145,9 +151,11 @@ Future<String> transcribeWithGroq(String audioPath, String apiKey) async {
         }
       }
       return cleanText;
+    } else {
+      debugPrint("Groq API Error: ${response.statusCode} - $responseData");
     }
   } catch (e) {
-    debugPrint("Error: $e");
+    debugPrint("Error in Transcribe: $e");
   }
   return "";
 }
