@@ -107,12 +107,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
 
-dependency_overrides:
-  device_info_plus: 11.5.0
-  device_info_plus_platform_interface: 7.0.3
-  http: 1.4.0
-  intl: 0.20.2
-  uuid: ^4.0.0
+dev_dependencies:
+  flutter_launcher_icons: 0.13.1
+  flutter_lints: 4.0.0
+  image: 4.2.0
+  lints: 4.0.0
+  flutter_test:
+    sdk: flutter
 
 dev_dependencies:
   flutter_launcher_icons: 0.13.1
