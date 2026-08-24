@@ -36575,9 +36575,9 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  await actions.sendXPlaneCommand(
-                                    'sim/operation/pause_toggle',
-                                    FFAppState().ipPC,
+                                  await actions.sendFlightCommand(
+                                    '192.168.1.115',
+                                    'toggle_pause',
                                   );
                                 },
                                 child: Container(
