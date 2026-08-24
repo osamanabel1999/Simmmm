@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 
-Future<void> runApproachChecklist() async {
+Future<void> runB737ParkingChecklist() async {
   final FlutterTts flutterTts = FlutterTts();
 
   // === [ تهيئة جلسة الصوت لـ iOS (وضع التشغيل فقط بدون مايك) ] ===
@@ -31,13 +31,16 @@ Future<void> runApproachChecklist() async {
   await flutterTts.setLanguage("en-US");
   await flutterTts.awaitSpeakCompletion(true);
 
-  // قائمة Approach Checklist (بنفس العناصر والتفاصيل بالكامل)
+  // قائمة B737 PARKING Checklist من الكارت
   List<Map<String, String>> checklist = [
-    {'q': 'BARO REFERENCE', 'a': 'set'},
-    {'q': 'SEAT BELTS', 'a': 'on'},
-    {'q': 'MINIMUM', 'a': 'set'},
-    {'q': 'AUTO BRAKE', 'a': 'medium'},
-    {'q': 'ENG MODE SELECTOR', 'a': 'normal'},
+    {'q': 'FUEL PUMPS', 'a': 'OFF'},
+    {'q': 'PROBE HEAT', 'a': 'OFF'},
+    {'q': 'HYDRAULIC PANEL', 'a': 'SET'},
+    {'q': 'FLAPS', 'a': 'UP'},
+    {'q': 'PARKING BRAKE', 'a': 'SET'},
+    {'q': 'ENG START SWITCHES', 'a': 'CUTOFF'},
+    {'q': 'WEATHER AND TERRAIN RADAR', 'a': 'OFF'},
+    {'q': 'TRANSPONDER', 'a': 'OFF'},
   ];
 
   // ==========================================
@@ -63,7 +66,7 @@ Future<void> runApproachChecklist() async {
   // ==========================================
 
   // إعلان بدء القائمة
-  await speakCaptain("APPROACH CHECK LIST");
+  await speakCaptain("PARKING CHECK LIST");
   await Future.delayed(
       const Duration(milliseconds: 1200)); // فاصل طبيعي قبل البدء
 
@@ -82,5 +85,5 @@ Future<void> runApproachChecklist() async {
   }
 
   // إعلان انتهاء القائمة
-  await speakCaptain("APPROACH CHECK LIST COMPLETED");
+  await speakCaptain("PARKING CHECK LIST COMPLETED");
 }

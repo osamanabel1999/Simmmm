@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 
-Future<void> runApproachChecklist() async {
+Future<void> runB737ApproachChecklist() async {
   final FlutterTts flutterTts = FlutterTts();
 
   // === [ تهيئة جلسة الصوت لـ iOS (وضع التشغيل فقط بدون مايك) ] ===
@@ -31,13 +31,10 @@ Future<void> runApproachChecklist() async {
   await flutterTts.setLanguage("en-US");
   await flutterTts.awaitSpeakCompletion(true);
 
-  // قائمة Approach Checklist (بنفس العناصر والتفاصيل بالكامل)
+  // قائمة B737 APPROACH Checklist من الكارت
   List<Map<String, String>> checklist = [
-    {'q': 'BARO REFERENCE', 'a': 'set'},
-    {'q': 'SEAT BELTS', 'a': 'on'},
-    {'q': 'MINIMUM', 'a': 'set'},
-    {'q': 'AUTO BRAKE', 'a': 'medium'},
-    {'q': 'ENG MODE SELECTOR', 'a': 'normal'},
+    {'q': 'ALTIMETERS', 'a': 'SET'},
+    {'q': 'NAV AIDS', 'a': 'SET'},
   ];
 
   // ==========================================

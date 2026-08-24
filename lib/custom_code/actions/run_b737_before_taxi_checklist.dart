@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 
-Future<void> runApproachChecklist() async {
+Future<void> runB737BeforeTaxiChecklist() async {
   final FlutterTts flutterTts = FlutterTts();
 
   // === [ تهيئة جلسة الصوت لـ iOS (وضع التشغيل فقط بدون مايك) ] ===
@@ -31,13 +31,20 @@ Future<void> runApproachChecklist() async {
   await flutterTts.setLanguage("en-US");
   await flutterTts.awaitSpeakCompletion(true);
 
-  // قائمة Approach Checklist (بنفس العناصر والتفاصيل بالكامل)
+  // قائمة B737 BEFORE TAXI Checklist من الكارت
   List<Map<String, String>> checklist = [
-    {'q': 'BARO REFERENCE', 'a': 'set'},
-    {'q': 'SEAT BELTS', 'a': 'on'},
-    {'q': 'MINIMUM', 'a': 'set'},
-    {'q': 'AUTO BRAKE', 'a': 'medium'},
-    {'q': 'ENG MODE SELECTOR', 'a': 'normal'},
+    {'q': 'GENERATORS', 'a': 'ON'},
+    {'q': 'PROBE HEAT', 'a': 'ON'},
+    {'q': 'ANTI ICE', 'a': 'AS REQUIRED'},
+    {'q': 'ISOLATION VALVE', 'a': 'AUTO CLOSED'},
+    {'q': 'ENG START SWITCHES', 'a': 'CONTINUOUS'},
+    {'q': 'PRESSURIZATION', 'a': 'PACKS ON, FLIGHT AUTO'},
+    {'q': 'AUTOTHROTTLE', 'a': 'ARMED'},
+    {'q': 'RECALL', 'a': 'CHECKED'},
+    {'q': 'AUTOBRAKE', 'a': 'R T O'},
+    {'q': 'ENG START LEVERS', 'a': 'IDLE DETENT'},
+    {'q': 'FLIGHT CONTROLS', 'a': 'CHECKED'},
+    {'q': 'GROUND EQUIPMENT', 'a': 'CLEAR, HAND SIGNAL'},
   ];
 
   // ==========================================
@@ -63,7 +70,7 @@ Future<void> runApproachChecklist() async {
   // ==========================================
 
   // إعلان بدء القائمة
-  await speakCaptain("APPROACH CHECK LIST");
+  await speakCaptain("BEFORE TAXI CHECK LIST");
   await Future.delayed(
       const Duration(milliseconds: 1200)); // فاصل طبيعي قبل البدء
 
@@ -82,5 +89,5 @@ Future<void> runApproachChecklist() async {
   }
 
   // إعلان انتهاء القائمة
-  await speakCaptain("APPROACH CHECK LIST COMPLETED");
+  await speakCaptain("BEFORE TAXI CHECK LIST COMPLETED");
 }

@@ -171,42 +171,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'forcedDistanceL',
               ParamType.double,
             ),
-            v1Val: params.getParam(
-              'v1Val',
-              ParamType.int,
-            ),
-            vRVal: params.getParam(
-              'vRVal',
-              ParamType.int,
-            ),
-            v2Val: params.getParam(
-              'v2Val',
-              ParamType.int,
-            ),
-            flexVal: params.getParam(
-              'flexVal',
-              ParamType.String,
-            ),
-            fSpeed: params.getParam(
-              'fSpeed',
-              ParamType.int,
-            ),
-            sSpeed: params.getParam(
-              'sSpeed',
-              ParamType.int,
-            ),
-            oSpeed: params.getParam(
-              'oSpeed',
-              ParamType.int,
-            ),
-            thsVal: params.getParam(
-              'thsVal',
-              ParamType.String,
-            ),
-            eoACC: params.getParam(
-              'eoACC',
-              ParamType.double,
-            ),
             isSafe: params.getParam(
               'isSafe',
               ParamType.bool,

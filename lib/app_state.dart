@@ -229,6 +229,12 @@ class FFAppState extends ChangeNotifier {
   set msfslongitude(double value) {
     _msfslongitude = value;
   }
+
+  double _Checklist = 1.0;
+  double get Checklist => _Checklist;
+  set Checklist(double value) {
+    _Checklist = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

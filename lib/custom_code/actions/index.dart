@@ -41,3 +41,14 @@ export 'send_m_s_f_s_command.dart' show sendMSFSCommand;
 export 'listen_to_m_s_f_s_data.dart' show listenToMSFSData;
 export 'get_flight_data.dart' show getFlightData;
 export 'send_flight_command.dart' show sendFlightCommand;
+export 'run_b737_preflight_checklist.dart' show runB737PreflightChecklist;
+export 'run_b737_before_start_checklist.dart' show runB737BeforeStartChecklist;
+export 'run_b737_before_taxi_checklist.dart' show runB737BeforeTaxiChecklist;
+export 'run_b737_before_takeoff_checklist.dart'
+    show runB737BeforeTakeoffChecklist;
+export 'run_b737_after_takeoff_checklist.dart'
+    show runB737AfterTakeoffChecklist;
+export 'run_b737_descent_checklist.dart' show runB737DescentChecklist;
+export 'run_b737_approach_checklist.dart' show runB737ApproachChecklist;
+export 'run_b737_landing_checklist.dart' show runB737LandingChecklist;
+export 'run_b737_parking_checklist.dart' show runB737ParkingChecklist;

@@ -24,15 +24,6 @@ class LDGCalculationWidget extends StatefulWidget {
     required this.runwatStatusL,
     required this.runwayRemainingL,
     required this.forcedDistanceL,
-    required this.v1Val,
-    required this.vRVal,
-    required this.v2Val,
-    required this.flexVal,
-    required this.fSpeed,
-    required this.sSpeed,
-    required this.oSpeed,
-    required this.thsVal,
-    required this.eoACC,
     required this.isSafe,
   });
 
@@ -50,15 +41,6 @@ class LDGCalculationWidget extends StatefulWidget {
   final String? runwatStatusL;
   final String? runwayRemainingL;
   final double? forcedDistanceL;
-  final int? v1Val;
-  final int? vRVal;
-  final int? v2Val;
-  final String? flexVal;
-  final int? fSpeed;
-  final int? sSpeed;
-  final int? oSpeed;
-  final String? thsVal;
-  final double? eoACC;
   final bool? isSafe;
 
   static String routeName = 'LDGCalculation';
