@@ -9,10 +9,6 @@ import 'lat_lng.dart';
 import 'place.dart';
 import 'uploaded_file.dart';
 
-String generateRandomCode() {
-  return 'fixed';
-}
-
 String createLicenseKey() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   int seed = DateTime.now().microsecondsSinceEpoch;

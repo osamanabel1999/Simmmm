@@ -302,8 +302,8 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
     _model.cgTextController ??= TextEditingController();
     _model.cgFocusNode ??= FocusNode();
 
-    _model.runwaylengthTextController1 ??= TextEditingController();
-    _model.runwaylengthFocusNode1 ??= FocusNode();
+    _model.runwaylengthxplanetakeoffTextController ??= TextEditingController();
+    _model.runwaylengthxplanetakeoffFocusNode ??= FocusNode();
 
     _model.runwayHeadingTextController1 ??= TextEditingController();
     _model.runwayHeadingFocusNode1 ??= FocusNode();
@@ -332,8 +332,8 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
     _model.airportElevationTextController2 ??= TextEditingController();
     _model.airportElevationFocusNode2 ??= FocusNode();
 
-    _model.runwaylengthTextController2 ??= TextEditingController();
-    _model.runwaylengthFocusNode2 ??= FocusNode();
+    _model.runwaylengthxplaneldaTextController ??= TextEditingController();
+    _model.runwaylengthxplaneldaFocusNode ??= FocusNode();
 
     _model.runwayHeadingTextController2 ??= TextEditingController();
     _model.runwayHeadingFocusNode2 ??= FocusNode();
@@ -1106,7 +1106,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                     .spaceAround,
                                                             children: [
                                                               Text(
-                                                                'Performance Calculation',
+                                                                'T/O Performance Calculation',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .headlineSmall
@@ -2018,10 +2018,10 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                         TextFormField(
                                                                       controller:
                                                                           _model
-                                                                              .runwaylengthTextController1,
+                                                                              .runwaylengthxplanetakeoffTextController,
                                                                       focusNode:
                                                                           _model
-                                                                              .runwaylengthFocusNode1,
+                                                                              .runwaylengthxplanetakeoffFocusNode,
                                                                       autofocus:
                                                                           false,
                                                                       enabled:
@@ -2143,7 +2143,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                       enableInteractiveSelection:
                                                                           true,
                                                                       validator: _model
-                                                                          .runwaylengthTextController1Validator
+                                                                          .runwaylengthxplanetakeoffTextControllerValidator
                                                                           .asValidator(
                                                                               context),
                                                                     ),
@@ -3505,45 +3505,52 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                     _model.speedsResult =
                                                                         await actions
                                                                             .calculateA320SpeedsFull(
-                                                                      double.parse(_model
+                                                                      double.tryParse(_model
                                                                           .grossWeightTextController1
                                                                           .text),
                                                                       _model
-                                                                          .flapsIndexValue1!,
-                                                                      double.parse(_model
+                                                                          .flapsIndexValue1,
+                                                                      double.tryParse(_model
                                                                           .airportElevationTextController1
                                                                           .text),
-                                                                      double.parse(_model
+                                                                      double.tryParse(_model
                                                                           .temperatureTextController1
                                                                           .text),
-                                                                      double.parse(_model
+                                                                      double.tryParse(_model
                                                                           .runwayHeadingTextController1
                                                                           .text),
-                                                                      double.parse(_model
+                                                                      double.tryParse(_model
                                                                           .winddirectionTextController1
                                                                           .text),
-                                                                      double.parse(_model
+                                                                      double.tryParse(_model
                                                                           .windSpeedTextController1
                                                                           .text),
-                                                                      double.parse(_model
-                                                                          .runwaylengthTextController1
+                                                                      double.tryParse(_model
+                                                                          .runwaylengthxplanetakeoffTextController
                                                                           .text),
-                                                                      double.parse(_model
+                                                                      double.tryParse(_model
                                                                           .slopeTextController1
                                                                           .text),
                                                                       _model
-                                                                          .isWetValue1!,
+                                                                          .isWetValue1,
                                                                       _model
-                                                                          .isPacksOnValue!,
+                                                                          .isPacksOnValue,
                                                                       _model
-                                                                          .antiIceIndexValue1!,
-                                                                      double.parse(_model
+                                                                          .antiIceIndexValue1,
+                                                                      double.tryParse(_model
                                                                           .cgTextController
                                                                           .text),
-                                                                      double.parse(_model
+                                                                      double.tryParse(_model
                                                                           .qnhTextController1
                                                                           .text),
                                                                     );
+                                                                    FFAppState()
+                                                                            .RWYLENGHTtakeoff =
+                                                                        double.parse(_model
+                                                                            .runwaylengthxplanetakeoffTextController
+                                                                            .text);
+                                                                    safeSetState(
+                                                                        () {});
 
                                                                     context
                                                                         .pushNamed(
@@ -3764,7 +3771,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                     .spaceAround,
                                                             children: [
                                                               Text(
-                                                                'Landing Performance Calculation',
+                                                                'LDA Performance Calculation',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .headlineSmall
@@ -4677,10 +4684,10 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                         TextFormField(
                                                                       controller:
                                                                           _model
-                                                                              .runwaylengthTextController2,
+                                                                              .runwaylengthxplaneldaTextController,
                                                                       focusNode:
                                                                           _model
-                                                                              .runwaylengthFocusNode2,
+                                                                              .runwaylengthxplaneldaFocusNode,
                                                                       autofocus:
                                                                           false,
                                                                       enabled:
@@ -4802,7 +4809,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                       enableInteractiveSelection:
                                                                           true,
                                                                       validator: _model
-                                                                          .runwaylengthTextController2Validator
+                                                                          .runwaylengthxplaneldaTextControllerValidator
                                                                           .asValidator(
                                                                               context),
                                                                     ),
@@ -6141,11 +6148,18 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                           .slopeTextController2
                                                                           .text),
                                                                       double.parse(_model
-                                                                          .runwaylengthTextController2
+                                                                          .runwaylengthxplaneldaTextController
                                                                           .text),
                                                                       _model
                                                                           .antiIceIndexValue2!,
                                                                     );
+                                                                    FFAppState()
+                                                                            .RWYLENGHTlading =
+                                                                        double.parse(_model
+                                                                            .runwaylengthxplaneldaTextController
+                                                                            .text);
+                                                                    safeSetState(
+                                                                        () {});
 
                                                                     context
                                                                         .pushNamed(
@@ -13275,7 +13289,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
-                                                                          30.0,
+                                                                          20.0,
                                                                           0.0,
                                                                           0.0),
                                                               child: Row(
@@ -13320,7 +13334,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
-                                                                          20.0,
+                                                                          5.0,
                                                                           0.0,
                                                                           0.0),
                                                               child: Row(
@@ -13500,20 +13514,20 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                 ],
                                                               ),
                                                             ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          20.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Expanded(
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Expanded(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                     child:
                                                                         Slider(
                                                                       activeColor:
@@ -13547,8 +13561,8 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                       },
                                                                     ),
                                                                   ),
-                                                                ],
-                                                              ),
+                                                                ),
+                                                              ],
                                                             ),
                                                             if (responsiveVisibility(
                                                               context: context,
@@ -13840,7 +13854,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                               child: Container(
                                                                 width: double
                                                                     .infinity,
-                                                                height: 350.0,
+                                                                height: 180.0,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   border: Border
@@ -13940,7 +13954,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                               },
                                                                               child: Container(
                                                                                 width: 200.0,
-                                                                                height: 90.0,
+                                                                                height: 60.0,
                                                                                 decoration: BoxDecoration(
                                                                                   color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                                   border: Border.all(
@@ -13959,7 +13973,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                                               fontWeight: FontWeight.bold,
                                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                             ),
-                                                                                            fontSize: 20.0,
+                                                                                            fontSize: 16.0,
                                                                                             letterSpacing: 0.0,
                                                                                             fontWeight: FontWeight.bold,
                                                                                             fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -14005,7 +14019,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                               },
                                                                               child: Container(
                                                                                 width: double.infinity,
-                                                                                height: 90.0,
+                                                                                height: 60.0,
                                                                                 decoration: BoxDecoration(
                                                                                   color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                                   border: Border.all(
@@ -14024,7 +14038,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                                               fontWeight: FontWeight.bold,
                                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                             ),
-                                                                                            fontSize: 20.0,
+                                                                                            fontSize: 16.0,
                                                                                             letterSpacing: 0.0,
                                                                                             fontWeight: FontWeight.bold,
                                                                                             fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,

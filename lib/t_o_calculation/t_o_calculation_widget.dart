@@ -2,8 +2,10 @@ import '/flutter_flow/flutter_flow_ad_banner.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 't_o_calculation_model.dart';
 export 't_o_calculation_model.dart';
 
@@ -60,6 +62,8 @@ class _TOCalculationWidgetState extends State<TOCalculationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -686,6 +690,31 @@ class _TOCalculationWidgetState extends State<TOCalculationWidget> {
                                                       .titleSmall
                                                       .fontStyle,
                                             ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    child:
+                                        custom_widgets.EfbRunwayVspeedsWidget(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      runwayLength:
+                                          FFAppState().RWYLENGHTtakeoff,
+                                      v1: valueOrDefault<double>(
+                                        widget.v1Val?.toDouble(),
+                                        153.0,
+                                      ),
+                                      vr: valueOrDefault<double>(
+                                        widget.vRVal?.toDouble(),
+                                        154.0,
+                                      ),
+                                      v2: valueOrDefault<double>(
+                                        widget.v2Val?.toDouble(),
+                                        163.0,
                                       ),
                                     ),
                                   ),

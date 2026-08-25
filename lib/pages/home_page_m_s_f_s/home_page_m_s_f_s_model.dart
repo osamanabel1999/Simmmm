@@ -62,6 +62,11 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
   dynamic right45;
   // Stores action output result for [Custom Action - calculateRightDownwindPosition] action in HomePageMSFS widget.
   dynamic rightDownwind;
+  // State field(s) for TextFieldSpeedEntryLANDMARK widget.
+  FocusNode? textFieldSpeedEntryLANDMARKFocusNode;
+  TextEditingController? textFieldSpeedEntryLANDMARKTextController;
+  String? Function(BuildContext, String?)?
+      textFieldSpeedEntryLANDMARKTextControllerValidator;
   // State field(s) for AircraftType widget.
   String? aircraftTypeValue1;
   FormFieldController<String>? aircraftTypeValueController1;
@@ -82,10 +87,11 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
   // State field(s) for isPacksOn widget.
   String? isPacksOnValue;
   FormFieldController<String>? isPacksOnValueController;
-  // State field(s) for RUNWAYLENGTH widget.
-  FocusNode? runwaylengthFocusNode1;
-  TextEditingController? runwaylengthTextController1;
-  String? Function(BuildContext, String?)? runwaylengthTextController1Validator;
+  // State field(s) for RUNWAYLENGTHMSFS widget.
+  FocusNode? runwaylengthmsfsFocusNode;
+  TextEditingController? runwaylengthmsfsTextController;
+  String? Function(BuildContext, String?)?
+      runwaylengthmsfsTextControllerValidator;
   // State field(s) for RunwayHeading widget.
   FocusNode? runwayHeadingFocusNode1;
   TextEditingController? runwayHeadingTextController1;
@@ -143,10 +149,11 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
   // State field(s) for Reverse widget.
   String? reverseValue;
   FormFieldController<String>? reverseValueController;
-  // State field(s) for RUNWAYLENGTH widget.
-  FocusNode? runwaylengthFocusNode2;
-  TextEditingController? runwaylengthTextController2;
-  String? Function(BuildContext, String?)? runwaylengthTextController2Validator;
+  // State field(s) for RUNWAYLENGTHMSFSLANDING widget.
+  FocusNode? runwaylengthmsfslandingFocusNode;
+  TextEditingController? runwaylengthmsfslandingTextController;
+  String? Function(BuildContext, String?)?
+      runwaylengthmsfslandingTextControllerValidator;
   // State field(s) for RunwayHeading widget.
   FocusNode? runwayHeadingFocusNode2;
   TextEditingController? runwayHeadingTextController2;
@@ -181,62 +188,6 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
   String? Function(BuildContext, String?)? windSpeedTextController2Validator;
   // Stores action output result for [Custom Action - calculateA320Landing] action in Button widget.
   dynamic calculateA320Landing;
-  // State field(s) for TextFieldTOPhigh widget.
-  FocusNode? textFieldTOPhighFocusNode;
-  TextEditingController? textFieldTOPhighTextController;
-  String? Function(BuildContext, String?)?
-      textFieldTOPhighTextControllerValidator;
-  // State field(s) for DropDownHIGH widget.
-  String? dropDownHIGHValue1;
-  FormFieldController<String>? dropDownHIGHValueController1;
-  // State field(s) for TextFieldBOTTOMHIGH widget.
-  FocusNode? textFieldBOTTOMHIGHFocusNode;
-  TextEditingController? textFieldBOTTOMHIGHTextController;
-  String? Function(BuildContext, String?)?
-      textFieldBOTTOMHIGHTextControllerValidator;
-  // State field(s) for DropDownHIGH widget.
-  String? dropDownHIGHValue2;
-  FormFieldController<String>? dropDownHIGHValueController2;
-  // State field(s) for TextFieldTopMID widget.
-  FocusNode? textFieldTopMIDFocusNode;
-  TextEditingController? textFieldTopMIDTextController;
-  String? Function(BuildContext, String?)?
-      textFieldTopMIDTextControllerValidator;
-  // State field(s) for DropDownMID widget.
-  String? dropDownMIDValue1;
-  FormFieldController<String>? dropDownMIDValueController1;
-  // State field(s) for TextFieldBottomMID widget.
-  FocusNode? textFieldBottomMIDFocusNode;
-  TextEditingController? textFieldBottomMIDTextController;
-  String? Function(BuildContext, String?)?
-      textFieldBottomMIDTextControllerValidator;
-  // State field(s) for DropDownMID widget.
-  String? dropDownMIDValue2;
-  FormFieldController<String>? dropDownMIDValueController2;
-  // State field(s) for TextFieldTOPlow widget.
-  FocusNode? textFieldTOPlowFocusNode;
-  TextEditingController? textFieldTOPlowTextController;
-  String? Function(BuildContext, String?)?
-      textFieldTOPlowTextControllerValidator;
-  // State field(s) for DropDownLOW widget.
-  String? dropDownLOWValue1;
-  FormFieldController<String>? dropDownLOWValueController1;
-  // State field(s) for TextFieldBottomLOW widget.
-  FocusNode? textFieldBottomLOWFocusNode;
-  TextEditingController? textFieldBottomLOWTextController;
-  String? Function(BuildContext, String?)?
-      textFieldBottomLOWTextControllerValidator;
-  // State field(s) for DropDownLOW widget.
-  String? dropDownLOWValue2;
-  FormFieldController<String>? dropDownLOWValueController2;
-  // State field(s) for SliderVisibility widget.
-  double? sliderVisibilityValue;
-  // State field(s) for SliderQNH widget.
-  double? sliderQNHValue;
-  // State field(s) for SliderTemperature widget.
-  double? sliderTemperatureValue;
-  // State field(s) for SliderWindDir widget.
-  double? sliderWindDirValue;
   // State field(s) for CODE widget.
   FocusNode? codeFocusNode;
   TextEditingController? codeTextController;
@@ -255,24 +206,13 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
   double? slidertimeValue;
   // State field(s) for Sliderspeed widget.
   double? sliderspeedValue;
+  // State field(s) for TextFieldSpeedEntry widget.
+  FocusNode? textFieldSpeedEntryFocusNode;
+  TextEditingController? textFieldSpeedEntryTextController;
+  String? Function(BuildContext, String?)?
+      textFieldSpeedEntryTextControllerValidator;
   // Stores action output result for [Backend Call - API (GetSimBriefFlight)] action in ColumnFlightPlan widget.
   ApiCallResponse? simbreifResponse1;
-  // State field(s) for Sliderpayloadn widget.
-  double? sliderpayloadnValue;
-  // State field(s) for SliderTotalFuelWeight widget.
-  double? sliderTotalFuelWeightValue;
-  // State field(s) for SliderLInner widget.
-  double? sliderLInnerValue;
-  // State field(s) for SliderLOuter widget.
-  double? sliderLOuterValue;
-  // State field(s) for SliderCGn widget.
-  double? sliderCGnValue;
-  // State field(s) for SliderCenterFuelTank widget.
-  double? sliderCenterFuelTankValue;
-  // State field(s) for SliderRInner widget.
-  double? sliderRInnerValue;
-  // State field(s) for SliderROuter widget.
-  double? sliderROuterValue;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered1 = false;
   // State field(s) for MouseRegion widget.
@@ -294,14 +234,17 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
   @override
   void dispose() {
     instantTimer?.cancel();
+    textFieldSpeedEntryLANDMARKFocusNode?.dispose();
+    textFieldSpeedEntryLANDMARKTextController?.dispose();
+
     grossWeightFocusNode1?.dispose();
     grossWeightTextController1?.dispose();
 
     cgFocusNode?.dispose();
     cgTextController?.dispose();
 
-    runwaylengthFocusNode1?.dispose();
-    runwaylengthTextController1?.dispose();
+    runwaylengthmsfsFocusNode?.dispose();
+    runwaylengthmsfsTextController?.dispose();
 
     runwayHeadingFocusNode1?.dispose();
     runwayHeadingTextController1?.dispose();
@@ -330,8 +273,8 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
     airportElevationFocusNode2?.dispose();
     airportElevationTextController2?.dispose();
 
-    runwaylengthFocusNode2?.dispose();
-    runwaylengthTextController2?.dispose();
+    runwaylengthmsfslandingFocusNode?.dispose();
+    runwaylengthmsfslandingTextController?.dispose();
 
     runwayHeadingFocusNode2?.dispose();
     runwayHeadingTextController2?.dispose();
@@ -351,28 +294,13 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
     windSpeedFocusNode2?.dispose();
     windSpeedTextController2?.dispose();
 
-    textFieldTOPhighFocusNode?.dispose();
-    textFieldTOPhighTextController?.dispose();
-
-    textFieldBOTTOMHIGHFocusNode?.dispose();
-    textFieldBOTTOMHIGHTextController?.dispose();
-
-    textFieldTopMIDFocusNode?.dispose();
-    textFieldTopMIDTextController?.dispose();
-
-    textFieldBottomMIDFocusNode?.dispose();
-    textFieldBottomMIDTextController?.dispose();
-
-    textFieldTOPlowFocusNode?.dispose();
-    textFieldTOPlowTextController?.dispose();
-
-    textFieldBottomLOWFocusNode?.dispose();
-    textFieldBottomLOWTextController?.dispose();
-
     codeFocusNode?.dispose();
     codeTextController?.dispose();
 
     airportICAOFocusNode?.dispose();
     airportICAOTextController?.dispose();
+
+    textFieldSpeedEntryFocusNode?.dispose();
+    textFieldSpeedEntryTextController?.dispose();
   }
 }

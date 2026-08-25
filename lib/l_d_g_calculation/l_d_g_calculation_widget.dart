@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_ad_banner.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'l_d_g_calculation_model.dart';
@@ -1034,6 +1035,21 @@ class _LDGCalculationWidgetState extends State<LDGCalculationWidget> {
                                           ],
                                         ),
                                       ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    child: custom_widgets.EfbLandingVappWidget(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      runwayLength: 3000.0,
+                                      vapp: valueOrDefault<double>(
+                                        widget.vapp,
+                                        136.0,
+                                      ),
                                     ),
                                   ),
                                 ),

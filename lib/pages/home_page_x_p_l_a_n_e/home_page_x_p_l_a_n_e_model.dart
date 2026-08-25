@@ -82,10 +82,11 @@ class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
   // State field(s) for isPacksOn widget.
   String? isPacksOnValue;
   FormFieldController<String>? isPacksOnValueController;
-  // State field(s) for RUNWAYLENGTH widget.
-  FocusNode? runwaylengthFocusNode1;
-  TextEditingController? runwaylengthTextController1;
-  String? Function(BuildContext, String?)? runwaylengthTextController1Validator;
+  // State field(s) for RUNWAYLENGTHXPLANETAKEOFF widget.
+  FocusNode? runwaylengthxplanetakeoffFocusNode;
+  TextEditingController? runwaylengthxplanetakeoffTextController;
+  String? Function(BuildContext, String?)?
+      runwaylengthxplanetakeoffTextControllerValidator;
   // State field(s) for RunwayHeading widget.
   FocusNode? runwayHeadingFocusNode1;
   TextEditingController? runwayHeadingTextController1;
@@ -143,10 +144,11 @@ class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
   // State field(s) for Reverse widget.
   String? reverseValue;
   FormFieldController<String>? reverseValueController;
-  // State field(s) for RUNWAYLENGTH widget.
-  FocusNode? runwaylengthFocusNode2;
-  TextEditingController? runwaylengthTextController2;
-  String? Function(BuildContext, String?)? runwaylengthTextController2Validator;
+  // State field(s) for RUNWAYLENGTHXPLANELDA widget.
+  FocusNode? runwaylengthxplaneldaFocusNode;
+  TextEditingController? runwaylengthxplaneldaTextController;
+  String? Function(BuildContext, String?)?
+      runwaylengthxplaneldaTextControllerValidator;
   // State field(s) for RunwayHeading widget.
   FocusNode? runwayHeadingFocusNode2;
   TextEditingController? runwayHeadingTextController2;
@@ -300,8 +302,8 @@ class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
     cgFocusNode?.dispose();
     cgTextController?.dispose();
 
-    runwaylengthFocusNode1?.dispose();
-    runwaylengthTextController1?.dispose();
+    runwaylengthxplanetakeoffFocusNode?.dispose();
+    runwaylengthxplanetakeoffTextController?.dispose();
 
     runwayHeadingFocusNode1?.dispose();
     runwayHeadingTextController1?.dispose();
@@ -330,8 +332,8 @@ class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
     airportElevationFocusNode2?.dispose();
     airportElevationTextController2?.dispose();
 
-    runwaylengthFocusNode2?.dispose();
-    runwaylengthTextController2?.dispose();
+    runwaylengthxplaneldaFocusNode?.dispose();
+    runwaylengthxplaneldaTextController?.dispose();
 
     runwayHeadingFocusNode2?.dispose();
     runwayHeadingTextController2?.dispose();

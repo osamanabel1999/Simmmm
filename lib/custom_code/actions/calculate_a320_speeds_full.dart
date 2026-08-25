@@ -11,247 +11,219 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 Future<dynamic> calculateA320SpeedsFull(
-  double weight,
-  String flapsIndex,
-  double elevation,
-  double oat,
-  double runwayHeading, // تم الإضافة: اتجاه المدرج
-  double windDirection, // تم الإضافة: اتجاه الرياح
-  double windSpeed, // تم الإضافة: سرعة الرياح
-  double runwayLength,
-  double slope,
-  String isWet,
-  String isPacksOn,
-  String antiIceIndex,
-  double cg,
-  double qnh, // تم إضافة المتغير هنا عشان FlutterFlow ميمسحوش
+  // تم تحويل المتغيرات إلى Nullable لتجنب الانهيار من FlutterFlow
+  double? weight,
+  String? flapsIndex,
+  double? elevation,
+  double? oat,
+  double? runwayHeading,
+  double? windDirection,
+  double? windSpeed,
+  double? runwayLength,
+  double? slope,
+  String? isWet,
+  String? isPacksOn,
+  String? antiIceIndex,
+  double? cg,
+  double? qnh,
 ) async {
-  // ---------------------------------------------------------
-  // حساب مركبة الرياح أوتوماتيكياً (Wind Component Calculation)
-  // ---------------------------------------------------------
-  double angleDifference = windDirection - runwayHeading;
-  double angleInRadians = angleDifference * (math.pi / 180.0);
-  double wind = windSpeed * math.cos(angleInRadians);
-  // ---------------------------------------------------------
+  try {
+    // ---------------------------------------------------------
+    // 0. حماية المتغيرات (Default Values)
+    // إذا أرسل FlutterFlow قيمة فارغة، سيتم استخدام هذه القيم الآمنة
+    // ---------------------------------------------------------
+    double w = weight ?? 60.0;
+    String flaps = flapsIndex ?? "";
+    double elev = elevation ?? 0.0;
+    double temp = oat ?? 15.0;
+    double rwyHdg = runwayHeading ?? 0.0;
+    double windDir = windDirection ?? 0.0;
+    double wSpeed = windSpeed ?? 0.0;
+    double rwyLen = runwayLength ?? 3000.0;
+    double rwySlope = slope ?? 0.0;
+    String wetStatus = isWet ?? "DRY";
+    String packsStatus = isPacksOn ?? "ON";
+    String antiIce = antiIceIndex ?? "OFF";
+    double cgValue = cg ?? 25.0;
+    double qnhValue = qnh ?? 1013.25;
 
-  // --- إضافة بسيطة لتحويل النصوص إلى أرقام وحالات يفهمها باقي الكود ---
-  int parsedFlaps = 0;
-  if (flapsIndex.contains('2'))
-    parsedFlaps = 1;
-  else if (flapsIndex.contains('3')) parsedFlaps = 2;
+    // ---------------------------------------------------------
+    // 1. حساب مركبة الرياح
+    // ---------------------------------------------------------
+    double angleDifference = windDir - rwyHdg;
+    double angleInRadians = angleDifference * (math.pi / 180.0);
+    double wind = wSpeed * math.cos(angleInRadians);
 
-  bool parsedWet = (isWet == 'WET');
-  bool parsedPacks = (isPacksOn == 'ON');
+    // ---------------------------------------------------------
+    // 2. تحويل النصوص بأمان
+    // ---------------------------------------------------------
+    int parsedFlaps = 0;
+    if (flaps.contains('2'))
+      parsedFlaps = 1;
+    else if (flaps.contains('3')) parsedFlaps = 2;
 
-  int parsedAntiIce = 0;
-  if (antiIceIndex == 'Engine')
-    parsedAntiIce = 1;
-  else if (antiIceIndex == 'Total') parsedAntiIce = 2;
-  // ---------------------------------------------------------
+    bool parsedWet = (wetStatus == 'WET');
+    bool parsedPacks = (packsStatus == 'ON');
 
-  // ---------------------------------------------------------
-  // 1. السرعات الأساسية (Base Calculation)
-  // معادلة خطية (Linear Regression) مستنتجة من جداول QRH لـ A320-214
-  // ---------------------------------------------------------
-  double baseVr = (1.21 * (weight - 50.0)) + 121.5;
+    int parsedAntiIce = 0;
+    if (antiIce == 'Engine')
+      parsedAntiIce = 1;
+    else if (antiIce == 'Total') parsedAntiIce = 2;
 
-  // ---------------------------------------------------------
-  // 2. تصحيح وضعية الفلابس (Flaps Correction)
-  // ---------------------------------------------------------
-  if (parsedFlaps == 1) {
-    baseVr -= 4.0; // Configuration 2
-  } else if (parsedFlaps == 2) {
-    baseVr -= 8.0; // Configuration 3
+    // ---------------------------------------------------------
+    // 3. السرعات الأساسية
+    // ---------------------------------------------------------
+    double baseVr = (1.21 * (w - 50.0)) + 121.5;
+
+    if (parsedFlaps == 1) {
+      baseVr -= 4.0;
+    } else if (parsedFlaps == 2) {
+      baseVr -= 8.0;
+    }
+
+    double v1 = baseVr - 1.0;
+    double vr = baseVr;
+    double v2 = baseVr + 4.5;
+
+    // ---------------------------------------------------------
+    // 4. تصحيح البيئة والأنظمة ومركز الثقل
+    // ---------------------------------------------------------
+    double altCorr = (elev / 1000.0);
+    double tempCorr = 0.0;
+    if (temp > 15.0) {
+      tempCorr = (temp - 15.0) * 0.45;
+    }
+
+    v1 += (altCorr + tempCorr);
+    vr += (altCorr + tempCorr);
+    v2 += (altCorr + tempCorr);
+
+    if (parsedPacks) {
+      v1 += 1.0;
+      vr += 1.0;
+      v2 += 1.0;
+    }
+
+    if (parsedAntiIce == 1) {
+      v1 += 1.2;
+      vr += 1.2;
+      v2 += 1.2;
+    } else if (parsedAntiIce == 2) {
+      v1 += 2.5;
+      vr += 2.5;
+      v2 += 2.5;
+    }
+
+    if (cgValue < 26.0) {
+      vr += 1.5;
+      v2 += 1.0;
+    } else if (cgValue > 32.0) {
+      vr -= 1.0;
+    }
+
+    // ---------------------------------------------------------
+    // 5. تصحيحات سرعة القرار V1
+    // ---------------------------------------------------------
+    if (wind > 0) {
+      v1 += (wind / 10.0);
+    } else if (wind < 0) {
+      v1 -= (wind.abs() * 0.4);
+    }
+
+    if (rwySlope > 0) {
+      v1 += (rwySlope * 0.8);
+    } else if (rwySlope < 0) {
+      v1 -= (rwySlope.abs() * 1.5);
+    }
+
+    if (rwyLen < 2200.0) {
+      v1 -= ((2200.0 - rwyLen) / 100.0) * 1.8;
+    }
+
+    if (parsedWet) {
+      v1 -= 7.0;
+    }
+
+    // ---------------------------------------------------------
+    // 6. حواجز الأمان
+    // ---------------------------------------------------------
+    if (v1 > vr) v1 = vr;
+    if (v2 < (vr + 2.0)) v2 = vr + 2.0;
+    if (v1 < 105.0) v1 = 105.0;
+    if (vr < 110.0) vr = 110.0;
+    if (v2 < 115.0) v2 = 115.0;
+
+    // ---------------------------------------------------------
+    // 7. استدعاء الدوال الإضافية
+    // ---------------------------------------------------------
+    double pressureAlt = calculatePressureAltitude(elev, qnhValue);
+    String flexTemp =
+        calculateFlexTemp(temp, w, rwyLen, parsedWet, parsedAntiIce);
+    Map<String, int> maneuveringSpeeds = calculateManeuveringSpeeds(w);
+
+    String flapPrefix = "1";
+    if (parsedFlaps == 1) {
+      flapPrefix = "2";
+    } else if (parsedFlaps == 2) {
+      flapPrefix = "3";
+    }
+    String ths = "$flapPrefix/${calculateTHS(cgValue)}";
+    double eoAcc = calculateEOAcc(elev);
+
+    // ---------------------------------------------------------
+    // 8. تجهيز النتيجة النهائية (Return JSON)
+    // ---------------------------------------------------------
+    return {
+      "v1": v1.round(),
+      "vr": vr.round(),
+      "v2": v2.round(),
+      "is_safe": (rwyLen > 1600.0) ? true : false,
+      "calculation_timestamp": DateTime.now().toIso8601String(),
+      "pressure_altitude": pressureAlt,
+      "flex_temp": flexTemp,
+      "f_speed": maneuveringSpeeds["F"],
+      "s_speed": maneuveringSpeeds["S"],
+      "green_dot_speed": maneuveringSpeeds["O"],
+      "ths": ths,
+      "eo_acc": eoAcc
+    };
+  } catch (e) {
+    // في حالة حدوث أي خطأ برمجي غير متوقع، الكود لن ينهار
+    // بل سيعيد أصفار وينقل المستخدم للصفحة الثانية بدلاً من التوقف الصامت
+    print("Action Logic Error: $e");
+    return {
+      "v1": 0,
+      "vr": 0,
+      "v2": 0,
+      "is_safe": false,
+      "error_message": e.toString()
+    };
   }
-  // ملاحظة: Index 0 هو Configuration 1+F (الأساسي)
-
-  double v1 = baseVr - 1.0;
-  double vr = baseVr;
-  double v2 = baseVr + 4.5; // الـ V2 دايماً أعلى من VR بمتوسط 4-5 عقد
-
-  // ---------------------------------------------------------
-  // 3. تصحيح البيئة (Environment: Altitude & Temperature)
-  // ---------------------------------------------------------
-  // تأثير الارتفاع: +1 عقدة لكل 1000 قدم
-  double altCorr = (elevation / 1000.0);
-
-  // تأثير الحرارة: ISA هي 15 درجة. أي زيادة تطلب سرعة أعلى للرفع
-  double tempCorr = 0.0;
-  if (oat > 15.0) {
-    tempCorr = (oat - 15.0) * 0.45;
-  }
-
-  v1 += (altCorr + tempCorr);
-  vr += (altCorr + tempCorr);
-  v2 += (altCorr + tempCorr);
-
-  // ---------------------------------------------------------
-  // 4. تصحيح الأنظمة (Systems: Packs & Anti-Ice)
-  // تشغيل التكييف والـ Anti-Ice بيسحب من قدرة المحرك (Thrust Reduction)
-  // ---------------------------------------------------------
-  if (parsedPacks) {
-    v1 += 1.0;
-    vr += 1.0;
-    v2 += 1.0;
-  }
-
-  if (parsedAntiIce == 1) {
-    // Engine Anti-Ice ON
-    v1 += 1.2;
-    vr += 1.2;
-    v2 += 1.2;
-  } else if (parsedAntiIce == 2) {
-    // Total Anti-Ice (Engine + Wing) ON
-    v1 += 2.5;
-    vr += 2.5;
-    v2 += 2.5;
-  }
-
-  // ---------------------------------------------------------
-  // 5. تأثير مركز الثقل (CG - Center of Gravity)
-  // ---------------------------------------------------------
-  // الـ Forward CG (أقل من 26%) بيصعب عملية الـ Rotation
-  if (cg < 26.0) {
-    vr += 1.5;
-    v2 += 1.0;
-  }
-  // الـ Aft CG (أكبر من 32%) بيسهل الـ Rotation
-  else if (cg > 32.0) {
-    vr -= 1.0;
-  }
-
-  // ---------------------------------------------------------
-  // 6. تصحيحات سرعة القرار (V1 Specific Corrections)
-  // العوامل اللي بتأثر على القدرة على التوقف قبل نهاية المدرج
-  // ---------------------------------------------------------
-
-  // أ. الرياح (Wind)
-  if (wind > 0) {
-    // Headwind: بيساعد على التوقف، فممكن نزود V1 سنة
-    v1 += (wind / 10.0);
-  } else if (wind < 0) {
-    // Tailwind: بيزود مسافة التوقف، لازم نقلل V1 للقرار البدري
-    v1 -= (wind.abs() * 0.4);
-  }
-
-  // ب. ميل المدرج (Runway Slope)
-  if (slope > 0) {
-    // Uphill: الجاذبية بتساعدك تفرمل
-    v1 += (slope * 0.8);
-  } else if (slope < 0) {
-    // Downhill: الجاذبية بتشدك، لازم تقلل V1
-    v1 -= (slope.abs() * 1.5);
-  }
-
-  // ج. طول المدرج (Runway Length)
-  // المرجع هو 2200 متر لـ A320. لو أقل، بنقلل V1 للأمان
-  if (runwayLength < 2200.0) {
-    v1 -= ((2200.0 - runwayLength) / 100.0) * 1.8;
-  }
-
-  // د. حالة المدرج (Runway Condition)
-  if (parsedWet) {
-    v1 -= 7.0; // تقليل V1 بمقدار كبير في حالة المدرج المبلول لضمان مسافة التوقف
-  }
-
-  // ---------------------------------------------------------
-  // 7. حواجز الأمان (Safety Clamps)
-  // قواعد الطيران الصارمة لضمان عدم خروج الأرقام عن المنطق
-  // ---------------------------------------------------------
-
-  // V1 لا يمكن أن تتخطى VR
-  if (v1 > vr) {
-    v1 = vr;
-  }
-
-  // V2 يجب أن تكون أعلى من VR بحد أدنى لضمان الـ Climb Gradient
-  if (v2 < (vr + 2.0)) {
-    v2 = vr + 2.0;
-  }
-
-  // الحدود الدنيا للتشغيل (Minimum Speeds) لـ A320
-  if (v1 < 105.0) v1 = 105.0;
-  if (vr < 110.0) vr = 110.0;
-  if (v2 < 115.0) v2 = 115.0;
-
-  // ---------------------------------------------------------
-  // استدعاء الدوال الإضافية لتجهيز المخرجات الجديدة
-  // ---------------------------------------------------------
-  double pressureAlt = calculatePressureAltitude(elevation, qnh);
-  String flexTemp =
-      calculateFlexTemp(oat, weight, runwayLength, parsedWet, parsedAntiIce);
-  Map<String, int> maneuveringSpeeds = calculateManeuveringSpeeds(weight);
-
-  // --- التعديل: استخراج رقم الفلابس ودمجه مع نتيجة الـ THS ---
-  String flapPrefix = "1";
-  if (parsedFlaps == 1) {
-    flapPrefix = "2";
-  } else if (parsedFlaps == 2) {
-    flapPrefix = "3";
-  }
-  String ths = "$flapPrefix/${calculateTHS(cg)}";
-  // -----------------------------------------------------------
-
-  double eoAcc = calculateEOAcc(elevation);
-
-  // ---------------------------------------------------------
-  // 8. تجهيز النتيجة النهائية (Return JSON)
-  // ---------------------------------------------------------
-  return {
-    "v1": v1.round(),
-    "vr": vr.round(),
-    "v2": v2.round(),
-    "is_safe": (runwayLength > 1600.0) ? true : false,
-    "calculation_timestamp": DateTime.now().toIso8601String(),
-
-    // النواتج الإضافية المدمجة
-    "pressure_altitude": pressureAlt,
-    "flex_temp": flexTemp,
-    "f_speed": maneuveringSpeeds["F"],
-    "s_speed": maneuveringSpeeds["S"],
-    "green_dot_speed": maneuveringSpeeds["O"],
-    "ths": ths,
-    "eo_acc": eoAcc
-  };
 }
 
-// 1. حساب الارتفاع الضغطي (Pressure Altitude)
-// QNH: المدخل من المستخدم، elevation: ارتفاع المطار
+// الدوال المساعدة تبقى كما هي لأن القيم الممررة لها أصبحت محمية
 double calculatePressureAltitude(double elevation, double qnh) {
   double pressureAlt = elevation + ((1013.25 - qnh) * 30.0);
   return (pressureAlt < 0) ? 0.0 : pressureAlt;
 }
 
-// 2. حساب الـ FLEX TEMP مع الشروط
-// oat: حرارة الجو، weight: الوزن، runway: طول المدرج
 String calculateFlexTemp(
     double oat, double weight, double runwayLength, bool isWet, int antiIce) {
-  // معادلة مرجعية لـ A320 (CFM Engines)
   double flex =
       72.0 - ((weight - 50.0) * 1.5) + ((runwayLength - 2200.0) / 200.0);
-
-  // شروط التقليل (Constraints)
-  if (isWet) flex -= 5.0; // المدرج المبلول يتطلب قوة أكبر (Flex أقل)
-  if (antiIce > 0) flex -= 3.0; // تشغيل الـ Anti-ice يستهلك قوة المحرك
-
-  // شروط الحدود (Safety Limits)
-  if (flex > 73.0) flex = 73.0; // TMaxFlex limit
-
-  // شرط TOGA: لو الـ Flex المحسوب أقل من حرارة الجو بـ 5 درجات، لازم نطلع بـ TOGA
+  if (isWet) flex -= 5.0;
+  if (antiIce > 0) flex -= 3.0;
+  if (flex > 73.0) flex = 73.0;
   if (flex <= (oat + 5.0)) {
     return "TOGA";
   }
-
   return "${flex.round()}°";
 }
 
-// 3. حساب سرعات المناورة (F, S, Green Dot) بناءً على أرقام Airbus الفنية
 Map<String, int> calculateManeuveringSpeeds(double weight) {
-  // هذه المعادلات مستنتجة من جداول QRH لوزن بين 50 إلى 78 طن
-  double oSpeed = (2.0 * weight) + 85.0; // Green Dot
-  double sSpeed = (1.8 * weight) + 75.0; // Slat Speed
-  double fSpeed = (1.25 * weight) + 70.0; // Flap Speed
-
+  double oSpeed = (2.0 * weight) + 85.0;
+  double sSpeed = (1.8 * weight) + 75.0;
+  double fSpeed = (1.25 * weight) + 70.0;
   return {
     "F": fSpeed.round(),
     "S": sSpeed.round(),
@@ -259,12 +231,8 @@ Map<String, int> calculateManeuveringSpeeds(double weight) {
   };
 }
 
-// 4. حساب الـ THS (Pitch Trim)
-// cg: Center of Gravity (نسبة مئوية)
 String calculateTHS(double cg) {
-  // معادلة Airbus القياسية: (32 - CG) / 4.7
   double trimValue = (32.0 - cg) / 4.7;
-
   if (trimValue >= 0) {
     return "UP ${trimValue.toStringAsFixed(1)}";
   } else {
@@ -272,9 +240,6 @@ String calculateTHS(double cg) {
   }
 }
 
-// 5. حساب Engine Out Acceleration (EO ACC)
 double calculateEOAcc(double elevation) {
-  // القاعدة العامة: ارتفاع المطار + 1500 قدم
-  // أو حسب الـ Obstacles (نستخدم 1500 كمعيار افتراضي آمن)
   return elevation + 1500.0;
 }

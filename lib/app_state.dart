@@ -235,6 +235,18 @@ class FFAppState extends ChangeNotifier {
   set Checklist(double value) {
     _Checklist = value;
   }
+
+  double _RWYLENGHTtakeoff = 0.0;
+  double get RWYLENGHTtakeoff => _RWYLENGHTtakeoff;
+  set RWYLENGHTtakeoff(double value) {
+    _RWYLENGHTtakeoff = value;
+  }
+
+  double _RWYLENGHTlading = 0.0;
+  double get RWYLENGHTlading => _RWYLENGHTlading;
+  set RWYLENGHTlading(double value) {
+    _RWYLENGHTlading = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {
