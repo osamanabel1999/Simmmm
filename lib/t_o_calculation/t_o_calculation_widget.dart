@@ -73,7 +73,7 @@ class _TOCalculationWidgetState extends State<TOCalculationWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: Color(0xFF0E0071),
+          backgroundColor: Color(0xFF2081FF),
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderColor: Colors.transparent,

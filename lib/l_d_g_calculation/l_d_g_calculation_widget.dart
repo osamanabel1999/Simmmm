@@ -80,7 +80,7 @@ class _LDGCalculationWidgetState extends State<LDGCalculationWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: Color(0xFF0E0071),
+          backgroundColor: Color(0xFF2081FF),
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderColor: Colors.transparent,
@@ -747,7 +747,7 @@ class _LDGCalculationWidgetState extends State<LDGCalculationWidget> {
                                                   0.3,
                                               height: 35.0,
                                               decoration: BoxDecoration(
-                                                color: Color(0xFF1872B6),
+                                                color: Color(0xFF2081FF),
                                                 border: Border.all(
                                                   color: Colors.white,
                                                 ),
@@ -789,7 +789,7 @@ class _LDGCalculationWidgetState extends State<LDGCalculationWidget> {
                                                   0.3,
                                               height: 35.0,
                                               decoration: BoxDecoration(
-                                                color: Color(0xFF1872B6),
+                                                color: Color(0xFF2081FF),
                                                 border: Border.all(
                                                   color: Colors.white,
                                                 ),
@@ -836,7 +836,7 @@ class _LDGCalculationWidgetState extends State<LDGCalculationWidget> {
                                                   0.3,
                                               height: 35.0,
                                               decoration: BoxDecoration(
-                                                color: Color(0xFF1872B6),
+                                                color: Color(0xFF2081FF),
                                                 border: Border.all(
                                                   color: Colors.white,
                                                 ),

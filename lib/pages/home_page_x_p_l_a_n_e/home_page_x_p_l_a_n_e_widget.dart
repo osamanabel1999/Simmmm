@@ -1120,6 +1120,8 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                             .headlineSmall
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Color(
+                                                                          0xFF2081FF),
                                                                       letterSpacing:
                                                                           0.0,
                                                                       fontWeight: FlutterFlowTheme.of(
@@ -3672,7 +3674,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                             0.0,
                                                                             0.0),
                                                                     color: Color(
-                                                                        0xFF100073),
+                                                                        0xFF2081FF),
                                                                     textStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .titleSmall
@@ -3701,7 +3703,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                         0.0,
                                                                     borderRadius:
                                                                         BorderRadius.circular(
-                                                                            8.0),
+                                                                            15.0),
                                                                   ),
                                                                 ),
                                                               ),
@@ -3785,6 +3787,8 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                             .headlineSmall
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Color(
+                                                                          0xFF2081FF),
                                                                       fontSize:
                                                                           22.0,
                                                                       letterSpacing:
@@ -6326,7 +6330,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                             0.0,
                                                                             0.0),
                                                                     color: Color(
-                                                                        0xFF100073),
+                                                                        0xFF2081FF),
                                                                     textStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .titleSmall
@@ -6355,7 +6359,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                         0.0,
                                                                     borderRadius:
                                                                         BorderRadius.circular(
-                                                                            8.0),
+                                                                            15.0),
                                                                   ),
                                                                 ),
                                                               ),
@@ -6394,6 +6398,12 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                               userNetworkId: FFAppState()
                                                   .ivaoVatsimID
                                                   .toString(),
+                                              onLocationSelected:
+                                                  (selectedLatitude,
+                                                      selectedLongitude,
+                                                      altitudeFt,
+                                                      headingDeg,
+                                                      speedKnots) async {},
                                             ),
                                           ),
                                         ),
@@ -17660,7 +17670,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                     0.0,
                                                                     0.0),
                                                         color:
-                                                            Color(0xFF100073),
+                                                            Color(0xFF2081FF),
                                                         textStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -17693,7 +17703,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                         elevation: 0.0,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(8.0),
+                                                                .circular(15.0),
                                                       ),
                                                     ),
                                                   ),
@@ -19078,7 +19088,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                       0.0,
                                                                       0.0),
                                                           color:
-                                                              Color(0xFF100073),
+                                                              Color(0xFF2081FF),
                                                           textStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -19112,7 +19122,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      8.0),
+                                                                      15.0),
                                                         ),
                                                       ),
                                                     ),

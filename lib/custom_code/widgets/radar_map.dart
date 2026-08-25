@@ -23,11 +23,33 @@ class RadarMap extends StatefulWidget {
     this.width,
     this.height,
     this.userNetworkId,
+    this.depIcao,
+    this.arrIcao,
+    this.initialLat,
+    this.initialLng,
+    this.initialZoom,
+    this.onLocationSelected,
   }) : super(key: key);
 
   final double? width;
   final double? height;
   final String? userNetworkId;
+  final String? depIcao;
+  final String? arrIcao;
+
+  // الباراميترز الجديدة للتحكم في مكان الخريطة عند الفتح
+  final double? initialLat;
+  final double? initialLng;
+  final double? initialZoom;
+
+  // Action Parameter الخاصة بتحريك الطائرة والربط المباشر مع FlutterFlow
+  final Future Function(
+    double? selectedLatitude,
+    double? selectedLongitude,
+    double? altitudeFt,
+    double? headingDeg,
+    double? speedKnots,
+  )? onLocationSelected;
 
   @override
   _RadarMapState createState() => _RadarMapState();
@@ -61,6 +83,15 @@ class _RadarMapState extends State<RadarMap> {
   bool showSearchDropdown = false;
   List<Map<String, dynamic>> searchResults = [];
 
+  // --- New Features State Variables ---
+  bool teleportMode = false;
+  bool showTeleportControls = false;
+  ll.LatLng? manualPlanePos;
+  final TextEditingController _speedCtrl = TextEditingController(text: "450");
+  final TextEditingController _altCtrl = TextEditingController(text: "36000");
+  final TextEditingController _hdgCtrl = TextEditingController(text: "90");
+  bool showFlightPath = false;
+
   @override
   void initState() {
     super.initState();
@@ -80,7 +111,21 @@ class _RadarMapState extends State<RadarMap> {
     _clockTimer?.cancel();
     _refreshTimer?.cancel();
     _searchController.dispose();
+    _speedCtrl.dispose();
+    _altCtrl.dispose();
+    _hdgCtrl.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant RadarMap oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.depIcao != widget.depIcao ||
+        oldWidget.arrIcao != widget.arrIcao) {
+      if (rawAirports.isNotEmpty) {
+        _buildAirportMarkers(rawAirports);
+      }
+    }
   }
 
   void _updateClock() {
@@ -198,60 +243,92 @@ class _RadarMapState extends State<RadarMap> {
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         rawAirports = data;
-        setState(() {
-          _airportMarkers = data
-              .map((ap) => Marker(
-                    point: ll.LatLng(double.parse(ap['lat'].toString()),
-                        double.parse(ap['lon'].toString())),
-                    width: 80,
-                    height: 60,
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => setState(() => selectedItem = {
-                            'type': 'AIRPORT',
-                            'data': ap,
-                          }),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 14,
-                            height: 14,
-                            decoration: BoxDecoration(
-                              color: Colors.cyanAccent,
-                              shape: BoxShape.circle,
-                              border:
-                                  Border.all(color: Colors.white, width: 1.5),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.black54,
-                                    blurRadius: 2.0,
-                                    offset: Offset(1.0, 1.0))
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            ap['icao']?.toString() ?? '',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                shadows: [
-                                  Shadow(
-                                      blurRadius: 2.0,
-                                      color: Colors.black,
-                                      offset: Offset(1.0, 1.0)),
-                                ]),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ))
-              .toList();
-        });
+        _buildAirportMarkers(data);
       }
     } catch (e) {}
+  }
+
+  Marker _buildSingleAirportMarker(dynamic ap) {
+    String apIcao = ap['icao']?.toString() ?? "";
+    bool isTarget = (widget.depIcao != null && apIcao == widget.depIcao) ||
+        (widget.arrIcao != null && apIcao == widget.arrIcao);
+
+    Color markerColor = isTarget ? Colors.pinkAccent : Colors.cyanAccent;
+    double circleSize = isTarget ? 18.0 : 14.0;
+    double borderWidth = isTarget ? 2.5 : 1.5;
+
+    return Marker(
+      point: ll.LatLng(double.parse(ap['lat'].toString()),
+          double.parse(ap['lon'].toString())),
+      width: 90,
+      height: 65,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => setState(() => selectedItem = {
+              'type': 'AIRPORT',
+              'data': ap,
+            }),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: circleSize,
+              height: circleSize,
+              decoration: BoxDecoration(
+                color: markerColor,
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.white, width: borderWidth),
+                boxShadow: [
+                  BoxShadow(
+                      color: isTarget
+                          ? Colors.pinkAccent.withOpacity(0.8)
+                          : Colors.black54,
+                      blurRadius: isTarget ? 6.0 : 2.0,
+                      offset: const Offset(1.0, 1.0))
+                ],
+              ),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              ap['icao']?.toString() ?? '',
+              style: TextStyle(
+                  color: isTarget ? Colors.pinkAccent : Colors.white,
+                  fontSize: isTarget ? 12 : 10,
+                  fontWeight: FontWeight.bold,
+                  shadows: const [
+                    Shadow(
+                        blurRadius: 2.0,
+                        color: Colors.black,
+                        offset: Offset(1.0, 1.0)),
+                  ]),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _buildAirportMarkers(List<dynamic> data) {
+    setState(() {
+      _airportMarkers =
+          data.map((ap) => _buildSingleAirportMarker(ap)).toList();
+    });
+  }
+
+  List<Marker> _getAirportMarkersToDisplay() {
+    if (showAirports) {
+      return _airportMarkers;
+    } else if (showFlightPath) {
+      return rawAirports
+          .where((ap) {
+            String apIcao = ap['icao']?.toString() ?? "";
+            return (widget.depIcao != null && apIcao == widget.depIcao) ||
+                (widget.arrIcao != null && apIcao == widget.arrIcao);
+          })
+          .map((ap) => _buildSingleAirportMarker(ap))
+          .toList();
+    }
+    return [];
   }
 
   Future<void> _fetchPlanes() async {
@@ -414,8 +491,54 @@ class _RadarMapState extends State<RadarMap> {
     );
   }
 
+  // --- دالة رسم المنحنى بين مطارين ---
+  List<ll.LatLng> _getCurvedPath(ll.LatLng p1, ll.LatLng p2) {
+    List<ll.LatLng> points = [];
+    for (int i = 0; i <= 30; i++) {
+      double t = i / 30.0;
+      double lat = p1.latitude + (p2.latitude - p1.latitude) * t;
+      double lon = p1.longitude + (p2.longitude - p1.longitude) * t;
+
+      // عمل تحدب خفيف يشبه خطوط الطيران
+      double bulge = (p2.longitude - p1.longitude).abs() * 0.15;
+      if (bulge > 12) bulge = 12;
+      lat += math.sin(t * math.pi) * bulge;
+
+      points.add(ll.LatLng(lat, lon));
+    }
+    return points;
+  }
+
+  void _triggerTeleportAction(ll.LatLng targetPos) {
+    if (widget.onLocationSelected != null) {
+      widget.onLocationSelected!(
+        targetPos.latitude,
+        targetPos.longitude,
+        double.tryParse(_altCtrl.text) ?? 36000.0,
+        double.tryParse(_hdgCtrl.text) ?? 90.0,
+        double.tryParse(_speedCtrl.text) ?? 450.0,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // تجهيز مسار الرحلة إن وُجد
+    List<ll.LatLng> pathPoints = [];
+    if (showFlightPath && widget.depIcao != null && widget.arrIcao != null) {
+      var depAp = rawAirports.firstWhere((a) => a['icao'] == widget.depIcao,
+          orElse: () => null);
+      var arrAp = rawAirports.firstWhere((a) => a['icao'] == widget.arrIcao,
+          orElse: () => null);
+      if (depAp != null && arrAp != null) {
+        ll.LatLng p1 = ll.LatLng(double.parse(depAp['lat'].toString()),
+            double.parse(depAp['lon'].toString()));
+        ll.LatLng p2 = ll.LatLng(double.parse(arrAp['lat'].toString()),
+            double.parse(arrAp['lon'].toString()));
+        pathPoints = _getCurvedPath(p1, p2);
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
@@ -424,14 +547,21 @@ class _RadarMapState extends State<RadarMap> {
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
-                initialCenter: ll.LatLng(30.0, 31.0),
-                initialZoom: 7,
-                onTap: (_, __) {
+                initialCenter: ll.LatLng(
+                    widget.initialLat ?? 30.0, widget.initialLng ?? 31.0),
+                initialZoom: widget.initialZoom ?? 7.0,
+                onTap: (_, point) {
                   FocusScope.of(context).unfocus();
                   setState(() {
                     selectedItem = null;
                     showSearchDropdown = false;
+                    if (teleportMode) {
+                      manualPlanePos = point;
+                    }
                   });
+                  if (teleportMode) {
+                    _triggerTeleportAction(point);
+                  }
                 }),
             children: [
               TileLayer(
@@ -442,8 +572,39 @@ class _RadarMapState extends State<RadarMap> {
                     opacity: 1.0,
                     child: TileLayer(
                         urlTemplate: _getWeatherUrl(activeWeatherLayer))),
-              if (showAirports) MarkerLayer(markers: _airportMarkers),
+
+              if (pathPoints.isNotEmpty && showFlightPath)
+                PolylineLayer(
+                  polylines: [
+                    Polyline(
+                      points: pathPoints,
+                      color: Colors.pinkAccent.withOpacity(0.8),
+                      strokeWidth: 3.5,
+                    )
+                  ],
+                ),
+
+              MarkerLayer(markers: _getAirportMarkersToDisplay()),
               MarkerLayer(markers: _planeMarkers),
+
+              // رسم طيارة الانتقال السريع بلون برتقالي احترافي
+              if (manualPlanePos != null && teleportMode)
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      point: manualPlanePos!,
+                      width: 60,
+                      height: 60,
+                      child: Transform.rotate(
+                        angle: (double.tryParse(_hdgCtrl.text) ?? 0.0) *
+                            (math.pi / 180),
+                        // السطر الجديد باللون الأحمر الاحترافي
+                        child: const Icon(Icons.airplanemode_active,
+                            color: Color(0xFFDC2626), size: 28),
+                      ),
+                    )
+                  ],
+                )
             ],
           ),
 
@@ -541,7 +702,7 @@ class _RadarMapState extends State<RadarMap> {
             ),
           ),
 
-          // --- ساعة الزولو (Zulu Time) في مكان أحسن وأشيك ---
+          // --- ساعة الزولو (Zulu Time) ---
           Positioned(
             bottom: 25,
             right: 15,
@@ -565,6 +726,30 @@ class _RadarMapState extends State<RadarMap> {
               ),
             ),
           ),
+
+          // --- ملاحظة تحريك الطائرة أسفل الخريطة باللون الأحمر تظهر فقط في وضع Teleport ---
+          if (teleportMode)
+            Positioned(
+              bottom: 6,
+              left: 15,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(
+                      color: Colors.redAccent.withOpacity(0.4), width: 1),
+                ),
+                child: const Text(
+                  "* Teleport feature currently works with MSFS only",
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                    fontSize: 9.5,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
 
           // --- القائمة اللي على الشمال ---
           Positioned(
@@ -597,6 +782,15 @@ class _RadarMapState extends State<RadarMap> {
                       _menuBtn("RADAR", showRadarMode, () {
                         setState(() => showRadarMode = !showRadarMode);
                         _fetchPlanes();
+                      }),
+                      _menuBtn("TELEPORT", teleportMode, () {
+                        setState(() {
+                          teleportMode = !teleportMode;
+                          if (teleportMode) showTeleportControls = true;
+                        });
+                      }),
+                      _menuBtn("FLIGHT PATH", showFlightPath, () {
+                        setState(() => showFlightPath = !showFlightPath);
                       }),
                     ]),
                   ),
@@ -674,12 +868,129 @@ class _RadarMapState extends State<RadarMap> {
             ),
           ),
 
+          // --- لوحة التحكم الخاصة بالـ Teleport ---
+          if (teleportMode && showTeleportControls)
+            Positioned(
+              bottom: 80,
+              left: 15,
+              child: _buildTeleportControls(),
+            ),
+
+          if (teleportMode && !showTeleportControls)
+            Positioned(
+              bottom: 25,
+              left: 15,
+              child: FloatingActionButton(
+                mini: true,
+                backgroundColor: Colors.orangeAccent.withOpacity(0.8),
+                onPressed: () => setState(() => showTeleportControls = true),
+                child: const Icon(Icons.settings, color: Colors.white),
+              ),
+            ),
+
           if (selectedItem != null && selectedItem!['type'] == 'PLANE')
             _buildInfoBox(selectedItem!['data'], selectedItem!['net'],
                 selectedItem!['isVatsim']),
 
           if (selectedItem != null && selectedItem!['type'] == 'AIRPORT')
             _buildAirportInfoBox(selectedItem!['data']),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTeleportControls() {
+    return Container(
+      width: 170,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.black87,
+        borderRadius: BorderRadius.circular(12),
+        border:
+            Border.all(color: Colors.orangeAccent.withOpacity(0.6), width: 1.5),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("TELEPORT SETTINGS",
+                  style: TextStyle(
+                      color: Colors.orangeAccent,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold)),
+              GestureDetector(
+                onTap: () => setState(() => showTeleportControls = false),
+                child: const Icon(Icons.close, color: Colors.white70, size: 16),
+              )
+            ],
+          ),
+          const Divider(color: Colors.white24),
+          _buildInputRow("ALT", _altCtrl),
+          _buildInputRow("SPD", _speedCtrl),
+          _buildInputRow("HDG", _hdgCtrl),
+          const SizedBox(height: 8),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orangeAccent,
+              minimumSize: const Size.fromHeight(28),
+              padding: EdgeInsets.zero,
+            ),
+            onPressed: () {
+              if (manualPlanePos != null) {
+                _triggerTeleportAction(manualPlanePos!);
+              } else {
+                ll.LatLng center = _mapController.camera.center;
+                _triggerTeleportAction(center);
+              }
+            },
+            child: const Text("SEND TELEPORT",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInputRow(String label, TextEditingController ctrl) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          SizedBox(
+              width: 35,
+              child: Text(label,
+                  style: const TextStyle(color: Colors.white54, fontSize: 10))),
+          Expanded(
+            child: SizedBox(
+              height: 24,
+              child: TextField(
+                controller: ctrl,
+                style: const TextStyle(color: Colors.white, fontSize: 12),
+                keyboardType: TextInputType.number,
+                onChanged: (v) {
+                  setState(() {});
+                  if (manualPlanePos != null) {
+                    _triggerTeleportAction(manualPlanePos!);
+                  }
+                },
+                decoration: const InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white24)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orangeAccent)),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -974,7 +1285,7 @@ class _RadarMapState extends State<RadarMap> {
 }
 
 // ============================================================================
-// 👇👇 الـ Widget الاحترافي الخاص بالمطار (محدث بالكامل حسب الطلب) 👇👇
+// 👇👇 الـ Widget الاحترافي الخاص بالمطار 👇👇
 // ============================================================================
 
 class AdvancedAirportInfoBox extends StatefulWidget {
@@ -1070,7 +1381,6 @@ class _AdvancedAirportInfoBoxState extends State<AdvancedAirportInfoBox> {
     return l.toString();
   }
 
-  // دالة تنسيق الترددات لتظهر بصيغة 118.200 (محدثة لحل مشكلة الأرقام الكبيرة)
   String _formatFreq(dynamic freqVal) {
     if (freqVal == null) return "-";
     String s = freqVal.toString();
@@ -1094,7 +1404,6 @@ class _AdvancedAirportInfoBoxState extends State<AdvancedAirportInfoBox> {
     String city = widget.ap['city'] ?? "Unknown City";
     String country = widget.ap['country'] ?? "Unknown Country";
 
-    // التعديل الأول: ضمان التقاط مفتاح الاياتا كابيتال أو سمول
     String iata =
         widget.ap['IATA'] ?? widget.ap['iata'] ?? widget.ap['iata_code'] ?? "-";
 
@@ -1208,7 +1517,6 @@ class _AdvancedAirportInfoBoxState extends State<AdvancedAirportInfoBox> {
       if (el != null) elevStr = "${el.round()} ft";
     }
 
-    // التعديل الثاني: تقريب الـ Variation لكسر واحد
     String varStr = "-";
     if (fpdbData?['magneticVariation'] != null) {
       double? v = double.tryParse(fpdbData!['magneticVariation'].toString());
@@ -1265,7 +1573,6 @@ class _AdvancedAirportInfoBoxState extends State<AdvancedAirportInfoBox> {
                     _cell("NAME", isHeader: true)
                   ],
                 ),
-                // دمج ترددات الفاتسيم مع الترددات الحقيقية إن وجدت
                 ...vatsimControllers.map<TableRow>((c) => TableRow(children: [
                       _cell(c['callsign']?.toString().split('_').last ?? "ATC"),
                       _cell(_formatFreq(c['frequency'])),
@@ -1328,7 +1635,6 @@ class _AdvancedAirportInfoBoxState extends State<AdvancedAirportInfoBox> {
                     wVal != null ? "${wVal.round()} ft" : "${r['width']} ft";
               }
 
-              // التعديل الرابع: تعديل الـ Bearing ليظهر 3 أرقام بدون كسور
               String bearingStr = "-";
               dynamic bVal = r['bearing'] ?? r['heading'];
               if (bVal != null) {
@@ -1364,7 +1670,6 @@ class _AdvancedAirportInfoBoxState extends State<AdvancedAirportInfoBox> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // التعديل الخامس: METAR بالاعلى ثم الـ ATIS وحذف TAF نهائيا
           const Text("METAR",
               style: TextStyle(
                   color: Colors.cyanAccent,
@@ -1469,7 +1774,7 @@ class _AdvancedAirportInfoBoxState extends State<AdvancedAirportInfoBox> {
 }
 
 // ============================================================================
-// 👇👇 كود الـ Custom Action المطلوب (professionalAtis) بدون أي تعديل 👇👇
+// 👇👇 كود الـ Custom Action المطلوب (professionalAtis) 👇👇
 // ============================================================================
 
 Future professionalAtis(String rawMetar) async {

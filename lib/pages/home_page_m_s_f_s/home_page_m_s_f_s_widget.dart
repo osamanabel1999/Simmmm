@@ -12416,6 +12416,8 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             fontStyle:
                                                                                 FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                                                                           ),
+                                                                          color:
+                                                                              Color(0xFF2081FF),
                                                                           letterSpacing:
                                                                               0.0,
                                                                           fontWeight: FlutterFlowTheme.of(context)
@@ -14489,7 +14491,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             0.0,
                                                                             0.0),
                                                                         color: Color(
-                                                                            0xFF100073),
+                                                                            0xFF2081FF),
                                                                         textStyle: FlutterFlowTheme.of(context)
                                                                             .titleSmall
                                                                             .override(
@@ -14506,7 +14508,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                         elevation:
                                                                             0.0,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(15.0),
                                                                       ),
                                                                     ),
                                                                   ),
@@ -14597,6 +14599,8 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             fontStyle:
                                                                                 FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                                                                           ),
+                                                                          color:
+                                                                              Color(0xFF2081FF),
                                                                           fontSize:
                                                                               22.0,
                                                                           letterSpacing:
@@ -16674,7 +16678,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             0.0,
                                                                             0.0),
                                                                         color: Color(
-                                                                            0xFF100073),
+                                                                            0xFF2081FF),
                                                                         textStyle: FlutterFlowTheme.of(context)
                                                                             .titleSmall
                                                                             .override(
@@ -16691,7 +16695,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                         elevation:
                                                                             0.0,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(15.0),
                                                                       ),
                                                                     ),
                                                                   ),
@@ -19131,19 +19135,34 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                             Expanded(
                                               child: Container(
                                                 width: double.infinity,
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.8,
+                                                height: double.infinity,
                                                 child: custom_widgets.RadarMap(
                                                   width: double.infinity,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.8,
+                                                  height: double.infinity,
                                                   userNetworkId: FFAppState()
                                                       .ivaoVatsimID
                                                       .toString(),
+                                                  depIcao: 'HECA',
+                                                  arrIcao: 'OEJN',
+                                                  initialLat: 35.0,
+                                                  initialLng: 70.0,
+                                                  initialZoom: 3.0,
+                                                  onLocationSelected:
+                                                      (selectedLatitude,
+                                                          selectedLongitude,
+                                                          altitudeFt,
+                                                          headingDeg,
+                                                          speedKnots) async {
+                                                    await actions
+                                                        .sendTeleportRequest(
+                                                      '192.168.1.115',
+                                                      selectedLatitude!,
+                                                      selectedLongitude!,
+                                                      altitudeFt,
+                                                      headingDeg,
+                                                      speedKnots,
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                             ),
@@ -23219,34 +23238,44 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                               ),
                                                                               Padding(
                                                                                 padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
-                                                                                child: Container(
-                                                                                  width: double.infinity,
-                                                                                  height: 90.0,
-                                                                                  decoration: BoxDecoration(
-                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                    border: Border.all(
-                                                                                      color: Colors.white,
+                                                                                child: InkWell(
+                                                                                  splashColor: Colors.transparent,
+                                                                                  focusColor: Colors.transparent,
+                                                                                  hoverColor: Colors.transparent,
+                                                                                  highlightColor: Colors.transparent,
+                                                                                  onTap: () async {
+                                                                                    FFAppState().TabNumber = 5;
+                                                                                    safeSetState(() {});
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    width: double.infinity,
+                                                                                    height: 90.0,
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                      border: Border.all(
+                                                                                        color: Colors.white,
+                                                                                      ),
                                                                                     ),
-                                                                                  ),
-                                                                                  child: Column(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                    children: [
-                                                                                      Text(
-                                                                                        'LANDING CONFIGURATION',
-                                                                                        textAlign: TextAlign.center,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              font: GoogleFonts.inter(
+                                                                                    child: Column(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                      children: [
+                                                                                        Text(
+                                                                                          'LANDING CONFIGURATION',
+                                                                                          textAlign: TextAlign.center,
+                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                font: GoogleFonts.inter(
+                                                                                                  fontWeight: FontWeight.bold,
+                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                ),
+                                                                                                fontSize: 20.0,
+                                                                                                letterSpacing: 0.0,
                                                                                                 fontWeight: FontWeight.bold,
                                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                               ),
-                                                                                              fontSize: 20.0,
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ],
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
                                                                                   ),
                                                                                 ),
                                                                               ),
@@ -23306,115 +23335,18 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                         .white,
                                                                   ),
                                                                 ),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          20.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Expanded(
-                                                                            child:
-                                                                                Builder(
-                                                                              builder: (context) {
-                                                                                final runwaysList = getJsonField(
-                                                                                  (_model.airportResultApi?.jsonBody ?? ''),
-                                                                                  r'''$.runways''',
-                                                                                ).toList();
-
-                                                                                return Wrap(
-                                                                                  spacing: 0.0,
-                                                                                  runSpacing: 0.0,
-                                                                                  alignment: WrapAlignment.start,
-                                                                                  crossAxisAlignment: WrapCrossAlignment.start,
-                                                                                  direction: Axis.horizontal,
-                                                                                  runAlignment: WrapAlignment.start,
-                                                                                  verticalDirection: VerticalDirection.down,
-                                                                                  clipBehavior: Clip.none,
-                                                                                  children: List.generate(runwaysList.length, (runwaysListIndex) {
-                                                                                    final runwaysListItem = runwaysList[runwaysListIndex];
-                                                                                    return Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
-                                                                                      child: InkWell(
-                                                                                        splashColor: Colors.transparent,
-                                                                                        focusColor: Colors.transparent,
-                                                                                        hoverColor: Colors.transparent,
-                                                                                        highlightColor: Colors.transparent,
-                                                                                        onTap: () async {
-                                                                                          _model.selectedRunway = runwaysListItem;
-                                                                                          safeSetState(() {});
-                                                                                        },
-                                                                                        child: Container(
-                                                                                          width: 100.0,
-                                                                                          height: 60.0,
-                                                                                          decoration: BoxDecoration(
-                                                                                            color: getJsonField(
-                                                                                                      _model.selectedRunway,
-                                                                                                      r'''$.ident''',
-                                                                                                    ) ==
-                                                                                                    getJsonField(
-                                                                                                      runwaysListItem,
-                                                                                                      r'''$.ident''',
-                                                                                                    )
-                                                                                                ? Color(0xA00EE300)
-                                                                                                : Color(0x00000000),
-                                                                                            border: Border.all(
-                                                                                              color: Colors.white,
-                                                                                            ),
-                                                                                          ),
-                                                                                          child: Column(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                                                            children: [
-                                                                                              Text(
-                                                                                                getJsonField(
-                                                                                                  runwaysListItem,
-                                                                                                  r'''$.ident''',
-                                                                                                ).toString(),
-                                                                                                textAlign: TextAlign.center,
-                                                                                                style: FlutterFlowTheme.of(context).titleLarge.override(
-                                                                                                      font: GoogleFonts.interTight(
-                                                                                                        fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                                                                                                        fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
-                                                                                                      ),
-                                                                                                      letterSpacing: 0.0,
-                                                                                                      fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                                                                                                      fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
-                                                                                                    ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    );
-                                                                                  }),
-                                                                                );
-                                                                              },
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    if (responsiveVisibility(
-                                                                      context:
-                                                                          context,
-                                                                      phone:
-                                                                          false,
-                                                                    ))
+                                                                child:
+                                                                    SingleChildScrollView(
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            10.0,
+                                                                            0.0,
                                                                             20.0,
-                                                                            10.0,
+                                                                            0.0,
                                                                             0.0),
                                                                         child:
                                                                             Row(
@@ -23422,647 +23354,1202 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                               MainAxisSize.max,
                                                                           children: [
                                                                             Expanded(
-                                                                              child: Container(
-                                                                                height: 110.0,
-                                                                                decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                ),
-                                                                                child: Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Expanded(
-                                                                                      child: Container(
-                                                                                        width: 100.0,
-                                                                                        height: 100.0,
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                          border: Border.all(
-                                                                                            color: Colors.white,
-                                                                                          ),
-                                                                                        ),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                          children: [
-                                                                                            Expanded(
-                                                                                              child: Column(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Container(
-                                                                                                      width: 100.0,
-                                                                                                      height: 100.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                        border: Border.all(
-                                                                                                          color: Colors.white,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            'Surface',
-                                                                                                            textAlign: TextAlign.center,
-                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                                  fontSize: 18.0,
-                                                                                                                  letterSpacing: 0.0,
-                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  Expanded(
-                                                                                                    child: Container(
-                                                                                                      width: 100.0,
-                                                                                                      height: 50.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                        border: Border.all(
-                                                                                                          color: Colors.white,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            valueOrDefault<String>(
-                                                                                                              getJsonField(
-                                                                                                                _model.selectedRunway,
-                                                                                                                r'''$.surface''',
-                                                                                                              )?.toString(),
-                                                                                                              '-',
-                                                                                                            ),
-                                                                                                            textAlign: TextAlign.center,
-                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                                  fontSize: 18.0,
-                                                                                                                  letterSpacing: 0.0,
-                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
+                                                                              child: Builder(
+                                                                                builder: (context) {
+                                                                                  final runwaysList = getJsonField(
+                                                                                    (_model.airportResultApi?.jsonBody ?? ''),
+                                                                                    r'''$.runways''',
+                                                                                  ).toList();
+
+                                                                                  return Wrap(
+                                                                                    spacing: 0.0,
+                                                                                    runSpacing: 0.0,
+                                                                                    alignment: WrapAlignment.start,
+                                                                                    crossAxisAlignment: WrapCrossAlignment.start,
+                                                                                    direction: Axis.horizontal,
+                                                                                    runAlignment: WrapAlignment.start,
+                                                                                    verticalDirection: VerticalDirection.down,
+                                                                                    clipBehavior: Clip.none,
+                                                                                    children: List.generate(runwaysList.length, (runwaysListIndex) {
+                                                                                      final runwaysListItem = runwaysList[runwaysListIndex];
+                                                                                      return Padding(
+                                                                                        padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
+                                                                                        child: InkWell(
+                                                                                          splashColor: Colors.transparent,
+                                                                                          focusColor: Colors.transparent,
+                                                                                          hoverColor: Colors.transparent,
+                                                                                          highlightColor: Colors.transparent,
+                                                                                          onTap: () async {
+                                                                                            _model.selectedRunway = runwaysListItem;
+                                                                                            safeSetState(() {});
+                                                                                          },
+                                                                                          child: Container(
+                                                                                            width: 100.0,
+                                                                                            height: 60.0,
+                                                                                            decoration: BoxDecoration(
+                                                                                              color: getJsonField(
+                                                                                                        _model.selectedRunway,
+                                                                                                        r'''$.ident''',
+                                                                                                      ) ==
+                                                                                                      getJsonField(
+                                                                                                        runwaysListItem,
+                                                                                                        r'''$.ident''',
+                                                                                                      )
+                                                                                                  ? Color(0xA00EE300)
+                                                                                                  : Color(0x00000000),
+                                                                                              border: Border.all(
+                                                                                                color: Colors.white,
                                                                                               ),
                                                                                             ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Expanded(
-                                                                              child: Container(
-                                                                                height: 110.0,
-                                                                                decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                ),
-                                                                                child: Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Expanded(
-                                                                                      child: Container(
-                                                                                        width: 100.0,
-                                                                                        height: 100.0,
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                          border: Border.all(
-                                                                                            color: Colors.white,
+                                                                                            child: Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                                              children: [
+                                                                                                Text(
+                                                                                                  getJsonField(
+                                                                                                    runwaysListItem,
+                                                                                                    r'''$.ident''',
+                                                                                                  ).toString(),
+                                                                                                  textAlign: TextAlign.center,
+                                                                                                  style: FlutterFlowTheme.of(context).titleLarge.override(
+                                                                                                        font: GoogleFonts.interTight(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                                                                                                        ),
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
                                                                                           ),
                                                                                         ),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                          children: [
-                                                                                            Expanded(
-                                                                                              child: Column(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Container(
-                                                                                                      width: 100.0,
-                                                                                                      height: 100.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                        border: Border.all(
-                                                                                                          color: Colors.white,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            'Length ',
-                                                                                                            textAlign: TextAlign.center,
-                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                                  fontSize: 18.0,
-                                                                                                                  letterSpacing: 0.0,
-                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  Expanded(
-                                                                                                    child: Container(
-                                                                                                      width: 100.0,
-                                                                                                      height: 50.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                        border: Border.all(
-                                                                                                          color: Colors.white,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            valueOrDefault<String>(
-                                                                                                              ((getJsonField(
-                                                                                                                        _model.selectedRunway,
-                                                                                                                        r'''$.length''',
-                                                                                                                      ) ??
-                                                                                                                      0)
-                                                                                                                  .toInt()
-                                                                                                                  .toString()),
-                                                                                                              '-',
-                                                                                                            ),
-                                                                                                            textAlign: TextAlign.center,
-                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                                  fontSize: 18.0,
-                                                                                                                  letterSpacing: 0.0,
-                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Expanded(
-                                                                              child: Container(
-                                                                                height: 110.0,
-                                                                                decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                ),
-                                                                                child: Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Expanded(
-                                                                                      child: Container(
-                                                                                        width: 100.0,
-                                                                                        height: 100.0,
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                          border: Border.all(
-                                                                                            color: Colors.white,
-                                                                                          ),
-                                                                                        ),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                          children: [
-                                                                                            Expanded(
-                                                                                              child: Column(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Container(
-                                                                                                      width: 100.0,
-                                                                                                      height: 100.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                        border: Border.all(
-                                                                                                          color: Colors.white,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            'Width',
-                                                                                                            textAlign: TextAlign.center,
-                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                                  fontSize: 18.0,
-                                                                                                                  letterSpacing: 0.0,
-                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  Expanded(
-                                                                                                    child: Container(
-                                                                                                      width: 100.0,
-                                                                                                      height: 50.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                        border: Border.all(
-                                                                                                          color: Colors.white,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            valueOrDefault<String>(
-                                                                                                              ((getJsonField(
-                                                                                                                        _model.selectedRunway,
-                                                                                                                        r'''$.width''',
-                                                                                                                      ) ??
-                                                                                                                      0)
-                                                                                                                  .toInt()
-                                                                                                                  .toString()),
-                                                                                                              '-',
-                                                                                                            ),
-                                                                                                            textAlign: TextAlign.center,
-                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                                  fontSize: 18.0,
-                                                                                                                  letterSpacing: 0.0,
-                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Expanded(
-                                                                              child: Container(
-                                                                                height: 110.0,
-                                                                                decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                ),
-                                                                                child: Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Expanded(
-                                                                                      child: Container(
-                                                                                        width: 100.0,
-                                                                                        height: 100.0,
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                          border: Border.all(
-                                                                                            color: Colors.white,
-                                                                                          ),
-                                                                                        ),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                          children: [
-                                                                                            Expanded(
-                                                                                              child: Column(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Container(
-                                                                                                      width: 100.0,
-                                                                                                      height: 100.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                        border: Border.all(
-                                                                                                          color: Colors.white,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            'Heading',
-                                                                                                            textAlign: TextAlign.center,
-                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                                  fontSize: 18.0,
-                                                                                                                  letterSpacing: 0.0,
-                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  Expanded(
-                                                                                                    child: Container(
-                                                                                                      width: 100.0,
-                                                                                                      height: 50.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                        border: Border.all(
-                                                                                                          color: Colors.white,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Text(
-                                                                                                            valueOrDefault<String>(
-                                                                                                              ((getJsonField(
-                                                                                                                        _model.selectedRunway,
-                                                                                                                        r'''$.bearing''',
-                                                                                                                      ) ??
-                                                                                                                      0)
-                                                                                                                  .toInt()
-                                                                                                                  .toString()),
-                                                                                                              '-',
-                                                                                                            ),
-                                                                                                            textAlign: TextAlign.center,
-                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                                  fontSize: 18.0,
-                                                                                                                  letterSpacing: 0.0,
-                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                ),
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
+                                                                                      );
+                                                                                    }),
+                                                                                  );
+                                                                                },
                                                                               ),
                                                                             ),
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                    SingleChildScrollView(
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.stretch,
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                10.0,
-                                                                                10.0,
-                                                                                10.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Container(
-                                                                              decoration: BoxDecoration(
-                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                border: Border.all(
-                                                                                  color: Colors.white,
-                                                                                ),
-                                                                              ),
-                                                                              child: SingleChildScrollView(
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                                  children: [
-                                                                                    Expanded(
-                                                                                      child: Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                                                                                        child: SingleChildScrollView(
-                                                                                          scrollDirection: Axis.horizontal,
+                                                                      if (responsiveVisibility(
+                                                                        context:
+                                                                            context,
+                                                                        phone:
+                                                                            false,
+                                                                      ))
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              10.0,
+                                                                              20.0,
+                                                                              10.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Expanded(
+                                                                                child: Container(
+                                                                                  height: 110.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                  ),
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    children: [
+                                                                                      Expanded(
+                                                                                        child: Container(
+                                                                                          width: 100.0,
+                                                                                          height: 100.0,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                            border: Border.all(
+                                                                                              color: Colors.white,
+                                                                                            ),
+                                                                                          ),
                                                                                           child: Row(
                                                                                             mainAxisSize: MainAxisSize.max,
-                                                                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
                                                                                             children: [
-                                                                                              Container(
-                                                                                                width: 200.0,
-                                                                                                height: 263.0,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                ),
+                                                                                              Expanded(
                                                                                                 child: Column(
                                                                                                   mainAxisSize: MainAxisSize.max,
-                                                                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.stretch,
                                                                                                   children: [
                                                                                                     Expanded(
                                                                                                       child: Container(
-                                                                                                        width: double.infinity,
+                                                                                                        width: 100.0,
                                                                                                         height: 100.0,
                                                                                                         decoration: BoxDecoration(
                                                                                                           color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          border: Border.all(
+                                                                                                            color: Colors.white,
+                                                                                                          ),
                                                                                                         ),
                                                                                                         child: Column(
                                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                                                                           children: [
-                                                                                                            Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.start,
-                                                                                                              children: [
-                                                                                                                Align(
-                                                                                                                  alignment: AlignmentDirectional(-1.0, -1.0),
-                                                                                                                  child: Padding(
-                                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 5.0),
-                                                                                                                    child: Text(
-                                                                                                                      'SPEED:',
-                                                                                                                      textAlign: TextAlign.center,
-                                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                            font: GoogleFonts.inter(
+                                                                                                            Text(
+                                                                                                              'Surface',
+                                                                                                              textAlign: TextAlign.center,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                                    fontSize: 18.0,
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    Expanded(
+                                                                                                      child: Container(
+                                                                                                        width: 100.0,
+                                                                                                        height: 50.0,
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          border: Border.all(
+                                                                                                            color: Colors.white,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        child: Column(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  _model.selectedRunway,
+                                                                                                                  r'''$.surface''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
+                                                                                                              textAlign: TextAlign.center,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    fontSize: 18.0,
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              Expanded(
+                                                                                child: Container(
+                                                                                  height: 110.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                  ),
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    children: [
+                                                                                      Expanded(
+                                                                                        child: Container(
+                                                                                          width: 100.0,
+                                                                                          height: 100.0,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                            border: Border.all(
+                                                                                              color: Colors.white,
+                                                                                            ),
+                                                                                          ),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                            children: [
+                                                                                              Expanded(
+                                                                                                child: Column(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                                                                  children: [
+                                                                                                    Expanded(
+                                                                                                      child: Container(
+                                                                                                        width: 100.0,
+                                                                                                        height: 100.0,
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          border: Border.all(
+                                                                                                            color: Colors.white,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        child: Column(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              'Length ',
+                                                                                                              textAlign: TextAlign.center,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                                    fontSize: 18.0,
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    Expanded(
+                                                                                                      child: Container(
+                                                                                                        width: 100.0,
+                                                                                                        height: 50.0,
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          border: Border.all(
+                                                                                                            color: Colors.white,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        child: Column(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              valueOrDefault<String>(
+                                                                                                                ((getJsonField(
+                                                                                                                          _model.selectedRunway,
+                                                                                                                          r'''$.length''',
+                                                                                                                        ) ??
+                                                                                                                        0)
+                                                                                                                    .toInt()
+                                                                                                                    .toString()),
+                                                                                                                '-',
+                                                                                                              ),
+                                                                                                              textAlign: TextAlign.center,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    fontSize: 18.0,
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              Expanded(
+                                                                                child: Container(
+                                                                                  height: 110.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                  ),
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    children: [
+                                                                                      Expanded(
+                                                                                        child: Container(
+                                                                                          width: 100.0,
+                                                                                          height: 100.0,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                            border: Border.all(
+                                                                                              color: Colors.white,
+                                                                                            ),
+                                                                                          ),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                            children: [
+                                                                                              Expanded(
+                                                                                                child: Column(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                                                                  children: [
+                                                                                                    Expanded(
+                                                                                                      child: Container(
+                                                                                                        width: 100.0,
+                                                                                                        height: 100.0,
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          border: Border.all(
+                                                                                                            color: Colors.white,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        child: Column(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              'Width',
+                                                                                                              textAlign: TextAlign.center,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                                    fontSize: 18.0,
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    Expanded(
+                                                                                                      child: Container(
+                                                                                                        width: 100.0,
+                                                                                                        height: 50.0,
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          border: Border.all(
+                                                                                                            color: Colors.white,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        child: Column(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              valueOrDefault<String>(
+                                                                                                                ((getJsonField(
+                                                                                                                          _model.selectedRunway,
+                                                                                                                          r'''$.width''',
+                                                                                                                        ) ??
+                                                                                                                        0)
+                                                                                                                    .toInt()
+                                                                                                                    .toString()),
+                                                                                                                '-',
+                                                                                                              ),
+                                                                                                              textAlign: TextAlign.center,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    fontSize: 18.0,
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              Expanded(
+                                                                                child: Container(
+                                                                                  height: 110.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                  ),
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    children: [
+                                                                                      Expanded(
+                                                                                        child: Container(
+                                                                                          width: 100.0,
+                                                                                          height: 100.0,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                            border: Border.all(
+                                                                                              color: Colors.white,
+                                                                                            ),
+                                                                                          ),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                            children: [
+                                                                                              Expanded(
+                                                                                                child: Column(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                                                                  children: [
+                                                                                                    Expanded(
+                                                                                                      child: Container(
+                                                                                                        width: 100.0,
+                                                                                                        height: 100.0,
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          border: Border.all(
+                                                                                                            color: Colors.white,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        child: Column(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              'Heading',
+                                                                                                              textAlign: TextAlign.center,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                                    fontSize: 18.0,
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    Expanded(
+                                                                                                      child: Container(
+                                                                                                        width: 100.0,
+                                                                                                        height: 50.0,
+                                                                                                        decoration: BoxDecoration(
+                                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          border: Border.all(
+                                                                                                            color: Colors.white,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        child: Column(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              valueOrDefault<String>(
+                                                                                                                ((getJsonField(
+                                                                                                                          _model.selectedRunway,
+                                                                                                                          r'''$.bearing''',
+                                                                                                                        ) ??
+                                                                                                                        0)
+                                                                                                                    .toInt()
+                                                                                                                    .toString()),
+                                                                                                                '-',
+                                                                                                              ),
+                                                                                                              textAlign: TextAlign.center,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    fontSize: 18.0,
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      SingleChildScrollView(
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.stretch,
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                                                                              child: Container(
+                                                                                decoration: BoxDecoration(
+                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                  border: Border.all(
+                                                                                    color: Colors.white,
+                                                                                  ),
+                                                                                ),
+                                                                                child: SingleChildScrollView(
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    children: [
+                                                                                      Expanded(
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                                                                                          child: SingleChildScrollView(
+                                                                                            scrollDirection: Axis.horizontal,
+                                                                                            child: Row(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                                                                              children: [
+                                                                                                Container(
+                                                                                                  width: 200.0,
+                                                                                                  height: 263.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                  ),
+                                                                                                  child: Column(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                                                                    children: [
+                                                                                                      Expanded(
+                                                                                                        child: Container(
+                                                                                                          width: double.infinity,
+                                                                                                          height: 100.0,
+                                                                                                          decoration: BoxDecoration(
+                                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                          ),
+                                                                                                          child: Column(
+                                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                            children: [
+                                                                                                              Row(
+                                                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                                children: [
+                                                                                                                  Align(
+                                                                                                                    alignment: AlignmentDirectional(-1.0, -1.0),
+                                                                                                                    child: Padding(
+                                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 5.0),
+                                                                                                                      child: Text(
+                                                                                                                        'SPEED:',
+                                                                                                                        textAlign: TextAlign.center,
+                                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                              font: GoogleFonts.inter(
+                                                                                                                                fontWeight: FontWeight.w600,
+                                                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                              ),
+                                                                                                                              fontSize: 18.0,
+                                                                                                                              letterSpacing: 0.0,
                                                                                                                               fontWeight: FontWeight.w600,
                                                                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                                             ),
-                                                                                                                            fontSize: 18.0,
-                                                                                                                            letterSpacing: 0.0,
-                                                                                                                            fontWeight: FontWeight.w600,
-                                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                          ),
-                                                                                                                    ),
-                                                                                                                  ),
-                                                                                                                ),
-                                                                                                                Padding(
-                                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
-                                                                                                                  child: Container(
-                                                                                                                    width: 100.0,
-                                                                                                                    height: 60.0,
-                                                                                                                    decoration: BoxDecoration(
-                                                                                                                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                      border: Border.all(
-                                                                                                                        color: Colors.white,
                                                                                                                       ),
                                                                                                                     ),
-                                                                                                                    child: Column(
-                                                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                                      children: [
-                                                                                                                        Expanded(
-                                                                                                                          child: Align(
-                                                                                                                            alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                                                            child: Container(
-                                                                                                                              width: double.infinity,
-                                                                                                                              child: TextFormField(
-                                                                                                                                controller: _model.textFieldSpeedEntryTextController,
-                                                                                                                                focusNode: _model.textFieldSpeedEntryFocusNode,
-                                                                                                                                autofocus: false,
-                                                                                                                                enabled: true,
-                                                                                                                                obscureText: false,
-                                                                                                                                decoration: InputDecoration(
-                                                                                                                                  isDense: true,
-                                                                                                                                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                                                                                                                        font: GoogleFonts.inter(
+                                                                                                                  ),
+                                                                                                                  Padding(
+                                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
+                                                                                                                    child: Container(
+                                                                                                                      width: 100.0,
+                                                                                                                      height: 60.0,
+                                                                                                                      decoration: BoxDecoration(
+                                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                                        border: Border.all(
+                                                                                                                          color: Colors.white,
+                                                                                                                        ),
+                                                                                                                      ),
+                                                                                                                      child: Column(
+                                                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                                        children: [
+                                                                                                                          Expanded(
+                                                                                                                            child: Align(
+                                                                                                                              alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                                                              child: Container(
+                                                                                                                                width: double.infinity,
+                                                                                                                                child: TextFormField(
+                                                                                                                                  controller: _model.textFieldSpeedEntryTextController,
+                                                                                                                                  focusNode: _model.textFieldSpeedEntryFocusNode,
+                                                                                                                                  autofocus: false,
+                                                                                                                                  enabled: true,
+                                                                                                                                  obscureText: false,
+                                                                                                                                  decoration: InputDecoration(
+                                                                                                                                    isDense: true,
+                                                                                                                                    labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                                                                          font: GoogleFonts.inter(
+                                                                                                                                            fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                                                                                                            fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                                                                                                                          ),
+                                                                                                                                          letterSpacing: 0.0,
                                                                                                                                           fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
                                                                                                                                           fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                                                                                                                         ),
-                                                                                                                                        letterSpacing: 0.0,
-                                                                                                                                        fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
-                                                                                                                                        fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                                                                                                                                      ),
-                                                                                                                                  hintText: 'e.g. 150',
-                                                                                                                                  hintStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                                                                        font: GoogleFonts.interTight(
+                                                                                                                                    hintText: 'e.g. 150',
+                                                                                                                                    hintStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                                                                          font: GoogleFonts.interTight(
+                                                                                                                                            fontWeight: FontWeight.w300,
+                                                                                                                                            fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                                                                          ),
+                                                                                                                                          letterSpacing: 0.0,
                                                                                                                                           fontWeight: FontWeight.w300,
                                                                                                                                           fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                                                                                         ),
-                                                                                                                                        letterSpacing: 0.0,
-                                                                                                                                        fontWeight: FontWeight.w300,
-                                                                                                                                        fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                                                                    enabledBorder: OutlineInputBorder(
+                                                                                                                                      borderSide: BorderSide(
+                                                                                                                                        color: Color(0x00000000),
+                                                                                                                                        width: 1.0,
                                                                                                                                       ),
-                                                                                                                                  enabledBorder: OutlineInputBorder(
-                                                                                                                                    borderSide: BorderSide(
-                                                                                                                                      color: Color(0x00000000),
-                                                                                                                                      width: 1.0,
+                                                                                                                                      borderRadius: BorderRadius.circular(8.0),
                                                                                                                                     ),
-                                                                                                                                    borderRadius: BorderRadius.circular(8.0),
-                                                                                                                                  ),
-                                                                                                                                  focusedBorder: OutlineInputBorder(
-                                                                                                                                    borderSide: BorderSide(
-                                                                                                                                      color: Color(0x00000000),
-                                                                                                                                      width: 1.0,
+                                                                                                                                    focusedBorder: OutlineInputBorder(
+                                                                                                                                      borderSide: BorderSide(
+                                                                                                                                        color: Color(0x00000000),
+                                                                                                                                        width: 1.0,
+                                                                                                                                      ),
+                                                                                                                                      borderRadius: BorderRadius.circular(8.0),
                                                                                                                                     ),
-                                                                                                                                    borderRadius: BorderRadius.circular(8.0),
-                                                                                                                                  ),
-                                                                                                                                  errorBorder: OutlineInputBorder(
-                                                                                                                                    borderSide: BorderSide(
-                                                                                                                                      color: FlutterFlowTheme.of(context).error,
-                                                                                                                                      width: 1.0,
+                                                                                                                                    errorBorder: OutlineInputBorder(
+                                                                                                                                      borderSide: BorderSide(
+                                                                                                                                        color: FlutterFlowTheme.of(context).error,
+                                                                                                                                        width: 1.0,
+                                                                                                                                      ),
+                                                                                                                                      borderRadius: BorderRadius.circular(8.0),
                                                                                                                                     ),
-                                                                                                                                    borderRadius: BorderRadius.circular(8.0),
-                                                                                                                                  ),
-                                                                                                                                  focusedErrorBorder: OutlineInputBorder(
-                                                                                                                                    borderSide: BorderSide(
-                                                                                                                                      color: FlutterFlowTheme.of(context).error,
-                                                                                                                                      width: 1.0,
+                                                                                                                                    focusedErrorBorder: OutlineInputBorder(
+                                                                                                                                      borderSide: BorderSide(
+                                                                                                                                        color: FlutterFlowTheme.of(context).error,
+                                                                                                                                        width: 1.0,
+                                                                                                                                      ),
+                                                                                                                                      borderRadius: BorderRadius.circular(8.0),
                                                                                                                                     ),
-                                                                                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                                                                                    filled: true,
+                                                                                                                                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                                                                                                                                   ),
-                                                                                                                                  filled: true,
-                                                                                                                                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                                ),
-                                                                                                                                style: FlutterFlowTheme.of(context).titleLarge.override(
-                                                                                                                                      font: GoogleFonts.interTight(
+                                                                                                                                  style: FlutterFlowTheme.of(context).titleLarge.override(
+                                                                                                                                        font: GoogleFonts.interTight(
+                                                                                                                                          fontWeight: FontWeight.bold,
+                                                                                                                                          fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                                                                                                                                        ),
+                                                                                                                                        fontSize: 21.0,
+                                                                                                                                        letterSpacing: 0.0,
                                                                                                                                         fontWeight: FontWeight.bold,
                                                                                                                                         fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
                                                                                                                                       ),
-                                                                                                                                      fontSize: 21.0,
-                                                                                                                                      letterSpacing: 0.0,
-                                                                                                                                      fontWeight: FontWeight.bold,
-                                                                                                                                      fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
-                                                                                                                                    ),
-                                                                                                                                textAlign: TextAlign.center,
-                                                                                                                                keyboardType: TextInputType.number,
-                                                                                                                                cursorColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                                                                enableInteractiveSelection: true,
-                                                                                                                                validator: _model.textFieldSpeedEntryTextControllerValidator.asValidator(context),
+                                                                                                                                  textAlign: TextAlign.center,
+                                                                                                                                  keyboardType: TextInputType.number,
+                                                                                                                                  cursorColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                                                                  enableInteractiveSelection: true,
+                                                                                                                                  validator: _model.textFieldSpeedEntryTextControllerValidator.asValidator(context),
+                                                                                                                                ),
                                                                                                                               ),
                                                                                                                             ),
+                                                                                                                          ),
+                                                                                                                        ],
+                                                                                                                      ),
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                ],
+                                                                                                              ),
+                                                                                                            ],
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      InkWell(
+                                                                                                        splashColor: Colors.transparent,
+                                                                                                        focusColor: Colors.transparent,
+                                                                                                        hoverColor: Colors.transparent,
+                                                                                                        highlightColor: Colors.transparent,
+                                                                                                        onTap: () async {
+                                                                                                          if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
+                                                                                                            await actions.setXPlaneDataRef(
+                                                                                                              'sim/operation/override/override_planepath[0]',
+                                                                                                              1.0,
+                                                                                                              FFAppState().ipPC,
+                                                                                                            );
+                                                                                                            await actions.setXPlaneDataRef(
+                                                                                                              'sim/flightmodel/position/Q',
+                                                                                                              0.0,
+                                                                                                              FFAppState().ipPC,
+                                                                                                            );
+                                                                                                            await actions.setXPlaneDataRef(
+                                                                                                              'sim/flightmodel/position/local_x',
+                                                                                                              getJsonField(
+                                                                                                                _model.leftDownwind,
+                                                                                                                r'''$.new_x''',
+                                                                                                              ),
+                                                                                                              FFAppState().ipPC,
+                                                                                                            );
+                                                                                                            await actions.setXPlaneDataRef(
+                                                                                                              'sim/flightmodel/position/local_z',
+                                                                                                              getJsonField(
+                                                                                                                _model.leftDownwind,
+                                                                                                                r'''$.new_z''',
+                                                                                                              ),
+                                                                                                              FFAppState().ipPC,
+                                                                                                            );
+                                                                                                            await actions.setXPlaneDataRef(
+                                                                                                              'sim/flightmodel/position/local_y',
+                                                                                                              430.0,
+                                                                                                              FFAppState().ipPC,
+                                                                                                            );
+                                                                                                            await actions.setXPlaneDataRef(
+                                                                                                              'sim/flightmodel/position/psi',
+                                                                                                              (((getJsonField(
+                                                                                                                                _model.selectedRunway,
+                                                                                                                                r'''$.bearing''',
+                                                                                                                              ) -
+                                                                                                                              180) %
+                                                                                                                          360)
+                                                                                                                      .toInt())
+                                                                                                                  .toDouble(),
+                                                                                                              FFAppState().ipPC,
+                                                                                                            );
+                                                                                                            await actions.setXPlaneDataRef(
+                                                                                                              'sim/flightmodel/position/theta',
+                                                                                                              0.0,
+                                                                                                              FFAppState().ipPC,
+                                                                                                            );
+                                                                                                            await Future.delayed(
+                                                                                                              Duration(
+                                                                                                                milliseconds: 1200,
+                                                                                                              ),
+                                                                                                            );
+                                                                                                            await actions.setXPlaneDataRef(
+                                                                                                              'sim/operation/override/override_planepath[0]',
+                                                                                                              0.0,
+                                                                                                              FFAppState().ipPC,
+                                                                                                            );
+                                                                                                          } else {
+                                                                                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                              SnackBar(
+                                                                                                                content: Text(
+                                                                                                                  'Please Try again',
+                                                                                                                  style: TextStyle(
+                                                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                duration: Duration(milliseconds: 4000),
+                                                                                                                backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                                              ),
+                                                                                                            );
+                                                                                                          }
+                                                                                                        },
+                                                                                                        child: Container(
+                                                                                                          width: 200.0,
+                                                                                                          height: 150.0,
+                                                                                                          decoration: BoxDecoration(
+                                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                            border: Border.all(
+                                                                                                              color: Colors.white,
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          child: Column(
+                                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                            children: [
+                                                                                                              Transform.rotate(
+                                                                                                                angle: 180.0 * (math.pi / 180),
+                                                                                                                child: Icon(
+                                                                                                                  Icons.airplanemode_active_rounded,
+                                                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                                  size: 100.0,
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                              Text(
+                                                                                                                'Left Dowinwind',
+                                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                      font: GoogleFonts.inter(
+                                                                                                                        fontWeight: FontWeight.bold,
+                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                      ),
+                                                                                                                      fontSize: 15.0,
+                                                                                                                      letterSpacing: 0.0,
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                              ),
+                                                                                                            ],
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ),
+                                                                                                InkWell(
+                                                                                                  splashColor: Colors.transparent,
+                                                                                                  focusColor: Colors.transparent,
+                                                                                                  hoverColor: Colors.transparent,
+                                                                                                  highlightColor: Colors.transparent,
+                                                                                                  onTap: () async {
+                                                                                                    if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
+                                                                                                      await actions.setXPlaneDataRef(
+                                                                                                        'sim/operation/override/override_planepath[0]',
+                                                                                                        1.0,
+                                                                                                        FFAppState().ipPC,
+                                                                                                      );
+                                                                                                      await actions.setXPlaneDataRef(
+                                                                                                        'sim/flightmodel/position/Q',
+                                                                                                        0.0,
+                                                                                                        FFAppState().ipPC,
+                                                                                                      );
+                                                                                                      await actions.setXPlaneDataRef(
+                                                                                                        'sim/flightmodel/position/local_x',
+                                                                                                        getJsonField(
+                                                                                                          _model.zeroNMfinall,
+                                                                                                          r'''$.new_x''',
+                                                                                                        ),
+                                                                                                        FFAppState().ipPC,
+                                                                                                      );
+                                                                                                      await actions.setXPlaneDataRef(
+                                                                                                        'sim/flightmodel/position/local_z',
+                                                                                                        getJsonField(
+                                                                                                          _model.zeroNMfinall,
+                                                                                                          r'''$.new_z''',
+                                                                                                        ),
+                                                                                                        FFAppState().ipPC,
+                                                                                                      );
+                                                                                                      await actions.setXPlaneDataRef(
+                                                                                                        'sim/flightmodel/position/local_y',
+                                                                                                        0.0,
+                                                                                                        FFAppState().ipPC,
+                                                                                                      );
+                                                                                                      await actions.setXPlaneDataRef(
+                                                                                                        'sim/flightmodel/position/psi',
+                                                                                                        getJsonField(
+                                                                                                          _model.selectedRunway,
+                                                                                                          r'''$.bearing''',
+                                                                                                        ),
+                                                                                                        FFAppState().ipPC,
+                                                                                                      );
+                                                                                                      await actions.setXPlaneDataRef(
+                                                                                                        'sim/flightmodel/position/theta',
+                                                                                                        0.0,
+                                                                                                        FFAppState().ipPC,
+                                                                                                      );
+                                                                                                      await Future.delayed(
+                                                                                                        Duration(
+                                                                                                          milliseconds: 1500,
+                                                                                                        ),
+                                                                                                      );
+                                                                                                      await actions.setXPlaneDataRef(
+                                                                                                        'sim/operation/override/override_planepath[0]',
+                                                                                                        0.0,
+                                                                                                        FFAppState().ipPC,
+                                                                                                      );
+                                                                                                    } else {
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                        SnackBar(
+                                                                                                          content: Text(
+                                                                                                            'Please Try again',
+                                                                                                            style: TextStyle(
+                                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                                          backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                                        ),
+                                                                                                      );
+                                                                                                    }
+                                                                                                  },
+                                                                                                  child: Container(
+                                                                                                    width: 200.0,
+                                                                                                    decoration: BoxDecoration(
+                                                                                                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                      border: Border.all(
+                                                                                                        color: Colors.white,
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    child: Column(
+                                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                                      children: [
+                                                                                                        Row(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Container(
+                                                                                                              width: 80.0,
+                                                                                                              decoration: BoxDecoration(
+                                                                                                                color: Colors.black,
+                                                                                                              ),
+                                                                                                              child: Column(
+                                                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                                                                                children: [
+                                                                                                                  Column(
+                                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                                    children: [
+                                                                                                                      Padding(
+                                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 5.0),
+                                                                                                                        child: Row(
+                                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                                          children: [
+                                                                                                                            Padding(
+                                                                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                                                                                                              child: Container(
+                                                                                                                                width: 16.0,
+                                                                                                                                height: 50.0,
+                                                                                                                                decoration: BoxDecoration(
+                                                                                                                                  color: Colors.white,
+                                                                                                                                ),
+                                                                                                                              ),
+                                                                                                                            ),
+                                                                                                                          ],
+                                                                                                                        ),
+                                                                                                                      ),
+                                                                                                                      Padding(
+                                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                                                                                                                        child: Row(
+                                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                                          children: [
+                                                                                                                            Container(
+                                                                                                                              width: 16.0,
+                                                                                                                              height: 50.0,
+                                                                                                                              decoration: BoxDecoration(
+                                                                                                                                color: Colors.white,
+                                                                                                                              ),
+                                                                                                                            ),
+                                                                                                                          ],
+                                                                                                                        ),
+                                                                                                                      ),
+                                                                                                                    ],
+                                                                                                                  ),
+                                                                                                                  Padding(
+                                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 7.0),
+                                                                                                                    child: Row(
+                                                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                                      children: [
+                                                                                                                        Column(
+                                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                                          children: [
+                                                                                                                            Text(
+                                                                                                                              getJsonField(
+                                                                                                                                _model.selectedRunway,
+                                                                                                                                r'''$.ident''',
+                                                                                                                              ).toString(),
+                                                                                                                              textAlign: TextAlign.center,
+                                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                                    ),
+                                                                                                                                    fontSize: 22.0,
+                                                                                                                                    letterSpacing: 0.0,
+                                                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                                  ),
+                                                                                                                            ),
+                                                                                                                          ],
+                                                                                                                        ),
+                                                                                                                      ],
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                  Padding(
+                                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 15.0),
+                                                                                                                    child: Row(
+                                                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                                      children: [
+                                                                                                                        Container(
+                                                                                                                          width: 10.0,
+                                                                                                                          height: 50.0,
+                                                                                                                          decoration: BoxDecoration(
+                                                                                                                            color: Colors.white,
+                                                                                                                          ),
+                                                                                                                        ),
+                                                                                                                        Container(
+                                                                                                                          width: 10.0,
+                                                                                                                          height: 50.0,
+                                                                                                                          decoration: BoxDecoration(
+                                                                                                                            color: Colors.white,
+                                                                                                                          ),
+                                                                                                                        ),
+                                                                                                                        Container(
+                                                                                                                          width: 10.0,
+                                                                                                                          height: 50.0,
+                                                                                                                          decoration: BoxDecoration(
+                                                                                                                            color: Colors.white,
+                                                                                                                          ),
+                                                                                                                        ),
+                                                                                                                        Container(
+                                                                                                                          width: 10.0,
+                                                                                                                          height: 50.0,
+                                                                                                                          decoration: BoxDecoration(
+                                                                                                                            color: Colors.white,
                                                                                                                           ),
                                                                                                                         ),
                                                                                                                       ],
                                                                                                                     ),
                                                                                                                   ),
-                                                                                                                ),
-                                                                                                              ],
+                                                                                                                ],
+                                                                                                              ),
                                                                                                             ),
                                                                                                           ],
+                                                                                                        ),
+                                                                                                        Padding(
+                                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 9.0),
+                                                                                                          child: Row(
+                                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                            children: [
+                                                                                                              Text(
+                                                                                                                'Take OFF',
+                                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                      font: GoogleFonts.inter(
+                                                                                                                        fontWeight: FontWeight.bold,
+                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                      ),
+                                                                                                                      fontSize: 16.0,
+                                                                                                                      letterSpacing: 0.0,
+                                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                              ),
+                                                                                                            ],
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ],
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                Column(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                  children: [
+                                                                                                    Expanded(
+                                                                                                      child: Align(
+                                                                                                        alignment: AlignmentDirectional(0.0, 1.0),
+                                                                                                        child: Padding(
+                                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 5.0),
+                                                                                                          child: InkWell(
+                                                                                                            splashColor: Colors.transparent,
+                                                                                                            focusColor: Colors.transparent,
+                                                                                                            hoverColor: Colors.transparent,
+                                                                                                            highlightColor: Colors.transparent,
+                                                                                                            onTap: () async {
+                                                                                                              FFAppState().TabNumber = 5;
+                                                                                                              safeSetState(() {});
+                                                                                                            },
+                                                                                                            child: Container(
+                                                                                                              width: 150.0,
+                                                                                                              height: 50.0,
+                                                                                                              decoration: BoxDecoration(
+                                                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                                                                border: Border.all(
+                                                                                                                  color: Color(0xFF2081FF),
+                                                                                                                  width: 3.0,
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                              child: Column(
+                                                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                                children: [
+                                                                                                                  Text(
+                                                                                                                    'Map Teleport',
+                                                                                                                    style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                                                          font: GoogleFonts.interTight(
+                                                                                                                            fontWeight: FontWeight.bold,
+                                                                                                                            fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                                                          ),
+                                                                                                                          letterSpacing: 0.0,
+                                                                                                                          fontWeight: FontWeight.bold,
+                                                                                                                          fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                                                        ),
+                                                                                                                  ),
+                                                                                                                ],
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                    Expanded(
+                                                                                                      child: Align(
+                                                                                                        alignment: AlignmentDirectional(0.0, 1.0),
+                                                                                                        child: Padding(
+                                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                                                                                          child: InkWell(
+                                                                                                            splashColor: Colors.transparent,
+                                                                                                            focusColor: Colors.transparent,
+                                                                                                            hoverColor: Colors.transparent,
+                                                                                                            highlightColor: Colors.transparent,
+                                                                                                            onTap: () async {
+                                                                                                              FFAppState().TabNumber = 1200;
+                                                                                                              safeSetState(() {});
+                                                                                                            },
+                                                                                                            child: Container(
+                                                                                                              width: 150.0,
+                                                                                                              height: 50.0,
+                                                                                                              decoration: BoxDecoration(
+                                                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                                                                border: Border.all(
+                                                                                                                  color: Color(0xFF2081FF),
+                                                                                                                  width: 3.0,
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                              child: Column(
+                                                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                                children: [
+                                                                                                                  Text(
+                                                                                                                    'WORLD TOUR',
+                                                                                                                    style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                                                          font: GoogleFonts.interTight(
+                                                                                                                            fontWeight: FontWeight.bold,
+                                                                                                                            fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                                                          ),
+                                                                                                                          letterSpacing: 0.0,
+                                                                                                                          fontWeight: FontWeight.bold,
+                                                                                                                          fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                                                        ),
+                                                                                                                  ),
+                                                                                                                ],
+                                                                                                              ),
+                                                                                                            ),
+                                                                                                          ),
                                                                                                         ),
                                                                                                       ),
                                                                                                     ),
@@ -24086,7 +24573,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                           await actions.setXPlaneDataRef(
                                                                                                             'sim/flightmodel/position/local_x',
                                                                                                             getJsonField(
-                                                                                                              _model.leftDownwind,
+                                                                                                              _model.rightDownwind,
                                                                                                               r'''$.new_x''',
                                                                                                             ),
                                                                                                             FFAppState().ipPC,
@@ -24094,7 +24581,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                           await actions.setXPlaneDataRef(
                                                                                                             'sim/flightmodel/position/local_z',
                                                                                                             getJsonField(
-                                                                                                              _model.leftDownwind,
+                                                                                                              _model.rightDownwind,
                                                                                                               r'''$.new_z''',
                                                                                                             ),
                                                                                                             FFAppState().ipPC,
@@ -24123,7 +24610,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                           );
                                                                                                           await Future.delayed(
                                                                                                             Duration(
-                                                                                                              milliseconds: 1200,
+                                                                                                              milliseconds: 2000,
                                                                                                             ),
                                                                                                           );
                                                                                                           await actions.setXPlaneDataRef(
@@ -24168,7 +24655,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                               ),
                                                                                                             ),
                                                                                                             Text(
-                                                                                                              'Left Dowinwind',
+                                                                                                              'Right Dowinwind',
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.bold,
@@ -24186,7 +24673,19 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                     ),
                                                                                                   ],
                                                                                                 ),
-                                                                                              ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                      Padding(
+                                                                                        padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                                                                                        child: SingleChildScrollView(
+                                                                                          scrollDirection: Axis.horizontal,
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                            children: [
                                                                                               InkWell(
                                                                                                 splashColor: Colors.transparent,
                                                                                                 focusColor: Colors.transparent,
@@ -24207,7 +24706,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                     await actions.setXPlaneDataRef(
                                                                                                       'sim/flightmodel/position/local_x',
                                                                                                       getJsonField(
-                                                                                                        _model.zeroNMfinall,
+                                                                                                        _model.right45,
                                                                                                         r'''$.new_x''',
                                                                                                       ),
                                                                                                       FFAppState().ipPC,
@@ -24215,22 +24714,26 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                     await actions.setXPlaneDataRef(
                                                                                                       'sim/flightmodel/position/local_z',
                                                                                                       getJsonField(
-                                                                                                        _model.zeroNMfinall,
+                                                                                                        _model.right45,
                                                                                                         r'''$.new_z''',
                                                                                                       ),
                                                                                                       FFAppState().ipPC,
                                                                                                     );
                                                                                                     await actions.setXPlaneDataRef(
                                                                                                       'sim/flightmodel/position/local_y',
-                                                                                                      0.0,
+                                                                                                      500.0,
                                                                                                       FFAppState().ipPC,
                                                                                                     );
                                                                                                     await actions.setXPlaneDataRef(
                                                                                                       'sim/flightmodel/position/psi',
-                                                                                                      getJsonField(
-                                                                                                        _model.selectedRunway,
-                                                                                                        r'''$.bearing''',
-                                                                                                      ),
+                                                                                                      (((getJsonField(
+                                                                                                                        _model.selectedRunway,
+                                                                                                                        r'''$.bearing''',
+                                                                                                                      ) +
+                                                                                                                      45) %
+                                                                                                                  360)
+                                                                                                              .toInt())
+                                                                                                          .toDouble(),
                                                                                                       FFAppState().ipPC,
                                                                                                     );
                                                                                                     await actions.setXPlaneDataRef(
@@ -24240,7 +24743,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                     );
                                                                                                     await Future.delayed(
                                                                                                       Duration(
-                                                                                                        milliseconds: 1500,
+                                                                                                        milliseconds: 1000,
                                                                                                       ),
                                                                                                     );
                                                                                                     await actions.setXPlaneDataRef(
@@ -24265,6 +24768,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                 },
                                                                                                 child: Container(
                                                                                                   width: 200.0,
+                                                                                                  height: 150.0,
                                                                                                   decoration: BoxDecoration(
                                                                                                     color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                                                     border: Border.all(
@@ -24273,1088 +24777,659 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                   ),
                                                                                                   child: Column(
                                                                                                     mainAxisSize: MainAxisSize.max,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                                                     children: [
-                                                                                                      Row(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          Container(
-                                                                                                            width: 80.0,
-                                                                                                            decoration: BoxDecoration(
-                                                                                                              color: Colors.black,
-                                                                                                            ),
-                                                                                                            child: Column(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.end,
-                                                                                                              children: [
-                                                                                                                Column(
-                                                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                                                  children: [
-                                                                                                                    Padding(
-                                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 5.0),
-                                                                                                                      child: Row(
-                                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                                        children: [
-                                                                                                                          Padding(
-                                                                                                                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                                                                                                                            child: Container(
-                                                                                                                              width: 16.0,
-                                                                                                                              height: 50.0,
-                                                                                                                              decoration: BoxDecoration(
-                                                                                                                                color: Colors.white,
-                                                                                                                              ),
-                                                                                                                            ),
-                                                                                                                          ),
-                                                                                                                        ],
-                                                                                                                      ),
-                                                                                                                    ),
-                                                                                                                    Padding(
-                                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
-                                                                                                                      child: Row(
-                                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                                        children: [
-                                                                                                                          Container(
-                                                                                                                            width: 16.0,
-                                                                                                                            height: 50.0,
-                                                                                                                            decoration: BoxDecoration(
-                                                                                                                              color: Colors.white,
-                                                                                                                            ),
-                                                                                                                          ),
-                                                                                                                        ],
-                                                                                                                      ),
-                                                                                                                    ),
-                                                                                                                  ],
-                                                                                                                ),
-                                                                                                                Padding(
-                                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 7.0),
-                                                                                                                  child: Row(
-                                                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                                    children: [
-                                                                                                                      Column(
-                                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                                        children: [
-                                                                                                                          Text(
-                                                                                                                            getJsonField(
-                                                                                                                              _model.selectedRunway,
-                                                                                                                              r'''$.ident''',
-                                                                                                                            ).toString(),
-                                                                                                                            textAlign: TextAlign.center,
-                                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                                  ),
-                                                                                                                                  fontSize: 22.0,
-                                                                                                                                  letterSpacing: 0.0,
-                                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                                ),
-                                                                                                                          ),
-                                                                                                                        ],
-                                                                                                                      ),
-                                                                                                                    ],
-                                                                                                                  ),
-                                                                                                                ),
-                                                                                                                Padding(
-                                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 15.0),
-                                                                                                                  child: Row(
-                                                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                                    children: [
-                                                                                                                      Container(
-                                                                                                                        width: 10.0,
-                                                                                                                        height: 50.0,
-                                                                                                                        decoration: BoxDecoration(
-                                                                                                                          color: Colors.white,
-                                                                                                                        ),
-                                                                                                                      ),
-                                                                                                                      Container(
-                                                                                                                        width: 10.0,
-                                                                                                                        height: 50.0,
-                                                                                                                        decoration: BoxDecoration(
-                                                                                                                          color: Colors.white,
-                                                                                                                        ),
-                                                                                                                      ),
-                                                                                                                      Container(
-                                                                                                                        width: 10.0,
-                                                                                                                        height: 50.0,
-                                                                                                                        decoration: BoxDecoration(
-                                                                                                                          color: Colors.white,
-                                                                                                                        ),
-                                                                                                                      ),
-                                                                                                                      Container(
-                                                                                                                        width: 10.0,
-                                                                                                                        height: 50.0,
-                                                                                                                        decoration: BoxDecoration(
-                                                                                                                          color: Colors.white,
-                                                                                                                        ),
-                                                                                                                      ),
-                                                                                                                    ],
-                                                                                                                  ),
-                                                                                                                ),
-                                                                                                              ],
-                                                                                                            ),
+                                                                                                      Transform.rotate(
+                                                                                                        angle: 180.0 * (math.pi / 180),
+                                                                                                        child: Transform.rotate(
+                                                                                                          angle: 235.0 * (math.pi / 180),
+                                                                                                          child: Icon(
+                                                                                                            Icons.airplanemode_active_rounded,
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                            size: 100.0,
                                                                                                           ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                      Padding(
-                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 9.0),
-                                                                                                        child: Row(
-                                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                          children: [
-                                                                                                            Text(
-                                                                                                              'Take OFF',
-                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                    font: GoogleFonts.inter(
-                                                                                                                      fontWeight: FontWeight.bold,
-                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                    ),
-                                                                                                                    fontSize: 16.0,
-                                                                                                                    letterSpacing: 0.0,
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                            ),
-                                                                                                          ],
                                                                                                         ),
+                                                                                                      ),
+                                                                                                      Text(
+                                                                                                        'Left 45° Entry',
+                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                              font: GoogleFonts.inter(
+                                                                                                                fontWeight: FontWeight.bold,
+                                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                              ),
+                                                                                                              fontSize: 15.0,
+                                                                                                              letterSpacing: 0.0,
+                                                                                                              fontWeight: FontWeight.bold,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
                                                                                                       ),
                                                                                                     ],
                                                                                                   ),
                                                                                                 ),
                                                                                               ),
-                                                                                              Column(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Align(
-                                                                                                      alignment: AlignmentDirectional(0.0, 1.0),
-                                                                                                      child: Padding(
-                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                                                                                                        child: InkWell(
-                                                                                                          splashColor: Colors.transparent,
-                                                                                                          focusColor: Colors.transparent,
-                                                                                                          hoverColor: Colors.transparent,
-                                                                                                          highlightColor: Colors.transparent,
-                                                                                                          onTap: () async {
-                                                                                                            FFAppState().TabNumber = 1200;
-                                                                                                            safeSetState(() {});
-                                                                                                          },
-                                                                                                          child: Container(
-                                                                                                            width: 150.0,
-                                                                                                            height: 70.0,
-                                                                                                            decoration: BoxDecoration(
-                                                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                              borderRadius: BorderRadius.circular(8.0),
-                                                                                                              border: Border.all(
-                                                                                                                color: Color(0xFF2081FF),
-                                                                                                                width: 3.0,
-                                                                                                              ),
-                                                                                                            ),
-                                                                                                            child: Column(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  'WORLD TOUR',
-                                                                                                                  style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                                                        font: GoogleFonts.interTight(
-                                                                                                                          fontWeight: FontWeight.bold,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.bold,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                              ],
-                                                                                                            ),
+                                                                                              InkWell(
+                                                                                                splashColor: Colors.transparent,
+                                                                                                focusColor: Colors.transparent,
+                                                                                                hoverColor: Colors.transparent,
+                                                                                                highlightColor: Colors.transparent,
+                                                                                                onTap: () async {
+                                                                                                  if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      1.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/Q',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_x',
+                                                                                                      getJsonField(
+                                                                                                        _model.threeNMfinall,
+                                                                                                        r'''$.new_x''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_z',
+                                                                                                      getJsonField(
+                                                                                                        _model.threeNMfinall,
+                                                                                                        r'''$.new_z''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_y',
+                                                                                                      270.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/psi',
+                                                                                                      getJsonField(
+                                                                                                        _model.selectedRunway,
+                                                                                                        r'''$.bearing''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/theta',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await Future.delayed(
+                                                                                                      Duration(
+                                                                                                        milliseconds: 1000,
+                                                                                                      ),
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                  } else {
+                                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                      SnackBar(
+                                                                                                        content: Text(
+                                                                                                          'Please Try again',
+                                                                                                          style: TextStyle(
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                                        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                                      ),
+                                                                                                    );
+                                                                                                  }
+                                                                                                },
+                                                                                                child: Container(
+                                                                                                  width: 200.0,
+                                                                                                  height: 150.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                    border: Border.all(
+                                                                                                      color: Colors.white,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  child: Column(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                    children: [
+                                                                                                      Transform.rotate(
+                                                                                                        angle: 180.0 * (math.pi / 180),
+                                                                                                        child: Transform.rotate(
+                                                                                                          angle: 180.0 * (math.pi / 180),
+                                                                                                          child: Icon(
+                                                                                                            Icons.airplanemode_active_rounded,
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                            size: 100.0,
                                                                                                           ),
                                                                                                         ),
                                                                                                       ),
+                                                                                                      Text(
+                                                                                                        '3 NM Final',
+                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                              font: GoogleFonts.inter(
+                                                                                                                fontWeight: FontWeight.bold,
+                                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                              ),
+                                                                                                              fontSize: 15.0,
+                                                                                                              letterSpacing: 0.0,
+                                                                                                              fontWeight: FontWeight.bold,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                              InkWell(
+                                                                                                splashColor: Colors.transparent,
+                                                                                                focusColor: Colors.transparent,
+                                                                                                hoverColor: Colors.transparent,
+                                                                                                highlightColor: Colors.transparent,
+                                                                                                onTap: () async {
+                                                                                                  if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      1.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/Q',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_x',
+                                                                                                      getJsonField(
+                                                                                                        _model.left45,
+                                                                                                        r'''$.new_x''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_z',
+                                                                                                      getJsonField(
+                                                                                                        _model.left45,
+                                                                                                        r'''$.new_z''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_y',
+                                                                                                      500.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/psi',
+                                                                                                      (((getJsonField(
+                                                                                                                        _model.selectedRunway,
+                                                                                                                        r'''$.bearing''',
+                                                                                                                      ) -
+                                                                                                                      45) %
+                                                                                                                  360)
+                                                                                                              .toInt())
+                                                                                                          .toDouble(),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/theta',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await Future.delayed(
+                                                                                                      Duration(
+                                                                                                        milliseconds: 1000,
+                                                                                                      ),
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                  } else {
+                                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                      SnackBar(
+                                                                                                        content: Text(
+                                                                                                          'Please Try again',
+                                                                                                          style: TextStyle(
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                                        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                                      ),
+                                                                                                    );
+                                                                                                  }
+                                                                                                },
+                                                                                                child: Container(
+                                                                                                  width: 200.0,
+                                                                                                  height: 150.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                    border: Border.all(
+                                                                                                      color: Colors.white,
                                                                                                     ),
                                                                                                   ),
-                                                                                                  InkWell(
-                                                                                                    splashColor: Colors.transparent,
-                                                                                                    focusColor: Colors.transparent,
-                                                                                                    hoverColor: Colors.transparent,
-                                                                                                    highlightColor: Colors.transparent,
-                                                                                                    onTap: () async {
-                                                                                                      if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
-                                                                                                        await actions.setXPlaneDataRef(
-                                                                                                          'sim/operation/override/override_planepath[0]',
-                                                                                                          1.0,
-                                                                                                          FFAppState().ipPC,
-                                                                                                        );
-                                                                                                        await actions.setXPlaneDataRef(
-                                                                                                          'sim/flightmodel/position/Q',
-                                                                                                          0.0,
-                                                                                                          FFAppState().ipPC,
-                                                                                                        );
-                                                                                                        await actions.setXPlaneDataRef(
-                                                                                                          'sim/flightmodel/position/local_x',
-                                                                                                          getJsonField(
-                                                                                                            _model.rightDownwind,
-                                                                                                            r'''$.new_x''',
+                                                                                                  child: Column(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                    children: [
+                                                                                                      Transform.rotate(
+                                                                                                        angle: 180.0 * (math.pi / 180),
+                                                                                                        child: Transform.rotate(
+                                                                                                          angle: 135.0 * (math.pi / 180),
+                                                                                                          child: Icon(
+                                                                                                            Icons.airplanemode_active_rounded,
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                            size: 100.0,
                                                                                                           ),
-                                                                                                          FFAppState().ipPC,
-                                                                                                        );
-                                                                                                        await actions.setXPlaneDataRef(
-                                                                                                          'sim/flightmodel/position/local_z',
-                                                                                                          getJsonField(
-                                                                                                            _model.rightDownwind,
-                                                                                                            r'''$.new_z''',
-                                                                                                          ),
-                                                                                                          FFAppState().ipPC,
-                                                                                                        );
-                                                                                                        await actions.setXPlaneDataRef(
-                                                                                                          'sim/flightmodel/position/local_y',
-                                                                                                          430.0,
-                                                                                                          FFAppState().ipPC,
-                                                                                                        );
-                                                                                                        await actions.setXPlaneDataRef(
-                                                                                                          'sim/flightmodel/position/psi',
-                                                                                                          (((getJsonField(
-                                                                                                                            _model.selectedRunway,
-                                                                                                                            r'''$.bearing''',
-                                                                                                                          ) -
-                                                                                                                          180) %
-                                                                                                                      360)
-                                                                                                                  .toInt())
-                                                                                                              .toDouble(),
-                                                                                                          FFAppState().ipPC,
-                                                                                                        );
-                                                                                                        await actions.setXPlaneDataRef(
-                                                                                                          'sim/flightmodel/position/theta',
-                                                                                                          0.0,
-                                                                                                          FFAppState().ipPC,
-                                                                                                        );
-                                                                                                        await Future.delayed(
-                                                                                                          Duration(
-                                                                                                            milliseconds: 2000,
-                                                                                                          ),
-                                                                                                        );
-                                                                                                        await actions.setXPlaneDataRef(
-                                                                                                          'sim/operation/override/override_planepath[0]',
-                                                                                                          0.0,
-                                                                                                          FFAppState().ipPC,
-                                                                                                        );
-                                                                                                      } else {
-                                                                                                        ScaffoldMessenger.of(context).showSnackBar(
-                                                                                                          SnackBar(
-                                                                                                            content: Text(
-                                                                                                              'Please Try again',
-                                                                                                              style: TextStyle(
-                                                                                                                color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                              ),
-                                                                                                            ),
-                                                                                                            duration: Duration(milliseconds: 4000),
-                                                                                                            backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                                          ),
-                                                                                                        );
-                                                                                                      }
-                                                                                                    },
-                                                                                                    child: Container(
-                                                                                                      width: 200.0,
-                                                                                                      height: 150.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                        border: Border.all(
-                                                                                                          color: Colors.white,
                                                                                                         ),
                                                                                                       ),
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                        children: [
-                                                                                                          Transform.rotate(
-                                                                                                            angle: 180.0 * (math.pi / 180),
-                                                                                                            child: Icon(
-                                                                                                              Icons.airplanemode_active_rounded,
-                                                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                              size: 100.0,
+                                                                                                      Text(
+                                                                                                        'Right 45° Entry',
+                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                              font: GoogleFonts.inter(
+                                                                                                                fontWeight: FontWeight.bold,
+                                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                              ),
+                                                                                                              fontSize: 15.0,
+                                                                                                              letterSpacing: 0.0,
+                                                                                                              fontWeight: FontWeight.bold,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                             ),
-                                                                                                          ),
-                                                                                                          Text(
-                                                                                                            'Right Dowinwind',
-                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                  font: GoogleFonts.inter(
-                                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                  ),
-                                                                                                                  fontSize: 15.0,
-                                                                                                                  letterSpacing: 0.0,
-                                                                                                                  fontWeight: FontWeight.bold,
-                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                ),
-                                                                                                          ),
-                                                                                                        ],
                                                                                                       ),
-                                                                                                    ),
+                                                                                                    ],
                                                                                                   ),
-                                                                                                ],
+                                                                                                ),
                                                                                               ),
                                                                                             ],
                                                                                           ),
                                                                                         ),
                                                                                       ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
-                                                                                      child: SingleChildScrollView(
-                                                                                        scrollDirection: Axis.horizontal,
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                          children: [
-                                                                                            InkWell(
-                                                                                              splashColor: Colors.transparent,
-                                                                                              focusColor: Colors.transparent,
-                                                                                              hoverColor: Colors.transparent,
-                                                                                              highlightColor: Colors.transparent,
-                                                                                              onTap: () async {
-                                                                                                if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    1.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/Q',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_x',
-                                                                                                    getJsonField(
-                                                                                                      _model.right45,
-                                                                                                      r'''$.new_x''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_z',
-                                                                                                    getJsonField(
-                                                                                                      _model.right45,
-                                                                                                      r'''$.new_z''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_y',
-                                                                                                    500.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/psi',
-                                                                                                    (((getJsonField(
-                                                                                                                      _model.selectedRunway,
-                                                                                                                      r'''$.bearing''',
-                                                                                                                    ) +
-                                                                                                                    45) %
-                                                                                                                360)
-                                                                                                            .toInt())
-                                                                                                        .toDouble(),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/theta',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await Future.delayed(
-                                                                                                    Duration(
-                                                                                                      milliseconds: 1000,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                } else {
-                                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                                    SnackBar(
-                                                                                                      content: Text(
-                                                                                                        'Please Try again',
-                                                                                                        style: TextStyle(
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                        ),
+                                                                                      Padding(
+                                                                                        padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                                                                                        child: SingleChildScrollView(
+                                                                                          scrollDirection: Axis.horizontal,
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                            children: [
+                                                                                              InkWell(
+                                                                                                splashColor: Colors.transparent,
+                                                                                                focusColor: Colors.transparent,
+                                                                                                hoverColor: Colors.transparent,
+                                                                                                highlightColor: Colors.transparent,
+                                                                                                onTap: () async {
+                                                                                                  if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      1.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/Q',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_x',
+                                                                                                      getJsonField(
+                                                                                                        _model.rightBase,
+                                                                                                        r'''$.new_x''',
                                                                                                       ),
-                                                                                                      duration: Duration(milliseconds: 4000),
-                                                                                                      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                }
-                                                                                              },
-                                                                                              child: Container(
-                                                                                                width: 200.0,
-                                                                                                height: 150.0,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                  border: Border.all(
-                                                                                                    color: Colors.white,
-                                                                                                  ),
-                                                                                                ),
-                                                                                                child: Column(
-                                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                  children: [
-                                                                                                    Transform.rotate(
-                                                                                                      angle: 180.0 * (math.pi / 180),
-                                                                                                      child: Transform.rotate(
-                                                                                                        angle: 235.0 * (math.pi / 180),
-                                                                                                        child: Icon(
-                                                                                                          Icons.airplanemode_active_rounded,
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                          size: 100.0,
-                                                                                                        ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_z',
+                                                                                                      getJsonField(
+                                                                                                        _model.rightBase,
+                                                                                                        r'''$.new_z''',
                                                                                                       ),
-                                                                                                    ),
-                                                                                                    Text(
-                                                                                                      'Left 45° Entry',
-                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                            font: GoogleFonts.inter(
-                                                                                                              fontWeight: FontWeight.bold,
-                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                            ),
-                                                                                                            fontSize: 15.0,
-                                                                                                            letterSpacing: 0.0,
-                                                                                                            fontWeight: FontWeight.bold,
-                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_y',
+                                                                                                      550.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/psi',
+                                                                                                      (((getJsonField(
+                                                                                                                        _model.selectedRunway,
+                                                                                                                        r'''$.bearing''',
+                                                                                                                      ) -
+                                                                                                                      90) %
+                                                                                                                  360)
+                                                                                                              .toInt())
+                                                                                                          .toDouble(),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/theta',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await Future.delayed(
+                                                                                                      Duration(
+                                                                                                        milliseconds: 1000,
+                                                                                                      ),
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                  } else {
+                                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                      SnackBar(
+                                                                                                        content: Text(
+                                                                                                          'Please Try again',
+                                                                                                          style: TextStyle(
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
                                                                                                           ),
-                                                                                                    ),
-                                                                                                  ],
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                            InkWell(
-                                                                                              splashColor: Colors.transparent,
-                                                                                              focusColor: Colors.transparent,
-                                                                                              hoverColor: Colors.transparent,
-                                                                                              highlightColor: Colors.transparent,
-                                                                                              onTap: () async {
-                                                                                                if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    1.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/Q',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_x',
-                                                                                                    getJsonField(
-                                                                                                      _model.threeNMfinall,
-                                                                                                      r'''$.new_x''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_z',
-                                                                                                    getJsonField(
-                                                                                                      _model.threeNMfinall,
-                                                                                                      r'''$.new_z''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_y',
-                                                                                                    270.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/psi',
-                                                                                                    getJsonField(
-                                                                                                      _model.selectedRunway,
-                                                                                                      r'''$.bearing''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/theta',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await Future.delayed(
-                                                                                                    Duration(
-                                                                                                      milliseconds: 1000,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                } else {
-                                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                                    SnackBar(
-                                                                                                      content: Text(
-                                                                                                        'Please Try again',
-                                                                                                        style: TextStyle(
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
                                                                                                         ),
+                                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                                        backgroundColor: FlutterFlowTheme.of(context).primaryText,
                                                                                                       ),
-                                                                                                      duration: Duration(milliseconds: 4000),
-                                                                                                      backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                                    );
+                                                                                                  }
+                                                                                                },
+                                                                                                child: Container(
+                                                                                                  width: 200.0,
+                                                                                                  height: 150.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                    border: Border.all(
+                                                                                                      color: Colors.white,
                                                                                                     ),
-                                                                                                  );
-                                                                                                }
-                                                                                              },
-                                                                                              child: Container(
-                                                                                                width: 200.0,
-                                                                                                height: 150.0,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                  border: Border.all(
-                                                                                                    color: Colors.white,
                                                                                                   ),
-                                                                                                ),
-                                                                                                child: Column(
-                                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                  children: [
-                                                                                                    Transform.rotate(
-                                                                                                      angle: 180.0 * (math.pi / 180),
-                                                                                                      child: Transform.rotate(
+                                                                                                  child: Column(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                    children: [
+                                                                                                      Transform.rotate(
                                                                                                         angle: 180.0 * (math.pi / 180),
-                                                                                                        child: Icon(
-                                                                                                          Icons.airplanemode_active_rounded,
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                          size: 100.0,
+                                                                                                        child: Transform.rotate(
+                                                                                                          angle: 270.0 * (math.pi / 180),
+                                                                                                          child: Icon(
+                                                                                                            Icons.airplanemode_active_rounded,
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                            size: 100.0,
+                                                                                                          ),
                                                                                                         ),
                                                                                                       ),
-                                                                                                    ),
-                                                                                                    Text(
-                                                                                                      '3 NM Final',
-                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                            font: GoogleFonts.inter(
+                                                                                                      Text(
+                                                                                                        'Left Base',
+                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                              font: GoogleFonts.inter(
+                                                                                                                fontWeight: FontWeight.bold,
+                                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                              ),
+                                                                                                              fontSize: 15.0,
+                                                                                                              letterSpacing: 0.0,
                                                                                                               fontWeight: FontWeight.bold,
                                                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                             ),
-                                                                                                            fontSize: 15.0,
-                                                                                                            letterSpacing: 0.0,
-                                                                                                            fontWeight: FontWeight.bold,
-                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                          ),
-                                                                                                    ),
-                                                                                                  ],
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                            InkWell(
-                                                                                              splashColor: Colors.transparent,
-                                                                                              focusColor: Colors.transparent,
-                                                                                              hoverColor: Colors.transparent,
-                                                                                              highlightColor: Colors.transparent,
-                                                                                              onTap: () async {
-                                                                                                if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    1.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/Q',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_x',
-                                                                                                    getJsonField(
-                                                                                                      _model.left45,
-                                                                                                      r'''$.new_x''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_z',
-                                                                                                    getJsonField(
-                                                                                                      _model.left45,
-                                                                                                      r'''$.new_z''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_y',
-                                                                                                    500.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/psi',
-                                                                                                    (((getJsonField(
-                                                                                                                      _model.selectedRunway,
-                                                                                                                      r'''$.bearing''',
-                                                                                                                    ) -
-                                                                                                                    45) %
-                                                                                                                360)
-                                                                                                            .toInt())
-                                                                                                        .toDouble(),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/theta',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await Future.delayed(
-                                                                                                    Duration(
-                                                                                                      milliseconds: 1000,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                } else {
-                                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                                    SnackBar(
-                                                                                                      content: Text(
-                                                                                                        'Please Try again',
-                                                                                                        style: TextStyle(
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                        ),
                                                                                                       ),
-                                                                                                      duration: Duration(milliseconds: 4000),
-                                                                                                      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                }
-                                                                                              },
-                                                                                              child: Container(
-                                                                                                width: 200.0,
-                                                                                                height: 150.0,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                  border: Border.all(
-                                                                                                    color: Colors.white,
+                                                                                                    ],
                                                                                                   ),
                                                                                                 ),
-                                                                                                child: Column(
-                                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                  children: [
-                                                                                                    Transform.rotate(
-                                                                                                      angle: 180.0 * (math.pi / 180),
-                                                                                                      child: Transform.rotate(
-                                                                                                        angle: 135.0 * (math.pi / 180),
-                                                                                                        child: Icon(
-                                                                                                          Icons.airplanemode_active_rounded,
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                          size: 100.0,
+                                                                                              ),
+                                                                                              InkWell(
+                                                                                                splashColor: Colors.transparent,
+                                                                                                focusColor: Colors.transparent,
+                                                                                                hoverColor: Colors.transparent,
+                                                                                                highlightColor: Colors.transparent,
+                                                                                                onTap: () async {
+                                                                                                  if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      1.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/Q',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_x',
+                                                                                                      getJsonField(
+                                                                                                        _model.tenNMfinall,
+                                                                                                        r'''$.new_x''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_z',
+                                                                                                      getJsonField(
+                                                                                                        _model.tenNMfinall,
+                                                                                                        r'''$.new_z''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_y',
+                                                                                                      915.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/psi',
+                                                                                                      getJsonField(
+                                                                                                        _model.selectedRunway,
+                                                                                                        r'''$.bearing''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/theta',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await Future.delayed(
+                                                                                                      Duration(
+                                                                                                        milliseconds: 1000,
+                                                                                                      ),
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                  } else {
+                                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                      SnackBar(
+                                                                                                        content: Text(
+                                                                                                          'Please Try again',
+                                                                                                          style: TextStyle(
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                                        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                                      ),
+                                                                                                    );
+                                                                                                  }
+                                                                                                },
+                                                                                                child: Container(
+                                                                                                  width: 200.0,
+                                                                                                  height: 150.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                    border: Border.all(
+                                                                                                      color: Colors.white,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  child: Column(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                    children: [
+                                                                                                      Transform.rotate(
+                                                                                                        angle: 180.0 * (math.pi / 180),
+                                                                                                        child: Transform.rotate(
+                                                                                                          angle: 180.0 * (math.pi / 180),
+                                                                                                          child: Icon(
+                                                                                                            Icons.airplanemode_active_rounded,
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                            size: 100.0,
+                                                                                                          ),
                                                                                                         ),
                                                                                                       ),
-                                                                                                    ),
-                                                                                                    Text(
-                                                                                                      'Right 45° Entry',
-                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                            font: GoogleFonts.inter(
+                                                                                                      Text(
+                                                                                                        '10 NM Final',
+                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                              font: GoogleFonts.inter(
+                                                                                                                fontWeight: FontWeight.bold,
+                                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                              ),
+                                                                                                              fontSize: 15.0,
+                                                                                                              letterSpacing: 0.0,
                                                                                                               fontWeight: FontWeight.bold,
                                                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                             ),
-                                                                                                            fontSize: 15.0,
-                                                                                                            letterSpacing: 0.0,
-                                                                                                            fontWeight: FontWeight.bold,
-                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                          ),
-                                                                                                    ),
-                                                                                                  ],
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
                                                                                                 ),
                                                                                               ),
-                                                                                            ),
-                                                                                          ],
+                                                                                              InkWell(
+                                                                                                splashColor: Colors.transparent,
+                                                                                                focusColor: Colors.transparent,
+                                                                                                hoverColor: Colors.transparent,
+                                                                                                highlightColor: Colors.transparent,
+                                                                                                onTap: () async {
+                                                                                                  if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      1.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/Q',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_x',
+                                                                                                      getJsonField(
+                                                                                                        _model.leftbase,
+                                                                                                        r'''$.new_x''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_z',
+                                                                                                      getJsonField(
+                                                                                                        _model.leftbase,
+                                                                                                        r'''$.new_z''',
+                                                                                                      ),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/local_y',
+                                                                                                      550.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/psi',
+                                                                                                      (((getJsonField(
+                                                                                                                        _model.selectedRunway,
+                                                                                                                        r'''$.bearing''',
+                                                                                                                      ) +
+                                                                                                                      90) %
+                                                                                                                  360)
+                                                                                                              .toInt())
+                                                                                                          .toDouble(),
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/flightmodel/position/theta',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                    await Future.delayed(
+                                                                                                      Duration(
+                                                                                                        milliseconds: 1000,
+                                                                                                      ),
+                                                                                                    );
+                                                                                                    await actions.setXPlaneDataRef(
+                                                                                                      'sim/operation/override/override_planepath[0]',
+                                                                                                      0.0,
+                                                                                                      FFAppState().ipPC,
+                                                                                                    );
+                                                                                                  } else {
+                                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                      SnackBar(
+                                                                                                        content: Text(
+                                                                                                          'Please Try again',
+                                                                                                          style: TextStyle(
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                                        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                                      ),
+                                                                                                    );
+                                                                                                  }
+                                                                                                },
+                                                                                                child: Container(
+                                                                                                  width: 200.0,
+                                                                                                  height: 150.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                    border: Border.all(
+                                                                                                      color: Colors.white,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  child: Column(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                    children: [
+                                                                                                      Transform.rotate(
+                                                                                                        angle: 180.0 * (math.pi / 180),
+                                                                                                        child: Transform.rotate(
+                                                                                                          angle: 90.0 * (math.pi / 180),
+                                                                                                          child: Icon(
+                                                                                                            Icons.airplanemode_active_rounded,
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                            size: 100.0,
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      Text(
+                                                                                                        'Right Bse',
+                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                              font: GoogleFonts.inter(
+                                                                                                                fontWeight: FontWeight.bold,
+                                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                              ),
+                                                                                                              fontSize: 15.0,
+                                                                                                              letterSpacing: 0.0,
+                                                                                                              fontWeight: FontWeight.bold,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
                                                                                         ),
                                                                                       ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
-                                                                                      child: SingleChildScrollView(
-                                                                                        scrollDirection: Axis.horizontal,
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                          children: [
-                                                                                            InkWell(
-                                                                                              splashColor: Colors.transparent,
-                                                                                              focusColor: Colors.transparent,
-                                                                                              hoverColor: Colors.transparent,
-                                                                                              highlightColor: Colors.transparent,
-                                                                                              onTap: () async {
-                                                                                                if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    1.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/Q',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_x',
-                                                                                                    getJsonField(
-                                                                                                      _model.rightBase,
-                                                                                                      r'''$.new_x''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_z',
-                                                                                                    getJsonField(
-                                                                                                      _model.rightBase,
-                                                                                                      r'''$.new_z''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_y',
-                                                                                                    550.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/psi',
-                                                                                                    (((getJsonField(
-                                                                                                                      _model.selectedRunway,
-                                                                                                                      r'''$.bearing''',
-                                                                                                                    ) -
-                                                                                                                    90) %
-                                                                                                                360)
-                                                                                                            .toInt())
-                                                                                                        .toDouble(),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/theta',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await Future.delayed(
-                                                                                                    Duration(
-                                                                                                      milliseconds: 1000,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                } else {
-                                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                                    SnackBar(
-                                                                                                      content: Text(
-                                                                                                        'Please Try again',
-                                                                                                        style: TextStyle(
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      duration: Duration(milliseconds: 4000),
-                                                                                                      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                }
-                                                                                              },
-                                                                                              child: Container(
-                                                                                                width: 200.0,
-                                                                                                height: 150.0,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                  border: Border.all(
-                                                                                                    color: Colors.white,
-                                                                                                  ),
-                                                                                                ),
-                                                                                                child: Column(
-                                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                  children: [
-                                                                                                    Transform.rotate(
-                                                                                                      angle: 180.0 * (math.pi / 180),
-                                                                                                      child: Transform.rotate(
-                                                                                                        angle: 270.0 * (math.pi / 180),
-                                                                                                        child: Icon(
-                                                                                                          Icons.airplanemode_active_rounded,
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                          size: 100.0,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                    Text(
-                                                                                                      'Left Base',
-                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                            font: GoogleFonts.inter(
-                                                                                                              fontWeight: FontWeight.bold,
-                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                            ),
-                                                                                                            fontSize: 15.0,
-                                                                                                            letterSpacing: 0.0,
-                                                                                                            fontWeight: FontWeight.bold,
-                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                          ),
-                                                                                                    ),
-                                                                                                  ],
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                            InkWell(
-                                                                                              splashColor: Colors.transparent,
-                                                                                              focusColor: Colors.transparent,
-                                                                                              hoverColor: Colors.transparent,
-                                                                                              highlightColor: Colors.transparent,
-                                                                                              onTap: () async {
-                                                                                                if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    1.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/Q',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_x',
-                                                                                                    getJsonField(
-                                                                                                      _model.tenNMfinall,
-                                                                                                      r'''$.new_x''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_z',
-                                                                                                    getJsonField(
-                                                                                                      _model.tenNMfinall,
-                                                                                                      r'''$.new_z''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_y',
-                                                                                                    915.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/psi',
-                                                                                                    getJsonField(
-                                                                                                      _model.selectedRunway,
-                                                                                                      r'''$.bearing''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/theta',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await Future.delayed(
-                                                                                                    Duration(
-                                                                                                      milliseconds: 1000,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                } else {
-                                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                                    SnackBar(
-                                                                                                      content: Text(
-                                                                                                        'Please Try again',
-                                                                                                        style: TextStyle(
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      duration: Duration(milliseconds: 4000),
-                                                                                                      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                }
-                                                                                              },
-                                                                                              child: Container(
-                                                                                                width: 200.0,
-                                                                                                height: 150.0,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                  border: Border.all(
-                                                                                                    color: Colors.white,
-                                                                                                  ),
-                                                                                                ),
-                                                                                                child: Column(
-                                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                  children: [
-                                                                                                    Transform.rotate(
-                                                                                                      angle: 180.0 * (math.pi / 180),
-                                                                                                      child: Transform.rotate(
-                                                                                                        angle: 180.0 * (math.pi / 180),
-                                                                                                        child: Icon(
-                                                                                                          Icons.airplanemode_active_rounded,
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                          size: 100.0,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                    Text(
-                                                                                                      '10 NM Final',
-                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                            font: GoogleFonts.inter(
-                                                                                                              fontWeight: FontWeight.bold,
-                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                            ),
-                                                                                                            fontSize: 15.0,
-                                                                                                            letterSpacing: 0.0,
-                                                                                                            fontWeight: FontWeight.bold,
-                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                          ),
-                                                                                                    ),
-                                                                                                  ],
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                            InkWell(
-                                                                                              splashColor: Colors.transparent,
-                                                                                              focusColor: Colors.transparent,
-                                                                                              hoverColor: Colors.transparent,
-                                                                                              highlightColor: Colors.transparent,
-                                                                                              onTap: () async {
-                                                                                                if ((FFAppState().currentLAT != 0.0) && (FFAppState().currentLON != 0.0) && (FFAppState().currentX != 0.0) && (FFAppState().currentZ != 0.0)) {
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    1.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/Q',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_x',
-                                                                                                    getJsonField(
-                                                                                                      _model.leftbase,
-                                                                                                      r'''$.new_x''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_z',
-                                                                                                    getJsonField(
-                                                                                                      _model.leftbase,
-                                                                                                      r'''$.new_z''',
-                                                                                                    ),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/local_y',
-                                                                                                    550.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/psi',
-                                                                                                    (((getJsonField(
-                                                                                                                      _model.selectedRunway,
-                                                                                                                      r'''$.bearing''',
-                                                                                                                    ) +
-                                                                                                                    90) %
-                                                                                                                360)
-                                                                                                            .toInt())
-                                                                                                        .toDouble(),
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/flightmodel/position/theta',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                  await Future.delayed(
-                                                                                                    Duration(
-                                                                                                      milliseconds: 1000,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                  await actions.setXPlaneDataRef(
-                                                                                                    'sim/operation/override/override_planepath[0]',
-                                                                                                    0.0,
-                                                                                                    FFAppState().ipPC,
-                                                                                                  );
-                                                                                                } else {
-                                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                                    SnackBar(
-                                                                                                      content: Text(
-                                                                                                        'Please Try again',
-                                                                                                        style: TextStyle(
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                      duration: Duration(milliseconds: 4000),
-                                                                                                      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                                    ),
-                                                                                                  );
-                                                                                                }
-                                                                                              },
-                                                                                              child: Container(
-                                                                                                width: 200.0,
-                                                                                                height: 150.0,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                  border: Border.all(
-                                                                                                    color: Colors.white,
-                                                                                                  ),
-                                                                                                ),
-                                                                                                child: Column(
-                                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                                  children: [
-                                                                                                    Transform.rotate(
-                                                                                                      angle: 180.0 * (math.pi / 180),
-                                                                                                      child: Transform.rotate(
-                                                                                                        angle: 90.0 * (math.pi / 180),
-                                                                                                        child: Icon(
-                                                                                                          Icons.airplanemode_active_rounded,
-                                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                          size: 100.0,
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                    Text(
-                                                                                                      'Right Bse',
-                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                            font: GoogleFonts.inter(
-                                                                                                              fontWeight: FontWeight.bold,
-                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                            ),
-                                                                                                            fontSize: 15.0,
-                                                                                                            letterSpacing: 0.0,
-                                                                                                            fontWeight: FontWeight.bold,
-                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                          ),
-                                                                                                    ),
-                                                                                                  ],
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
+                                                                                    ],
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ],
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ],
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -26874,7 +26949,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                         0.0,
                                                                         0.0),
                                                             color: Color(
-                                                                0xFF100073),
+                                                                0xFF2081FF),
                                                             textStyle:
                                                                 FlutterFlowTheme.of(
                                                                         context)
@@ -26906,7 +26981,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        8.0),
+                                                                        15.0),
                                                           ),
                                                         ),
                                                       ),
@@ -28180,7 +28255,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                           0.0,
                                                                           0.0),
                                                               color: Color(
-                                                                  0xFF100073),
+                                                                  0xFF2081FF),
                                                               textStyle:
                                                                   FlutterFlowTheme.of(
                                                                           context)
@@ -28210,7 +28285,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          15.0),
                                                             ),
                                                           ),
                                                         ),
@@ -40431,77 +40506,45 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
                                           children: [
-                                            if (responsiveVisibility(
-                                              context: context,
-                                              phone: false,
-                                              tablet: false,
-                                              tabletLandscape: false,
-                                              desktop: false,
-                                            ))
-                                              Expanded(
-                                                child: Container(
-                                                  width: double.infinity,
-                                                  height: double.infinity,
-                                                  child: custom_widgets
-                                                      .AircraftFuelWeightController(
-                                                    width: double.infinity,
-                                                    height: double.infinity,
-                                                    onLeftTank0: () async {},
-                                                    onLeftTank25: () async {},
-                                                    onLeftTank50: () async {},
-                                                    onLeftTank75: () async {},
-                                                    onLeftTank100: () async {},
-                                                    onCenterTank0: () async {},
-                                                    onCenterTank25: () async {},
-                                                    onCenterTank50: () async {},
-                                                    onCenterTank75: () async {},
-                                                    onCenterTank100:
-                                                        () async {},
-                                                    onRightTank0: () async {},
-                                                    onRightTank25: () async {},
-                                                    onRightTank50: () async {},
-                                                    onRightTank75: () async {},
-                                                    onRightTank100: () async {},
-                                                    onLeftSliderChanged:
-                                                        () async {},
-                                                    onCenterSliderChanged:
-                                                        () async {},
-                                                    onRightSliderChanged:
-                                                        () async {},
-                                                    onPilotWeightSubmitted:
-                                                        () async {},
-                                                    onCoPilotWeightSubmitted:
-                                                        () async {},
-                                                    onRearPassengerWeightSubmitted:
-                                                        () async {},
-                                                    onBaggageWeightSubmitted:
-                                                        () async {},
-                                                    onExtraCargoWeightSubmitted:
-                                                        () async {},
-                                                  ),
-                                                ),
-                                              ),
                                             Expanded(
                                               child: Container(
                                                 width: double.infinity,
                                                 height: double.infinity,
                                                 child: custom_widgets
-                                                    .PlaneTeleportMap(
+                                                    .AircraftFuelWeightController(
                                                   width: double.infinity,
                                                   height: double.infinity,
-                                                  onLocationSelected:
-                                                      (selectedLatitude,
-                                                          selectedLongitude) async {
-                                                    await actions
-                                                        .sendTeleportRequest(
-                                                      '192.168.1.115',
-                                                      selectedLatitude!,
-                                                      selectedLongitude!,
-                                                      2000.0,
-                                                      050.0,
-                                                      200.0,
-                                                    );
-                                                  },
+                                                  onLeftTank0: () async {},
+                                                  onLeftTank25: () async {},
+                                                  onLeftTank50: () async {},
+                                                  onLeftTank75: () async {},
+                                                  onLeftTank100: () async {},
+                                                  onCenterTank0: () async {},
+                                                  onCenterTank25: () async {},
+                                                  onCenterTank50: () async {},
+                                                  onCenterTank75: () async {},
+                                                  onCenterTank100: () async {},
+                                                  onRightTank0: () async {},
+                                                  onRightTank25: () async {},
+                                                  onRightTank50: () async {},
+                                                  onRightTank75: () async {},
+                                                  onRightTank100: () async {},
+                                                  onLeftSliderChanged:
+                                                      () async {},
+                                                  onCenterSliderChanged:
+                                                      () async {},
+                                                  onRightSliderChanged:
+                                                      () async {},
+                                                  onPilotWeightSubmitted:
+                                                      () async {},
+                                                  onCoPilotWeightSubmitted:
+                                                      () async {},
+                                                  onRearPassengerWeightSubmitted:
+                                                      () async {},
+                                                  onBaggageWeightSubmitted:
+                                                      () async {},
+                                                  onExtraCargoWeightSubmitted:
+                                                      () async {},
                                                 ),
                                               ),
                                             ),
