@@ -24503,7 +24503,16 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                             _model.selectedRunway,
                                                                                                             r'''$.ends[0].lon''',
                                                                                                           ),
-                                                                                                          250.0,
+                                                                                                          valueOrDefault<double>(
+                                                                                                            ((getJsonField(
+                                                                                                                          _model.selectedRunway,
+                                                                                                                          r'''$.bearing''',
+                                                                                                                        ) -
+                                                                                                                        180) %
+                                                                                                                    360)
+                                                                                                                .toDouble(),
+                                                                                                            0.0,
+                                                                                                          ),
                                                                                                           1000.0,
                                                                                                           'right_downwind',
                                                                                                           double.tryParse(_model.textFieldSpeedEntryTextController.text),
