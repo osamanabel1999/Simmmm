@@ -23306,10 +23306,13 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                 ),
                                                                               ),
                                                                               Text(
-                                                                                getJsonField(
-                                                                                  _model.selectedRunway,
-                                                                                  r'''$.ends[0].lat''',
-                                                                                ).toString(),
+                                                                                valueOrDefault<String>(
+                                                                                  getJsonField(
+                                                                                    _model.selectedRunway,
+                                                                                    r'''$.ends[0].lat''',
+                                                                                  )?.toString(),
+                                                                                  '-',
+                                                                                ),
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       font: GoogleFonts.inter(
                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -23321,10 +23324,13 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                     ),
                                                                               ),
                                                                               Text(
-                                                                                getJsonField(
-                                                                                  _model.selectedRunway,
-                                                                                  r'''$.ends[0].lon''',
-                                                                                ).toString(),
+                                                                                valueOrDefault<String>(
+                                                                                  getJsonField(
+                                                                                    _model.selectedRunway,
+                                                                                    r'''$.ends[0].lon''',
+                                                                                  )?.toString(),
+                                                                                  '-',
+                                                                                ),
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       font: GoogleFonts.inter(
                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -23336,14 +23342,17 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                     ),
                                                                               ),
                                                                               Text(
-                                                                                (((getJsonField(
-                                                                                                  _model.selectedRunway,
-                                                                                                  r'''$.bearing''',
-                                                                                                ) -
-                                                                                                180) %
-                                                                                            360)
-                                                                                        .toInt())
-                                                                                    .toString(),
+                                                                                valueOrDefault<String>(
+                                                                                  (((getJsonField(
+                                                                                                    _model.selectedRunway,
+                                                                                                    r'''$.bearing''',
+                                                                                                  ) -
+                                                                                                  180) %
+                                                                                              360)
+                                                                                          .toInt())
+                                                                                      .toString(),
+                                                                                  '-',
+                                                                                ),
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       font: GoogleFonts.inter(
                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
