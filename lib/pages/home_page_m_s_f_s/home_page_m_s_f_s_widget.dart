@@ -24125,28 +24125,10 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                         onTap: () async {
                                                                                                           await actions.patternTeleporter(
                                                                                                             FFAppState().ipPC,
-                                                                                                            getJsonField(
-                                                                                                              _model.selectedRunway,
-                                                                                                              r'''$.ends[0].lat''',
-                                                                                                            ),
-                                                                                                            getJsonField(
-                                                                                                              _model.selectedRunway,
-                                                                                                              r'''$.ends[0].lon''',
-                                                                                                            ),
-                                                                                                            (((getJsonField(
-                                                                                                                              _model.selectedRunway,
-                                                                                                                              r'''$.bearing''',
-                                                                                                                            ) -
-                                                                                                                            180) %
-                                                                                                                        360)
-                                                                                                                    .toInt())
-                                                                                                                .toDouble(),
-                                                                                                            ((double? elevation) {
-                                                                                                              return elevation != null ? elevation + 1000.0 : null;
-                                                                                                            }(getJsonField(
-                                                                                                              _model.selectedRunway,
-                                                                                                              r'''$.elevation''',
-                                                                                                            )))!,
+                                                                                                            31.0,
+                                                                                                            29.0,
+                                                                                                            250.0,
+                                                                                                            1300.0,
                                                                                                             'left_downwind',
                                                                                                             double.tryParse(_model.textFieldSpeedEntryTextController.text),
                                                                                                           );
