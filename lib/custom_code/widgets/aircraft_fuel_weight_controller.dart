@@ -56,14 +56,18 @@ class AircraftFuelWeightController extends StatefulWidget {
   final Future Function()? onRightTank50;
   final Future Function()? onRightTank75;
   final Future Function()? onRightTank100;
-  final Future Function()? onLeftSliderChanged;
-  final Future Function()? onCenterSliderChanged;
-  final Future Function()? onRightSliderChanged;
-  final Future Function()? onPilotWeightSubmitted;
-  final Future Function()? onCoPilotWeightSubmitted;
-  final Future Function()? onRearPassengerWeightSubmitted;
-  final Future Function()? onBaggageWeightSubmitted;
-  final Future Function()? onExtraCargoWeightSubmitted;
+
+  // Callbacks الخاصة بالسلايدرز
+  final Future Function(double leftValue)? onLeftSliderChanged;
+  final Future Function(double centerValue)? onCenterSliderChanged;
+  final Future Function(double rightValue)? onRightSliderChanged;
+
+  // تم التعديل هنا لتمرير قيمة الوزن لكل محطة
+  final Future Function(double weightLbs)? onPilotWeightSubmitted;
+  final Future Function(double weightLbs)? onCoPilotWeightSubmitted;
+  final Future Function(double weightLbs)? onRearPassengerWeightSubmitted;
+  final Future Function(double weightLbs)? onBaggageWeightSubmitted;
+  final Future Function(double weightLbs)? onExtraCargoWeightSubmitted;
 
   @override
   State<AircraftFuelWeightController> createState() =>
@@ -84,7 +88,7 @@ class _AircraftFuelWeightControllerState
 
   final Color bgColor = const Color(0xFF1D2428);
   final Color borderColor = const Color(0xFF2E3841);
-  final Color accentColor = const Color(0xFF4A55E1);
+  final Color accentColor = const Color(0xFF2081FF);
   final Color iconBgColor = const Color(0xFF242B3A);
   final Color inputBgColor = const Color(0xFF161C20);
 
@@ -144,7 +148,7 @@ class _AircraftFuelWeightControllerState
                     currentVal: leftFuelVal,
                     onChanged: (val) {
                       setState(() => leftFuelVal = val);
-                      widget.onLeftSliderChanged?.call();
+                      widget.onLeftSliderChanged?.call(val);
                     },
                     actions: [
                       widget.onLeftTank0,
@@ -162,7 +166,7 @@ class _AircraftFuelWeightControllerState
                     currentVal: centerFuelVal,
                     onChanged: (val) {
                       setState(() => centerFuelVal = val);
-                      widget.onCenterSliderChanged?.call();
+                      widget.onCenterSliderChanged?.call(val);
                     },
                     actions: [
                       widget.onCenterTank0,
@@ -180,7 +184,7 @@ class _AircraftFuelWeightControllerState
                     currentVal: rightFuelVal,
                     onChanged: (val) {
                       setState(() => rightFuelVal = val);
-                      widget.onRightSliderChanged?.call();
+                      widget.onRightSliderChanged?.call(val);
                     },
                     actions: [
                       widget.onRightTank0,
@@ -291,7 +295,7 @@ class _AircraftFuelWeightControllerState
                   currentVal: leftFuelVal,
                   onChanged: (val) {
                     setState(() => leftFuelVal = val);
-                    widget.onLeftSliderChanged?.call();
+                    widget.onLeftSliderChanged?.call(val);
                   },
                   actions: [
                     widget.onLeftTank0,
@@ -307,7 +311,7 @@ class _AircraftFuelWeightControllerState
                   currentVal: centerFuelVal,
                   onChanged: (val) {
                     setState(() => centerFuelVal = val);
-                    widget.onCenterSliderChanged?.call();
+                    widget.onCenterSliderChanged?.call(val);
                   },
                   actions: [
                     widget.onCenterTank0,
@@ -323,7 +327,7 @@ class _AircraftFuelWeightControllerState
                   currentVal: rightFuelVal,
                   onChanged: (val) {
                     setState(() => rightFuelVal = val);
-                    widget.onRightSliderChanged?.call();
+                    widget.onRightSliderChanged?.call(val);
                   },
                   actions: [
                     widget.onRightTank0,
@@ -599,8 +603,11 @@ class _AircraftFuelWeightControllerState
   }
 
   // Weight Row الآيباد (الأصلي)
-  Widget _buildWeightRow(IconData icon, String title,
-      TextEditingController controller, Future Function()? actionCallback,
+  Widget _buildWeightRow(
+      IconData icon,
+      String title,
+      TextEditingController controller,
+      Future Function(double weightLbs)? actionCallback,
       {bool isLast = false}) {
     return Container(
       margin: EdgeInsets.only(bottom: isLast ? 0 : 16),
@@ -644,7 +651,8 @@ class _AircraftFuelWeightControllerState
               ),
               onSubmitted: (val) {
                 if (actionCallback != null) {
-                  actionCallback();
+                  double weight = double.tryParse(val) ?? 0.0;
+                  actionCallback(weight);
                 }
               },
             ),
@@ -657,9 +665,12 @@ class _AircraftFuelWeightControllerState
     );
   }
 
-  // Weight Row الموبايل (حركة صايعة عشان حقل الإدخال ياخد راحته)
-  Widget _buildMobileWeightRow(IconData icon, String title,
-      TextEditingController controller, Future Function()? actionCallback,
+  // Weight Row الموبايل
+  Widget _buildMobileWeightRow(
+      IconData icon,
+      String title,
+      TextEditingController controller,
+      Future Function(double weightLbs)? actionCallback,
       {bool isLast = false}) {
     return Container(
       margin: EdgeInsets.only(bottom: isLast ? 0 : 16),
@@ -715,7 +726,8 @@ class _AircraftFuelWeightControllerState
                     ),
                     onSubmitted: (val) {
                       if (actionCallback != null) {
-                        actionCallback();
+                        double weight = double.tryParse(val) ?? 0.0;
+                        actionCallback(weight);
                       }
                     },
                   ),

@@ -53,3 +53,10 @@ export 'run_b737_approach_checklist.dart' show runB737ApproachChecklist;
 export 'run_b737_landing_checklist.dart' show runB737LandingChecklist;
 export 'run_b737_parking_checklist.dart' show runB737ParkingChecklist;
 export 'send_teleport_request.dart' show sendTeleportRequest;
+export 'configuration.dart' show configuration;
+export 'set_fuel_controller.dart' show setFuelController;
+export 'pattern_teleporter.dart' show patternTeleporter;
+export 'ground_services_and_doors_controller.dart'
+    show groundServicesAndDoorsController;
+export 'pause_and_freeze_controller.dart' show pauseAndFreezeController;
+export 'set_weight_controller.dart' show setWeightController;

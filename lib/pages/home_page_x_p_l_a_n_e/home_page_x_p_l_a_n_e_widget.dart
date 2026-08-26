@@ -6398,6 +6398,8 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                               userNetworkId: FFAppState()
                                                   .ivaoVatsimID
                                                   .toString(),
+                                              depIcao: '',
+                                              arrIcao: '',
                                               onLocationSelected:
                                                   (selectedLatitude,
                                                       selectedLongitude,
