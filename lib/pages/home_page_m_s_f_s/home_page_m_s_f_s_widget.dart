@@ -24152,7 +24152,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                               )),
                                                                                                               0.0,
                                                                                                             ),
-                                                                                                            'right_downwind',
+                                                                                                            'left_downwind',
                                                                                                             double.tryParse(_model.textFieldSpeedEntryTextController.text),
                                                                                                           );
                                                                                                         },
@@ -24217,10 +24217,12 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                         _model.selectedRunway,
                                                                                                         r'''$.bearing''',
                                                                                                       ),
-                                                                                                      getJsonField(
+                                                                                                      ((double? elevation) {
+                                                                                                        return elevation != null ? (elevation + 10.0).roundToDouble() : null;
+                                                                                                      }(getJsonField(
                                                                                                         _model.selectedRunway,
                                                                                                         r'''$.elevation''',
-                                                                                                      ),
+                                                                                                      )))!,
                                                                                                       'takeoff',
                                                                                                       double.tryParse(_model.textFieldSpeedEntryTextController.text),
                                                                                                     );
@@ -24506,16 +24508,13 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                             _model.selectedRunway,
                                                                                                             r'''$.ends[0].lon''',
                                                                                                           ),
-                                                                                                          valueOrDefault<double>(
-                                                                                                            ((getJsonField(
-                                                                                                                          _model.selectedRunway,
-                                                                                                                          r'''$.bearing''',
-                                                                                                                        ) -
-                                                                                                                        180) %
-                                                                                                                    360)
-                                                                                                                .toDouble(),
-                                                                                                            0.0,
-                                                                                                          ),
+                                                                                                          ((getJsonField(
+                                                                                                                        _model.selectedRunway,
+                                                                                                                        r'''$.bearing''',
+                                                                                                                      ) -
+                                                                                                                      180) %
+                                                                                                                  360)
+                                                                                                              .toDouble(),
                                                                                                           valueOrDefault<double>(
                                                                                                             (double? elevation) {
                                                                                                               return elevation != null ? (elevation + 1000.0).roundToDouble() : null;
@@ -24570,7 +24569,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                     Text(
                                                                                                       getJsonField(
                                                                                                         _model.selectedRunway,
-                                                                                                        r'''$.ends[0].lat''',
+                                                                                                        r'''$.elevation''',
                                                                                                       ).toString(),
                                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                             font: GoogleFonts.inter(
@@ -24613,20 +24612,25 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                       _model.selectedRunway,
                                                                                                       r'''$.ends[0].lon''',
                                                                                                     ),
-                                                                                                    (((getJsonField(
-                                                                                                                      _model.selectedRunway,
-                                                                                                                      r'''$.bearing''',
-                                                                                                                    ) +
-                                                                                                                    45) %
-                                                                                                                360)
-                                                                                                            .toInt())
-                                                                                                        .toDouble(),
-                                                                                                    ((double? elevation) {
-                                                                                                      return elevation != null ? elevation + 1000.0 : null;
-                                                                                                    }(getJsonField(
-                                                                                                      _model.selectedRunway,
-                                                                                                      r'''$.elevation''',
-                                                                                                    )))!,
+                                                                                                    valueOrDefault<double>(
+                                                                                                      ((getJsonField(
+                                                                                                                    _model.selectedRunway,
+                                                                                                                    r'''$.bearing''',
+                                                                                                                  ) +
+                                                                                                                  45) %
+                                                                                                              360)
+                                                                                                          .toDouble(),
+                                                                                                      0.0,
+                                                                                                    ),
+                                                                                                    valueOrDefault<double>(
+                                                                                                      (double? elevation) {
+                                                                                                        return elevation != null ? elevation + 1000.0 : null;
+                                                                                                      }(getJsonField(
+                                                                                                        _model.selectedRunway,
+                                                                                                        r'''$.elevation''',
+                                                                                                      )),
+                                                                                                      0.0,
+                                                                                                    ),
                                                                                                     'left_45_entry',
                                                                                                     double.tryParse(_model.textFieldSpeedEntryTextController.text),
                                                                                                   );
@@ -24688,8 +24692,25 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                       _model.selectedRunway,
                                                                                                       r'''$.ends[0].lon''',
                                                                                                     ),
-                                                                                                    057.0,
-                                                                                                    1000.0,
+                                                                                                    valueOrDefault<double>(
+                                                                                                      ((getJsonField(
+                                                                                                                    _model.selectedRunway,
+                                                                                                                    r'''$.bearing''',
+                                                                                                                  ) +
+                                                                                                                  2) %
+                                                                                                              360)
+                                                                                                          .toDouble(),
+                                                                                                      0.0,
+                                                                                                    ),
+                                                                                                    valueOrDefault<double>(
+                                                                                                      (double? elevation) {
+                                                                                                        return elevation != null ? (elevation + 1000.0).roundToDouble() : null;
+                                                                                                      }(getJsonField(
+                                                                                                        _model.selectedRunway,
+                                                                                                        r'''$.elevation''',
+                                                                                                      )),
+                                                                                                      0.0,
+                                                                                                    ),
                                                                                                     'final_3nm',
                                                                                                     double.tryParse(_model.textFieldSpeedEntryTextController.text),
                                                                                                   );
@@ -24751,13 +24772,12 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                       _model.selectedRunway,
                                                                                                       r'''$.ends[0].lon''',
                                                                                                     ),
-                                                                                                    (((getJsonField(
-                                                                                                                      _model.selectedRunway,
-                                                                                                                      r'''$.bearing''',
-                                                                                                                    ) -
-                                                                                                                    45) %
-                                                                                                                360)
-                                                                                                            .toInt())
+                                                                                                    ((getJsonField(
+                                                                                                                  _model.selectedRunway,
+                                                                                                                  r'''$.bearing''',
+                                                                                                                ) -
+                                                                                                                45) %
+                                                                                                            360)
                                                                                                         .toDouble(),
                                                                                                     ((double? elevation) {
                                                                                                       return elevation != null ? elevation + 1000.0 : null;
@@ -24847,7 +24867,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                             .toInt())
                                                                                                         .toDouble(),
                                                                                                     ((double? elevation) {
-                                                                                                      return elevation != null ? elevation + 700.0 : null;
+                                                                                                      return elevation != null ? (elevation + 7000.0).roundToDouble() : null;
                                                                                                     }(getJsonField(
                                                                                                       _model.selectedRunway,
                                                                                                       r'''$.elevation''',
@@ -24918,7 +24938,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                       r'''$.bearing''',
                                                                                                     ),
                                                                                                     ((double? elevation) {
-                                                                                                      return elevation != null ? elevation + 3300.0 : null;
+                                                                                                      return elevation != null ? (elevation + 3300.0).roundToDouble() : null;
                                                                                                     }(getJsonField(
                                                                                                       _model.selectedRunway,
                                                                                                       r'''$.elevation''',
@@ -24993,7 +25013,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                             .toInt())
                                                                                                         .toDouble(),
                                                                                                     ((double? elevation) {
-                                                                                                      return elevation != null ? elevation + 700.0 : null;
+                                                                                                      return elevation != null ? (elevation + 7000.0).roundToDouble() : null;
                                                                                                     }(getJsonField(
                                                                                                       _model.selectedRunway,
                                                                                                       r'''$.elevation''',
