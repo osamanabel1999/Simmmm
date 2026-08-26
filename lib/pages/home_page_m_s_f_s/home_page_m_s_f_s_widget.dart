@@ -24145,7 +24145,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                             ),
                                                                                                             valueOrDefault<double>(
                                                                                                               (double? elevation) {
-                                                                                                                return elevation != null ? elevation.toDouble() + 1000.0 : null;
+                                                                                                                return elevation != null ? (elevation + 1000.0).roundToDouble() : null;
                                                                                                               }(getJsonField(
                                                                                                                 _model.selectedRunway,
                                                                                                                 r'''$.elevation''',
@@ -24217,7 +24217,10 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                         _model.selectedRunway,
                                                                                                         r'''$.bearing''',
                                                                                                       ),
-                                                                                                      200.0,
+                                                                                                      getJsonField(
+                                                                                                        _model.selectedRunway,
+                                                                                                        r'''$.elevation''',
+                                                                                                      ),
                                                                                                       'takeoff',
                                                                                                       double.tryParse(_model.textFieldSpeedEntryTextController.text),
                                                                                                     );
@@ -24513,7 +24516,15 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                                 .toDouble(),
                                                                                                             0.0,
                                                                                                           ),
-                                                                                                          1000.0,
+                                                                                                          valueOrDefault<double>(
+                                                                                                            (double? elevation) {
+                                                                                                              return elevation != null ? (elevation + 1000.0).roundToDouble() : null;
+                                                                                                            }(getJsonField(
+                                                                                                              _model.selectedRunway,
+                                                                                                              r'''$.elevation''',
+                                                                                                            )),
+                                                                                                            0.0,
+                                                                                                          ),
                                                                                                           'right_downwind',
                                                                                                           double.tryParse(_model.textFieldSpeedEntryTextController.text),
                                                                                                         );
