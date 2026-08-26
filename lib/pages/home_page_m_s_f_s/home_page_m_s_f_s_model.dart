@@ -17,6 +17,16 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
 
   dynamic selectedRunway;
 
+  String? speed;
+
+  String? altitude;
+
+  double? heading;
+
+  double? latitude;
+
+  double? longitude;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (GetAirportInfo)] action in HomePageMSFS widget.
@@ -28,40 +38,8 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
   // Stores action output result for [Backend Call - API (getTafRaw)] action in HomePageMSFS widget.
   ApiCallResponse? tafResult;
   InstantTimer? instantTimer;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageMSFS widget.
-  double? headingoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageMSFS widget.
-  double? xoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageMSFS widget.
-  double? zoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageMSFS widget.
-  double? lAToutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageMSFS widget.
-  double? lONoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageMSFS widget.
-  double? sPDoutput;
-  // Stores action output result for [Custom Action - listenToXPlane] action in HomePageMSFS widget.
-  double? aLToutput;
-  // Stores action output result for [Custom Action - calculateXPlanePosition] action in HomePageMSFS widget.
-  dynamic autoResult;
-  // Stores action output result for [Custom Action - moveAircraftBackward] action in HomePageMSFS widget.
-  dynamic threeNMfinall;
-  // Stores action output result for [Custom Action - moveAircraftBackward] action in HomePageMSFS widget.
-  dynamic tenNMfinall;
-  // Stores action output result for [Custom Action - moveAircraftBackward] action in HomePageMSFS widget.
-  dynamic zeroNMfinall;
-  // Stores action output result for [Custom Action - calculateBaseLegPosition] action in HomePageMSFS widget.
-  dynamic leftbase;
-  // Stores action output result for [Custom Action - calculateRightBasePosition] action in HomePageMSFS widget.
-  dynamic rightBase;
-  // Stores action output result for [Custom Action - calculateLeftDownwindPosition] action in HomePageMSFS widget.
-  dynamic leftDownwind;
-  // Stores action output result for [Custom Action - calculateLeft45EntryPosition] action in HomePageMSFS widget.
-  dynamic left45;
-  // Stores action output result for [Custom Action - calculateRight45EntryPosition] action in HomePageMSFS widget.
-  dynamic right45;
-  // Stores action output result for [Custom Action - calculateRightDownwindPosition] action in HomePageMSFS widget.
-  dynamic rightDownwind;
+  // Stores action output result for [Custom Action - getFlightData] action in HomePageMSFS widget.
+  dynamic flightDataMFSF;
   // State field(s) for TextFieldSpeedEntryLANDMARK widget.
   FocusNode? textFieldSpeedEntryLANDMARKFocusNode;
   TextEditingController? textFieldSpeedEntryLANDMARKTextController;

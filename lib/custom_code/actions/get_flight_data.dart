@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-// import '/backend/backend.dart'; <--- ده السطر اللي كان عامل المشكلة وعملتله إيقاف
 import 'index.dart'; // Imports other custom actions
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -24,25 +22,30 @@ Future<dynamic> getFlightData(String serverIp) async {
         .timeout(const Duration(milliseconds: 1500));
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      return {
-        "speed": (data['speed'] ?? 0.0).toDouble(),
-        "altitude": (data['altitude'] ?? 0.0).toDouble(),
-        "heading": (data['heading'] ?? 0.0).toDouble(),
-        "latitude": (data['latitude'] ?? 0.0).toDouble(),
-        "longitude": (data['longitude'] ?? 0.0).toDouble(),
-        "status": "success"
-      };
-    } else {
-      return {
-        "speed": 0.0,
-        "altitude": 0.0,
-        "heading": 0.0,
-        "latitude": 0.0,
-        "longitude": 0.0,
-        "status": "error"
-      };
+      final Map<String, dynamic> responseData = json.decode(response.body);
+
+      // التأكد من نجاح الاستجابة واستخراج كائن data الداخلية
+      if (responseData['status'] == 'success' && responseData['data'] != null) {
+        final flightData = responseData['data'];
+        return {
+          "speed": (flightData['speed'] ?? 0.0).toDouble(),
+          "altitude": (flightData['altitude'] ?? 0.0).toDouble(),
+          "heading": (flightData['heading'] ?? 0.0).toDouble(),
+          "latitude": (flightData['latitude'] ?? 0.0).toDouble(),
+          "longitude": (flightData['longitude'] ?? 0.0).toDouble(),
+          "status": "success"
+        };
+      }
     }
+
+    return {
+      "speed": 0.0,
+      "altitude": 0.0,
+      "heading": 0.0,
+      "latitude": 0.0,
+      "longitude": 0.0,
+      "status": "error"
+    };
   } catch (e) {
     return {
       "speed": 0.0,

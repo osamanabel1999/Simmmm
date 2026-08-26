@@ -89,208 +89,32 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
         );
       }
       _model.instantTimer = InstantTimer.periodic(
-        duration: Duration(milliseconds: 1000),
+        duration: Duration(milliseconds: 500),
         callback: (timer) async {
-          _model.headingoutput = await actions.listenToXPlane(
-            17,
-            3,
+          _model.flightDataMFSF = await actions.getFlightData(
+            FFAppState().ipPC,
           );
-          _model.xoutput = await actions.listenToXPlane(
-            21,
-            1,
+          _model.speed = getJsonField(
+            _model.flightDataMFSF,
+            r'''$.speed''',
+          ).toString();
+          _model.altitude = getJsonField(
+            _model.flightDataMFSF,
+            r'''$.altitude''',
+          ).toString();
+          _model.heading = getJsonField(
+            _model.flightDataMFSF,
+            r'''$.heading''',
           );
-          _model.zoutput = await actions.listenToXPlane(
-            21,
-            3,
+          _model.latitude = getJsonField(
+            _model.flightDataMFSF,
+            r'''$.latitude''',
           );
-          _model.lAToutput = await actions.listenToXPlane(
-            20,
-            1,
+          _model.longitude = getJsonField(
+            _model.flightDataMFSF,
+            r'''$.longitude''',
           );
-          _model.lONoutput = await actions.listenToXPlane(
-            20,
-            2,
-          );
-          _model.sPDoutput = await actions.listenToXPlane(
-            3,
-            3,
-          );
-          _model.aLToutput = await actions.listenToXPlane(
-            20,
-            3,
-          );
-          FFAppState().currentHeading = _model.headingoutput!;
-          FFAppState().SIMspeed = _model.sliderspeedValue!.toString();
-          FFAppState().SIMtime = (double var1) {
-            return '${(var1 / 3600).floor().toString().padLeft(2, '0')}:${((var1 % 3600) / 60).floor().toString().padLeft(2, '0')}';
-          }(_model.sliderspeedValue!);
-          FFAppState().currentX = _model.xoutput!;
-          FFAppState().currentZ = _model.zoutput!;
           safeSetState(() {});
-          FFAppState().currentLAT = _model.lAToutput!;
-          FFAppState().currentLON = _model.lONoutput!;
-          FFAppState().resultXZ = FFAppState().resultXZ;
-          FFAppState().currentALT = _model.aLToutput!.toString();
-          FFAppState().currentSPD = _model.sPDoutput!.toString();
-          safeSetState(() {});
-          _model.autoResult = await actions.calculateXPlanePosition(
-            FFAppState().currentLAT,
-            FFAppState().currentLON,
-            FFAppState().currentX,
-            FFAppState().currentZ,
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.ends[0].lat''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.ends[0].lon''',
-            ),
-          );
-          _model.threeNMfinall = await actions.moveAircraftBackward(
-            getJsonField(
-              _model.autoResult,
-              r'''$.x''',
-            ),
-            getJsonField(
-              _model.autoResult,
-              r'''$.z''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.bearing''',
-            ),
-            5556.0,
-          );
-          _model.tenNMfinall = await actions.moveAircraftBackward(
-            getJsonField(
-              _model.autoResult,
-              r'''$.x''',
-            ),
-            getJsonField(
-              _model.autoResult,
-              r'''$.z''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.bearing''',
-            ),
-            18520.0,
-          );
-          _model.zeroNMfinall = await actions.moveAircraftBackward(
-            getJsonField(
-              _model.autoResult,
-              r'''$.x''',
-            ),
-            getJsonField(
-              _model.autoResult,
-              r'''$.z''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.bearing''',
-            ),
-            0.0,
-          );
-          _model.leftbase = await actions.calculateBaseLegPosition(
-            getJsonField(
-              _model.autoResult,
-              r'''$.x''',
-            ),
-            getJsonField(
-              _model.autoResult,
-              r'''$.z''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.bearing''',
-            ),
-            7408.0,
-            4000.0,
-            true,
-          );
-          _model.rightBase = await actions.calculateRightBasePosition(
-            getJsonField(
-              _model.autoResult,
-              r'''$.x''',
-            ),
-            getJsonField(
-              _model.autoResult,
-              r'''$.z''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.bearing''',
-            ),
-            7408.0,
-            4000.0,
-          );
-          _model.leftDownwind = await actions.calculateLeftDownwindPosition(
-            getJsonField(
-              _model.autoResult,
-              r'''$.x''',
-            ),
-            getJsonField(
-              _model.autoResult,
-              r'''$.z''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.bearing''',
-            ),
-            5000.0,
-            4500.0,
-          );
-          _model.left45 = await actions.calculateLeft45EntryPosition(
-            getJsonField(
-              _model.autoResult,
-              r'''$.x''',
-            ),
-            getJsonField(
-              _model.autoResult,
-              r'''$.z''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.bearing''',
-            ),
-            10000.0,
-            4000.0,
-            5000.0,
-          );
-          _model.right45 = await actions.calculateRight45EntryPosition(
-            getJsonField(
-              _model.autoResult,
-              r'''$.x''',
-            ),
-            getJsonField(
-              _model.autoResult,
-              r'''$.z''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.bearing''',
-            ),
-            10000.0,
-            4000.0,
-            5000.0,
-          );
-          _model.rightDownwind = await actions.calculateRightDownwindPosition(
-            getJsonField(
-              _model.autoResult,
-              r'''$.x''',
-            ),
-            getJsonField(
-              _model.autoResult,
-              r'''$.z''',
-            ),
-            getJsonField(
-              _model.selectedRunway,
-              r'''$.bearing''',
-            ),
-            5000.0,
-            4500.0,
-          );
         },
         startImmediately: true,
       );
@@ -482,7 +306,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                 ),
                                                       ),
                                                       Text(
-                                                        ((FFAppState().currentLAT *
+                                                        (((_model.latitude!) *
                                                                         10)
                                                                     .truncate() /
                                                                 10)
@@ -546,8 +370,8 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                 ),
                                                       ),
                                                       Text(
-                                                        ((double.tryParse(FFAppState()
-                                                                        .currentSPD) ??
+                                                        ((double.tryParse((_model
+                                                                        .speed!)) ??
                                                                     0.0)
                                                                 .toInt())
                                                             .toString(),
@@ -626,7 +450,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                 ),
                                                       ),
                                                       Text(
-                                                        ((FFAppState().currentLON *
+                                                        (((_model.longitude!) *
                                                                         10)
                                                                     .truncate() /
                                                                 10)
@@ -690,8 +514,8 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                 ),
                                                       ),
                                                       Text(
-                                                        ((double.tryParse(FFAppState()
-                                                                        .currentALT) ??
+                                                        ((double.tryParse((_model
+                                                                        .altitude!)) ??
                                                                     0.0)
                                                                 .toInt())
                                                             .toString(),
@@ -786,7 +610,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                           .round()
                                                           .toString()
                                                           .padLeft(3, '0');
-                                                    }(FFAppState().currentHeading)}°',
+                                                    }(_model.heading!)}°',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -899,18 +723,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                     .center,
                                                             children: [
                                                               Text(
-                                                                (String? var1) {
-                                                                  return var1 ==
-                                                                          null
-                                                                      ? '---'
-                                                                      : (var1 ==
-                                                                              '0'
-                                                                          ? 'FREEZE'
-                                                                          : (var1 == '1'
-                                                                              ? 'NORM'
-                                                                              : var1));
-                                                                }(FFAppState()
-                                                                    .currentSPD),
+                                                                '1',
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -11808,7 +11621,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                       .ipPC,
                                                                   21.4121,
                                                                   39.8262,
-                                                                  1100.0,
+                                                                  2500.0,
                                                                   001.0,
                                                                   double.tryParse(
                                                                       _model
@@ -22849,11 +22662,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             0.0,
                                                                             0.0),
                                                                     child: Text(
-                                                                      getJsonField(
-                                                                        _model
-                                                                            .autoResult,
-                                                                        r'''$.x''',
-                                                                      ).toString(),
+                                                                      '',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -22900,11 +22709,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                           0.0),
                                                                       child:
                                                                           Text(
-                                                                        getJsonField(
-                                                                          _model
-                                                                              .autoResult,
-                                                                          r'''$.z''',
-                                                                        ).toString(),
+                                                                        '',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
@@ -23163,6 +22968,238 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                               ),
                                                                             ],
                                                                           ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    await actions
+                                                                        .patternTeleporter(
+                                                                      FFAppState()
+                                                                          .ipPC,
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .selectedRunway,
+                                                                        r'''$.ends[0].lat''',
+                                                                      ),
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .selectedRunway,
+                                                                        r'''$.ends[0].lon''',
+                                                                      ),
+                                                                      ((getJsonField(
+                                                                                    _model.selectedRunway,
+                                                                                    r'''$.bearing''',
+                                                                                  ) +
+                                                                                  315) %
+                                                                              360)
+                                                                          .toDouble(),
+                                                                      ((double?
+                                                                          elevation) {
+                                                                        return elevation !=
+                                                                                null
+                                                                            ? elevation +
+                                                                                700.0
+                                                                            : null;
+                                                                      }(getJsonField(
+                                                                        (_model.airportResultApi?.jsonBody ??
+                                                                            ''),
+                                                                        r'''$.elevation''',
+                                                                      )))!,
+                                                                      'right_45_entry',
+                                                                      double.tryParse(_model
+                                                                          .textFieldSpeedEntryTextController
+                                                                          .text),
+                                                                    );
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    width:
+                                                                        200.0,
+                                                                    height:
+                                                                        150.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceEvenly,
+                                                                      children: [
+                                                                        Transform
+                                                                            .rotate(
+                                                                          angle:
+                                                                              180.0 * (math.pi / 180),
+                                                                          child:
+                                                                              Transform.rotate(
+                                                                            angle:
+                                                                                135.0 * (math.pi / 180),
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.airplanemode_active_rounded,
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              size: 100.0,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Text(
+                                                                          'Right 45° Entry',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                font: GoogleFonts.inter(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
+                                                                                fontSize: 15.0,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    await actions
+                                                                        .patternTeleporter(
+                                                                      FFAppState()
+                                                                          .ipPC,
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .selectedRunway,
+                                                                        r'''$.ends[0].lat''',
+                                                                      ),
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .selectedRunway,
+                                                                        r'''$.ends[0].lon''',
+                                                                      ),
+                                                                      valueOrDefault<
+                                                                          double>(
+                                                                        ((getJsonField(
+                                                                                      _model.selectedRunway,
+                                                                                      r'''$.bearing''',
+                                                                                    ) +
+                                                                                    45) %
+                                                                                360)
+                                                                            .toDouble(),
+                                                                        0.0,
+                                                                      ),
+                                                                      ((double?
+                                                                          elevation) {
+                                                                        return elevation !=
+                                                                                null
+                                                                            ? elevation +
+                                                                                700.0
+                                                                            : null;
+                                                                      }(getJsonField(
+                                                                        (_model.airportResultApi?.jsonBody ??
+                                                                            ''),
+                                                                        r'''$.elevation''',
+                                                                      )))!,
+                                                                      'left_45_entry',
+                                                                      double.tryParse(_model
+                                                                          .textFieldSpeedEntryTextController
+                                                                          .text),
+                                                                    );
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    width:
+                                                                        200.0,
+                                                                    height:
+                                                                        150.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceEvenly,
+                                                                      children: [
+                                                                        Transform
+                                                                            .rotate(
+                                                                          angle:
+                                                                              180.0 * (math.pi / 180),
+                                                                          child:
+                                                                              Transform.rotate(
+                                                                            angle:
+                                                                                235.0 * (math.pi / 180),
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.airplanemode_active_rounded,
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              size: 100.0,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Text(
+                                                                          'Left 45° Entry',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                font: GoogleFonts.inter(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
+                                                                                fontSize: 15.0,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                              ),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -24074,7 +24111,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                         r'''$.bearing''',
                                                                                                       ),
                                                                                                       ((double? elevation) {
-                                                                                                        return elevation != null ? (elevation + 10.0).roundToDouble() : null;
+                                                                                                        return elevation != null ? (elevation + 0.1).roundToDouble() : null;
                                                                                                       }(getJsonField(
                                                                                                         (_model.airportResultApi?.jsonBody ?? ''),
                                                                                                         r'''$.elevation''',
@@ -24454,8 +24491,8 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                       ((getJsonField(
                                                                                                                     _model.selectedRunway,
                                                                                                                     r'''$.bearing''',
-                                                                                                                  ) -
-                                                                                                                  135) %
+                                                                                                                  ) +
+                                                                                                                  315) %
                                                                                                               360)
                                                                                                           .toDouble(),
                                                                                                       0.0,
@@ -24539,7 +24576,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                     ),
                                                                                                     valueOrDefault<double>(
                                                                                                       (double? elevation) {
-                                                                                                        return elevation != null ? (elevation + 1000.0).roundToDouble() : null;
+                                                                                                        return elevation != null ? (elevation + 700.0).roundToDouble() : null;
                                                                                                       }(getJsonField(
                                                                                                         (_model.airportResultApi?.jsonBody ?? ''),
                                                                                                         r'''$.elevation''',
@@ -24611,7 +24648,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                                   _model.selectedRunway,
                                                                                                                   r'''$.bearing''',
                                                                                                                 ) +
-                                                                                                                135) %
+                                                                                                                45) %
                                                                                                             360)
                                                                                                         .toDouble(),
                                                                                                     ((double? elevation) {
@@ -24772,7 +24809,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                       r'''$.bearing''',
                                                                                                     ),
                                                                                                     ((double? elevation) {
-                                                                                                      return elevation != null ? (elevation + 3300.0).roundToDouble() : null;
+                                                                                                      return elevation != null ? (elevation + 2500.0).roundToDouble() : null;
                                                                                                     }(getJsonField(
                                                                                                       (_model.airportResultApi?.jsonBody ?? ''),
                                                                                                       r'''$.elevation''',
