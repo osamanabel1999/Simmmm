@@ -19,16 +19,23 @@ Future sendTeleportRequest(
   double? headingDeg,
   double? speedKnots,
 ) async {
+  // تحويل كل المتغيرات إلى double بشكل صريح لضمان دعم الأرقام العشرية بشكل مطلق
+  final double safeLat = lat.toDouble();
+  final double safeLon = lon.toDouble();
+  final double? safeAltitudeFt = altitudeFt?.toDouble();
+  final double? safeHeadingDeg = headingDeg?.toDouble();
+  final double? safeSpeedKnots = speedKnots?.toDouble();
+
   // تجهيز رابط السيرفر (مثال: http://192.168.1.5:8080/teleport)
   final url = Uri.parse('http://$ipAddress:8080/teleport');
 
   // تجهيز الـ JSON Body بالبيانات المبعوثة من الخريطة
   final Map<String, dynamic> bodyData = {
-    'lat': lat,
-    'lon': lon,
-    if (altitudeFt != null) 'altitude_ft': altitudeFt,
-    if (headingDeg != null) 'heading_deg': headingDeg,
-    if (speedKnots != null) 'speed_knots': speedKnots,
+    'lat': safeLat,
+    'lon': safeLon,
+    if (safeAltitudeFt != null) 'altitude_ft': safeAltitudeFt,
+    if (safeHeadingDeg != null) 'heading_deg': safeHeadingDeg,
+    if (safeSpeedKnots != null) 'speed_knots': safeSpeedKnots,
   };
 
   try {

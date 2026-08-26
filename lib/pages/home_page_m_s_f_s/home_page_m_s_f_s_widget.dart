@@ -24125,11 +24125,29 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                         onTap: () async {
                                                                                                           await actions.patternTeleporter(
                                                                                                             FFAppState().ipPC,
-                                                                                                            31.0,
-                                                                                                            29.0,
-                                                                                                            250.0,
-                                                                                                            1300.0,
-                                                                                                            'left_downwind',
+                                                                                                            getJsonField(
+                                                                                                              _model.selectedRunway,
+                                                                                                              r'''$.ends[0].lat''',
+                                                                                                            ),
+                                                                                                            getJsonField(
+                                                                                                              _model.selectedRunway,
+                                                                                                              r'''$.ends[0].lon''',
+                                                                                                            ),
+                                                                                                            (((getJsonField(
+                                                                                                                              _model.selectedRunway,
+                                                                                                                              r'''$.bearing''',
+                                                                                                                            ) -
+                                                                                                                            180) %
+                                                                                                                        360)
+                                                                                                                    .toInt())
+                                                                                                                .toDouble(),
+                                                                                                            ((double? elevation) {
+                                                                                                              return elevation != null ? elevation + 1000.0 : null;
+                                                                                                            }(getJsonField(
+                                                                                                              _model.selectedRunway,
+                                                                                                              r'''$.elevation''',
+                                                                                                            )))!,
+                                                                                                            'right_downwind',
                                                                                                             double.tryParse(_model.textFieldSpeedEntryTextController.text),
                                                                                                           );
                                                                                                         },
@@ -24540,6 +24558,24 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                           ],
                                                                                                         ),
                                                                                                       ),
+                                                                                                    ),
+                                                                                                    Text(
+                                                                                                      valueOrDefault<String>(
+                                                                                                        getJsonField(
+                                                                                                          _model.selectedRunway,
+                                                                                                          r'''$.ends[0].lat''',
+                                                                                                        )?.toString(),
+                                                                                                        '-',
+                                                                                                      ),
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            font: GoogleFonts.inter(
+                                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
+                                                                                                            letterSpacing: 0.0,
+                                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                          ),
                                                                                                     ),
                                                                                                   ],
                                                                                                 ),
