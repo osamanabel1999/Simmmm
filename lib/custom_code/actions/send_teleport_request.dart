@@ -19,23 +19,36 @@ Future sendTeleportRequest(
   double? headingDeg,
   double? speedKnots,
 ) async {
-  // تحويل كل المتغيرات إلى double بشكل صريح لضمان دعم الأرقام العشرية بشكل مطلق
-  final double safeLat = lat.toDouble();
-  final double safeLon = lon.toDouble();
-  final double? safeAltitudeFt = altitudeFt?.toDouble();
-  final double? safeHeadingDeg = headingDeg?.toDouble();
-  final double? safeSpeedKnots = speedKnots?.toDouble();
+  // دالة مخصصة فرمتة الأرقام: بتجبر أي قيمة تيجي إنها تكون بعلامة عشرية صريحة
+  double ensureDecimal(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is int) return value.toDouble();
+    if (value is String) return double.tryParse(value) ?? 0.0;
+    return value as double;
+  }
 
-  // تجهيز رابط السيرفر (مثال: http://192.168.1.5:8080/teleport)
+  // تطبيق الفرمتة الإجبارية على كل المتغيرات بلا استثناء
+  final double finalLat = ensureDecimal(lat);
+  final double finalLon = ensureDecimal(lon);
+
+  // التعامل مع المتغيرات الاختيارية (لو مش فاضية، افرض عليها العلامة العشرية)
+  final double? finalAlt =
+      altitudeFt != null ? ensureDecimal(altitudeFt) : null;
+  final double? finalHdg =
+      headingDeg != null ? ensureDecimal(headingDeg) : null;
+  final double? finalSpd =
+      speedKnots != null ? ensureDecimal(speedKnots) : null;
+
+  // تجهيز رابط السيرفر
   final url = Uri.parse('http://$ipAddress:8080/teleport');
 
-  // تجهيز الـ JSON Body بالبيانات المبعوثة من الخريطة
+  // تجهيز الـ JSON Body بالمتغيرات اللي اتفرمتت
   final Map<String, dynamic> bodyData = {
-    'lat': safeLat,
-    'lon': safeLon,
-    if (safeAltitudeFt != null) 'altitude_ft': safeAltitudeFt,
-    if (safeHeadingDeg != null) 'heading_deg': safeHeadingDeg,
-    if (safeSpeedKnots != null) 'speed_knots': safeSpeedKnots,
+    'lat': finalLat,
+    'lon': finalLon,
+    if (finalAlt != null) 'altitude_ft': finalAlt,
+    if (finalHdg != null) 'heading_deg': finalHdg,
+    if (finalSpd != null) 'speed_knots': finalSpd,
   };
 
   try {
