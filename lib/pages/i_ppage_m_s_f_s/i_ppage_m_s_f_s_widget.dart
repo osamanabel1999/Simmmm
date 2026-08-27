@@ -846,17 +846,17 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                 ..onTap = () async {
                                   _model.restoredCodeMSFS =
                                       await actions.restoreLicenseMSFS();
-                                  if (_model.restoredCodeMSFS !=
-                                      'No subscription found for this device.⁠') {
+                                  if (_model.restoredCodeMSFS ==
+                                      'License Expired.') {
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
                                         return WebViewAware(
                                           child: AlertDialog(
-                                            title:
-                                                Text('Subscription Restored!'),
+                                            title: Text(
+                                                'Your License is Expired !'),
                                             content: Text(
-                                                'Your active License Key is: ${_model.restoredCodeMSFS}'),
+                                                'Your active license key has expired. Please renew your subscription.'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
@@ -871,9 +871,9 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Subscription Restored Successfully!⁠.',
+                                          'Your License is Expired !',
                                           style: TextStyle(
-                                            color: Color(0xFF4500FF),
+                                            color: Color(0xFFE50004),
                                           ),
                                         ),
                                         duration: Duration(milliseconds: 4000),
@@ -882,23 +882,48 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                                 .secondaryBackground,
                                       ),
                                     );
-                                    FFAppState().generateCodeMSFS =
-                                        _model.restoredCodeMSFS!;
-                                    safeSetState(() {});
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          _model.restoredCodeMSFS!,
-                                          style: TextStyle(
-                                            color: Color(0xFFFF0000),
+                                  } else if (_model.restoredCodeMSFS ==
+                                      'subscription found for this device.') {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return WebViewAware(
+                                          child: AlertDialog(
+                                            title:
+                                                Text('No Subscription Found !'),
+                                            content: Text(
+                                                'No subscription found for this device.'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                      ),
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return WebViewAware(
+                                          child: AlertDialog(
+                                            title:
+                                                Text('Subscription Restored!'),
+                                            content: Text(
+                                                'Your license key is: ${_model.restoredCodeMSFS}'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
                                     );
                                   }
 
