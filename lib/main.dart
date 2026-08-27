@@ -18,7 +18,7 @@ void main() async {
   await appState.initializePersistedState();
 
   await revenue_cat.initialize(
-    "test_MAHWptoFQvQWhydyJGKLkriyMhL",
+    "appl_VxjiUQzimeVQpCdQfkIgNwYXXHH",
     "",
     loadDataAfterLaunch: true,
   );
