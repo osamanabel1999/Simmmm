@@ -13,3 +13,4 @@ export 'msfscheckout.dart' show Msfscheckout;
 export 'ultimate_bundle_checkout.dart' show UltimateBundleCheckout;
 export 'briefing_page_widget.dart' show BriefingPageWidget;
 export 'flight_plan_page_widget.dart' show FlightPlanPageWidget;
+export 'top_banner_widget.dart' show TopBannerWidget;
