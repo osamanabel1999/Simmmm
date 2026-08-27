@@ -66,3 +66,4 @@ export 'generate_new_license_m_s_f_s.dart' show generateNewLicenseMSFS;
 export 'extend_license_m_s_f_s.dart' show extendLicenseMSFS;
 export 'extend_license_x_plane.dart' show extendLicenseXPlane;
 export 'restore_license_m_s_f_s.dart' show restoreLicenseMSFS;
+export 'restore_license_x_plane.dart' show restoreLicenseXPlane;

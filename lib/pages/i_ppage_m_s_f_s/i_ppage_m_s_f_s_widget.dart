@@ -854,9 +854,9 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                         return WebViewAware(
                                           child: AlertDialog(
                                             title: Text(
-                                                'Your License is Expired !'),
+                                                'No MSFS Subscription Found!'),
                                             content: Text(
-                                                'Your active license key has expired. Please renew your subscription.'),
+                                                'No MSFS subscription found for this device.'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
@@ -889,10 +889,10 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                       builder: (alertDialogContext) {
                                         return WebViewAware(
                                           child: AlertDialog(
-                                            title:
-                                                Text('No Subscription Found !'),
+                                            title: Text(
+                                                'Your MSFS License is Expired!'),
                                             content: Text(
-                                                'No subscription found for this device.'),
+                                                'Your active MSFS license key has expired. Please renew your subscription.'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
@@ -904,16 +904,30 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                         );
                                       },
                                     );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'No subscription found for this device.',
+                                          style: TextStyle(
+                                            color: Color(0xFFE50004),
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                      ),
+                                    );
                                   } else {
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
                                         return WebViewAware(
                                           child: AlertDialog(
-                                            title:
-                                                Text('Subscription Restored!'),
+                                            title: Text(
+                                                'MSFS Subscription Restored!'),
                                             content: Text(
-                                                'Your license key is: ${_model.restoredCodeMSFS}'),
+                                                'Your MSFS license key is:  ${_model.restoredCodeMSFS}'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
