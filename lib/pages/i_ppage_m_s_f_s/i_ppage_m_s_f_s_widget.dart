@@ -854,42 +854,6 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                         return WebViewAware(
                                           child: AlertDialog(
                                             title: Text(
-                                                'No MSFS Subscription Found!'),
-                                            content: Text(
-                                                'No MSFS subscription found for this device.'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext),
-                                                child: Text('Ok'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Your License is Expired !',
-                                          style: TextStyle(
-                                            color: Color(0xFFE50004),
-                                          ),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                      ),
-                                    );
-                                  } else if (_model.restoredCodeMSFS ==
-                                      'No subscription found for this device.') {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return WebViewAware(
-                                          child: AlertDialog(
-                                            title: Text(
                                                 'Your MSFS License is Expired!'),
                                             content: Text(
                                                 'Your active MSFS license key has expired. Please renew your subscription.'),
@@ -904,19 +868,27 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                         );
                                       },
                                     );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'No subscription found for this device.',
-                                          style: TextStyle(
-                                            color: Color(0xFFE50004),
+                                  } else if (_model.restoredCodeMSFS ==
+                                      'No subscription found for this device.') {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return WebViewAware(
+                                          child: AlertDialog(
+                                            title: Text(
+                                                'No MSFS Subscription Found!'),
+                                            content: Text(
+                                                'No MSFS subscription found for this device.'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                      ),
+                                        );
+                                      },
                                     );
                                   } else {
                                     await showDialog(

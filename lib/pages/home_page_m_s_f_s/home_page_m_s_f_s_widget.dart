@@ -40948,7 +40948,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                               child: Padding(
                                                                                 padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                                                                                 child: Text(
-                                                                                  'Simbreif ID',
+                                                                                  'Simbrief ID',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         font: GoogleFonts.plusJakartaSans(
                                                                                           fontWeight: FontWeight.w500,
@@ -41120,6 +41120,127 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                       MouseCursor
                                                                           .defer,
                                                                   child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      context.pushNamed(
+                                                                          SubscriptionManagepageWidget
+                                                                              .routeName);
+                                                                    },
+                                                                    child:
+                                                                        AnimatedContainer(
+                                                                      duration: Duration(
+                                                                          milliseconds:
+                                                                              150),
+                                                                      curve: Curves
+                                                                          .easeInOut,
+                                                                      width: double
+                                                                          .infinity,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBackground,
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              Color(0xFF1C1111),
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            8.0,
+                                                                            0.0,
+                                                                            8.0),
+                                                                        child:
+                                                                            InkWell(
+                                                                          splashColor:
+                                                                              Colors.transparent,
+                                                                          focusColor:
+                                                                              Colors.transparent,
+                                                                          hoverColor:
+                                                                              Colors.transparent,
+                                                                          highlightColor:
+                                                                              Colors.transparent,
+                                                                          onTap:
+                                                                              () async {
+                                                                            context.pushNamed(SubscriptionManagepageWidget.routeName);
+                                                                          },
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                                child: Icon(
+                                                                                  Icons.monetization_on_rounded,
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  size: 20.0,
+                                                                                ),
+                                                                              ),
+                                                                              Expanded(
+                                                                                child: Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                                  child: Text(
+                                                                                    'MY Subscription',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          font: GoogleFonts.plusJakartaSans(
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                          ),
+                                                                                          color: FlutterFlowTheme.of(context).primaryText,
+                                                                                          fontSize: 14.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  onEnter:
+                                                                      ((event) async {
+                                                                    safeSetState(() =>
+                                                                        _model.mouseRegionHovered3 =
+                                                                            true);
+
+                                                                    context.pushNamed(
+                                                                        SubscriptionManagepageWidget
+                                                                            .routeName);
+                                                                  }),
+                                                                  onExit:
+                                                                      ((event) async {
+                                                                    safeSetState(() =>
+                                                                        _model.mouseRegionHovered3 =
+                                                                            false);
+                                                                  }),
+                                                                ),
+                                                                MouseRegion(
+                                                                  opaque: false,
+                                                                  cursor: SystemMouseCursors
+                                                                          .basic ??
+                                                                      MouseCursor
+                                                                          .defer,
+                                                                  child:
                                                                       AnimatedContainer(
                                                                     duration: Duration(
                                                                         milliseconds:
@@ -41192,13 +41313,13 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                   onEnter:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered3 =
+                                                                        _model.mouseRegionHovered4 =
                                                                             true);
                                                                   }),
                                                                   onExit:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered3 =
+                                                                        _model.mouseRegionHovered4 =
                                                                             false);
                                                                   }),
                                                                 ),
@@ -41337,13 +41458,13 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                   onEnter:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered4 =
+                                                                        _model.mouseRegionHovered5 =
                                                                             true);
                                                                   }),
                                                                   onExit:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered4 =
+                                                                        _model.mouseRegionHovered5 =
                                                                             false);
                                                                   }),
                                                                 ),
@@ -41439,13 +41560,13 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                   onEnter:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered5 =
+                                                                        _model.mouseRegionHovered6 =
                                                                             true);
                                                                   }),
                                                                   onExit:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered5 =
+                                                                        _model.mouseRegionHovered6 =
                                                                             false);
                                                                   }),
                                                                 ),
@@ -41545,13 +41666,13 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                   onEnter:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered6 =
+                                                                        _model.mouseRegionHovered7 =
                                                                             true);
                                                                   }),
                                                                   onExit:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered6 =
+                                                                        _model.mouseRegionHovered7 =
                                                                             false);
                                                                   }),
                                                                 ),
@@ -41647,13 +41768,13 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                   onEnter:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered7 =
+                                                                        _model.mouseRegionHovered8 =
                                                                             true);
                                                                   }),
                                                                   onExit:
                                                                       ((event) async {
                                                                     safeSetState(() =>
-                                                                        _model.mouseRegionHovered7 =
+                                                                        _model.mouseRegionHovered8 =
                                                                             false);
                                                                   }),
                                                                 ),

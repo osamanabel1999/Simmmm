@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class SubscribeMSFSModel extends FlutterFlowModel<SubscribeMSFSWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [RevenueCat - Purchase] action in Msfscheckout widget.
+  bool? mSFSmonthly;
   // Stores action output result for [Custom Action - generateNewLicenseMSFS] action in Msfscheckout widget.
   String? generateCodeMSFS1Month;
   // Stores action output result for [Custom Action - generateNewLicenseMSFS] action in Msfscheckout widget.

@@ -276,6 +276,12 @@ class FFAppState extends ChangeNotifier {
     _savedLicenseKeyMSFS = value;
     prefs.setString('ff_savedLicenseKeyMSFS', value);
   }
+
+  String _currentPlanTypeMSFS = '';
+  String get currentPlanTypeMSFS => _currentPlanTypeMSFS;
+  set currentPlanTypeMSFS(String value) {
+    _currentPlanTypeMSFS = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

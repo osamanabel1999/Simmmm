@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
+import 'flutter_flow/revenue_cat_util.dart' as revenue_cat;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,12 @@ void main() async {
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
+
+  await revenue_cat.initialize(
+    "test_MAHWptoFQvQWhydyJGKLkriyMhL",
+    "",
+    loadDataAfterLaunch: true,
+  );
 
   runApp(ChangeNotifierProvider(
     create: (context) => appState,

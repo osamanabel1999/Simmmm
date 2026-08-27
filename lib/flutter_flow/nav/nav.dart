@@ -246,6 +246,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: SubscribePackageXplaneMSFSWidget.routeName,
           path: SubscribePackageXplaneMSFSWidget.routePath,
           builder: (context, params) => SubscribePackageXplaneMSFSWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionManagepageWidget.routeName,
+          path: SubscriptionManagepageWidget.routePath,
+          builder: (context, params) => SubscriptionManagepageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -25,3 +25,5 @@ export '/subscribe_m_s_f_s/subscribe_m_s_f_s_widget.dart'
     show SubscribeMSFSWidget;
 export '/subscribe_package_xplane_m_s_f_s/subscribe_package_xplane_m_s_f_s_widget.dart'
     show SubscribePackageXplaneMSFSWidget;
+export '/subscription_managepage/subscription_managepage_widget.dart'
+    show SubscriptionManagepageWidget;

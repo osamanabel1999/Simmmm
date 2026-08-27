@@ -830,9 +830,9 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                                         return WebViewAware(
                                           child: AlertDialog(
                                             title: Text(
-                                                'No X-Plane Subscription Found!'),
+                                                'Your X-Plane License is Expired!'),
                                             content: Text(
-                                                'No X-Plane subscription found for this device.'),
+                                                'Your active X-Plane license key has expired. Please renew your subscription.'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
@@ -852,9 +852,9 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                                         return WebViewAware(
                                           child: AlertDialog(
                                             title: Text(
-                                                'Your X-Plane License is Expired!'),
+                                                'No X-Plane Subscription Found!'),
                                             content: Text(
-                                                'Your active X-Plane license key has expired. Please renew your subscription.'),
+                                                'No X-Plane subscription found for this device.'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
