@@ -28,6 +28,10 @@ class IPpageMSFSModel extends FlutterFlowModel<IPpageMSFSWidget> {
       codeLicenseMSFSTextControllerValidator;
   // Stores action output result for [Custom Action - activateLicenseMSFS] action in Button widget.
   String? statusMSFS;
+  // Stores action output result for [Custom Action - restoreLicenseMSFS] action in RichTextSpan widget.
+  String? restoredCodeMSFS;
+  // Stores action output result for [Custom Action - extendLicenseMSFS] action in Button widget.
+  String? extendResult1Month;
 
   @override
   void initState(BuildContext context) {

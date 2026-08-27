@@ -121,7 +121,7 @@ class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
             _buildPlanCard(
               title: "Yearly Ultimate",
               subtitle: "12 Months Dual Access",
-              price: "\$24.99",
+              price: "\$19.99",
               period: "/ year",
               badgeText: "🔥 MOST POPULAR",
               isPopular: true,
@@ -140,7 +140,7 @@ class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
             _buildPlanCard(
               title: "Lifetime Ultimate",
               subtitle: "Permanent Dual Access",
-              price: "\$34.99",
+              price: "\$29.99",
               period: " one-time",
               badgeText: "⚡ ABSOLUTE BEST VALUE",
               isPopular: false,

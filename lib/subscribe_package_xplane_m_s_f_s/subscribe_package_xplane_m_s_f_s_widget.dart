@@ -134,7 +134,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                             child: AlertDialog(
                               title: Text('Congratulations! '),
                               content: Text(
-                                  'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators. Here are your activation license keys: Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}X-Plane: ⁠${FFAppState().generatedCode}'),
+                                  'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators.Your Activation License Keys:Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}     And X-Plane License: ${FFAppState().generatedCode} Important Note: Please make sure to copy or save these keys (or take a screenshot) before closing this page!'),
                               actions: [
                                 TextButton(
                                   onPressed: () =>
@@ -178,7 +178,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                             child: AlertDialog(
                               title: Text('Congratulations! '),
                               content: Text(
-                                  'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators. Here are your activation license keys: Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}X-Plane: ⁠${FFAppState().generatedCode}'),
+                                  'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators.Your Activation License Keys:Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}     And X-Plane License: ${FFAppState().generatedCode} Important Note: Please make sure to copy or save these keys (or take a screenshot) before closing this page!'),
                               actions: [
                                 TextButton(
                                   onPressed: () =>
@@ -222,7 +222,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                             child: AlertDialog(
                               title: Text('Congratulations! '),
                               content: Text(
-                                  'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators. Here are your activation license keys: Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}X-Plane: ⁠${FFAppState().generatedCode}'),
+                                  'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators.Your Activation License Keys:Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}     And X-Plane License: ${FFAppState().generatedCode} Important Note: Please make sure to copy or save these keys (or take a screenshot) before closing this page!'),
                               actions: [
                                 TextButton(
                                   onPressed: () =>

@@ -24867,7 +24867,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                           ],
                                         ),
                                       ),
-                                    if (FFAppState().TabNumber == 9)
+                                    if (FFAppState().TabNumber == 99282829)
                                       Expanded(
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -27735,182 +27735,255 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                   width: double.infinity,
                                                   height: double.infinity,
                                                   departureRwyCode:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.origin.plan_rwy''',
-                                                  ).toString(),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.origin.plan_rwy''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   departureSidCode:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.general.sid_ident''',
-                                                  ).toString(),
-                                                  departureWxCat: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.origin.metar_category''',
-                                                  ).toString(),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.general.sid_ident''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  departureWxCat:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.origin.metar_category''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   departureVisibility:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.origin.metar_visibility''',
-                                                  ).toString(),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.origin.metar_visibility''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   departureWind:
-                                                      '${getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.takeoff.conditions.wind_direction''',
-                                                  ).toString()}/${getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.takeoff.conditions.wind_speed''',
-                                                  ).toString()}',
+                                                      valueOrDefault<String>(
+                                                    '${getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.takeoff.conditions.wind_direction''',
+                                                    ).toString()}/${getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.takeoff.conditions.wind_speed''',
+                                                    ).toString()}',
+                                                    '-',
+                                                  ),
                                                   departureV1Speed:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.takeoff.runway[0].speeds_v1''',
-                                                  ).toString(),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.takeoff.runway[0].speeds_v1''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   departureVrSpeed:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.takeoff.runway[0].speeds_vr''',
-                                                  ).toString(),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.takeoff.runway[0].speeds_vr''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   departureV2Speed:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.takeoff.runway[0].speeds_v2''',
-                                                  ).toString(),
-                                                  departureEtow: (String? val) {
-                                                    return val != null &&
-                                                            double.tryParse(
-                                                                    val) !=
-                                                                null
-                                                        ? (double.parse(val) /
-                                                                1000)
-                                                            .toStringAsFixed(1)
-                                                        : "0.0";
-                                                  }(getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.weights.est_tow''',
-                                                  ).toString()),
-                                                  departureMtow: (String? val) {
-                                                    return val != null &&
-                                                            double.tryParse(
-                                                                    val) !=
-                                                                null
-                                                        ? (double.parse(val) /
-                                                                1000)
-                                                            .toStringAsFixed(1)
-                                                        : "0.0";
-                                                  }(getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.weights.max_tow''',
-                                                  ).toString()),
-                                                  arrivalRwyCode: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.destination.plan_rwy''',
-                                                  ).toString(),
-                                                  arrivalStarCode: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.general.star_ident''',
-                                                  ).toString(),
-                                                  arrivalWxCat: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.destination.metar_category''',
-                                                  ).toString(),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.takeoff.runway[0].speeds_v2''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  departureEtow:
+                                                      valueOrDefault<String>(
+                                                    (String? val) {
+                                                      return val != null &&
+                                                              double.tryParse(
+                                                                      val) !=
+                                                                  null
+                                                          ? (double.parse(val) /
+                                                                  1000)
+                                                              .toStringAsFixed(
+                                                                  1)
+                                                          : "0.0";
+                                                    }(getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.weights.est_tow''',
+                                                    ).toString()),
+                                                    '-',
+                                                  ),
+                                                  departureMtow:
+                                                      valueOrDefault<String>(
+                                                    (String? val) {
+                                                      return val != null &&
+                                                              double.tryParse(
+                                                                      val) !=
+                                                                  null
+                                                          ? (double.parse(val) /
+                                                                  1000)
+                                                              .toStringAsFixed(
+                                                                  1)
+                                                          : "0.0";
+                                                    }(getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.weights.max_tow''',
+                                                    ).toString()),
+                                                    '-',
+                                                  ),
+                                                  arrivalRwyCode:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.destination.plan_rwy''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  arrivalStarCode:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.general.star_ident''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  arrivalWxCat:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.destination.metar_category''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   arrivalVisibility:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.destination.metar_visibility''',
-                                                  ).toString(),
-                                                  arrivalWind: '${getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.landing.conditions.wind_direction''',
-                                                  ).toString()}/${getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.landing.conditions.wind_speed''',
-                                                  ).toString()}',
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.destination.metar_visibility''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  arrivalWind:
+                                                      valueOrDefault<String>(
+                                                    '${getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.landing.conditions.wind_direction''',
+                                                    ).toString()}/${getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.landing.conditions.wind_speed''',
+                                                    ).toString()}',
+                                                    '-',
+                                                  ),
                                                   arrivalVrefSpeed:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.takeoff.runway[0].speeds_v1''',
-                                                  ).toString(),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.takeoff.runway[0].speeds_v1''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   arrivalFlapsSetting:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.landing.conditions.flap_setting''',
-                                                  ).toString(),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.landing.conditions.flap_setting''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   arrivalRwyLength:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.tlr.landing.runway[0].length_lda''',
-                                                  ).toString(),
-                                                  arrivalElw: (String? val) {
-                                                    return val != null &&
-                                                            double.tryParse(
-                                                                    val) !=
-                                                                null
-                                                        ? (double.parse(val) /
-                                                                1000)
-                                                            .toStringAsFixed(1)
-                                                        : "0.0";
-                                                  }(getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.weights.est_ldw''',
-                                                  ).toString()),
-                                                  arrivalMlw: (String? val) {
-                                                    return val != null &&
-                                                            double.tryParse(
-                                                                    val) !=
-                                                                null
-                                                        ? (double.parse(val) /
-                                                                1000)
-                                                            .toStringAsFixed(1)
-                                                        : "0.0";
-                                                  }(getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.weights.max_ldw''',
-                                                  ).toString()),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.tlr.landing.runway[0].length_lda''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  arrivalElw:
+                                                      valueOrDefault<String>(
+                                                    (String? val) {
+                                                      return val != null &&
+                                                              double.tryParse(
+                                                                      val) !=
+                                                                  null
+                                                          ? (double.parse(val) /
+                                                                  1000)
+                                                              .toStringAsFixed(
+                                                                  1)
+                                                          : "0.0";
+                                                    }(getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.weights.est_ldw''',
+                                                    ).toString()),
+                                                    '-',
+                                                  ),
+                                                  arrivalMlw:
+                                                      valueOrDefault<String>(
+                                                    (String? val) {
+                                                      return val != null &&
+                                                              double.tryParse(
+                                                                      val) !=
+                                                                  null
+                                                          ? (double.parse(val) /
+                                                                  1000)
+                                                              .toStringAsFixed(
+                                                                  1)
+                                                          : "0.0";
+                                                    }(getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.weights.max_ldw''',
+                                                    ).toString()),
+                                                    '-',
+                                                  ),
                                                   onStartDepartureBriefing:
                                                       () async {
                                                     await actions
@@ -30630,114 +30703,181 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                     .FlightPlanPageWidget(
                                                   width: double.infinity,
                                                   height: double.infinity,
-                                                  routeTitle: '${getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.origin.icao_code''',
-                                                  ).toString()} - ${getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.destination.icao_code''',
-                                                  ).toString()}',
-                                                  callsign: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.atc.callsign''',
-                                                  ).toString(),
-                                                  departure: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.origin.icao_code''',
-                                                  ).toString(),
-                                                  arrival: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.destination.icao_code''',
-                                                  ).toString(),
-                                                  alternate: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.alternate.icao_code''',
-                                                  ).toString(),
-                                                  aircraftType: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.aircraft.icaocode''',
-                                                  ).toString(),
-                                                  altitude: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.general.initial_altitude''',
-                                                  ).toString(),
-                                                  airTime: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.times.est_time_enroute''',
-                                                  ).toString(),
-                                                  distance: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.general.route_distance''',
-                                                  ).toString(),
-                                                  averageWind: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.general.avg_wind_comp''',
-                                                  ).toString(),
-                                                  cruise: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.general.cruise_profile''',
-                                                  ).toString(),
-                                                  departureMetar: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.weather.orig_metar''',
-                                                  ).toString(),
-                                                  departureTaf: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.weather.orig_taf''',
-                                                  ).toString(),
-                                                  arrivalMetar: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.weather.dest_metar''',
-                                                  ).toString(),
-                                                  arrivalTaf: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.weather.dest_taf''',
-                                                  ).toString(),
+                                                  routeTitle:
+                                                      valueOrDefault<String>(
+                                                    '${getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.origin.icao_code''',
+                                                    ).toString()} - ${getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.destination.icao_code''',
+                                                    ).toString()}',
+                                                    '-',
+                                                  ),
+                                                  callsign:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.atc.callsign''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  departure:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.origin.icao_code''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  arrival:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.destination.icao_code''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  alternate:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.alternate.icao_code''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  aircraftType:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.aircraft.icaocode''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  altitude:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.general.initial_altitude''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  airTime:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.times.est_time_enroute''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  distance:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.general.route_distance''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  averageWind:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.general.avg_wind_comp''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  cruise:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.general.cruise_profile''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  departureMetar:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.weather.orig_metar''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  departureTaf:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.weather.orig_taf''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  arrivalMetar:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.weather.dest_metar''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  arrivalTaf:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.weather.dest_taf''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   departureNotamCode:
-                                                      getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.origin.icao_code''',
-                                                  ).toString(),
-                                                  departureNotam: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.origin.notam[:].notam_raw''',
-                                                  ).toString(),
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.origin.icao_code''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
+                                                  departureNotam:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.origin.notam[:].notam_raw''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   arrivalNotamCode:
                                                       getJsonField(
                                                     (_model.simbreifResponse
@@ -30745,12 +30885,16 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                         ''),
                                                     r'''$.destination.icao_code''',
                                                   ).toString(),
-                                                  arrivalNotam: getJsonField(
-                                                    (_model.simbreifResponse
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.origin.notam[:].notam_raw''',
-                                                  ).toString(),
+                                                  arrivalNotam:
+                                                      valueOrDefault<String>(
+                                                    getJsonField(
+                                                      (_model.simbreifResponse
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.origin.notam[:].notam_raw''',
+                                                    )?.toString(),
+                                                    '-',
+                                                  ),
                                                   onRouteTap: () async {
                                                     context.pushNamed(
                                                         FlightplanpageWidget

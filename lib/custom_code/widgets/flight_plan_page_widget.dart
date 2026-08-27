@@ -103,10 +103,20 @@ class _FlightPlanPageWidgetState extends State<FlightPlanPageWidget>
       Clipboard.setData(ClipboardData(text: text));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('تم نسخ $sectionName بنجاح!'),
-          backgroundColor: greenAccent,
+          content: Text(
+            '$sectionName copied successfully!',
+            style: TextStyle(
+              color: valueColor,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          backgroundColor: cardColor, // تم تغييره للون الخلفية الغامق
           duration: const Duration(seconds: 2),
           behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: Colors.white.withOpacity(0.05)),
+          ),
         ),
       );
     }

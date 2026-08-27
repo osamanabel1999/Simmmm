@@ -100,7 +100,7 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
             _buildPlanCard(
               title: "Monthly Pass",
               subtitle: "30 Days Access",
-              price: "\$3.99",
+              price: "\$2.99",
               period: "/ month",
               badgeText: "SHORT TERM",
               isPopular: false,
@@ -119,9 +119,9 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
             _buildPlanCard(
               title: "Yearly Pass",
               subtitle: "12 Months Access",
-              price: "\$19.99",
+              price: "\$12.99",
               period: "/ year",
-              badgeText: "🔥 MOST POPULAR - SAVE 60%",
+              badgeText: "🔥 MOST POPULAR - SAVE 80%",
               isPopular: true,
               features: [
                 "100% Full App Access",
@@ -138,7 +138,7 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
             _buildPlanCard(
               title: "Lifetime Pass",
               subtitle: "Permanent Access",
-              price: "\$29.99",
+              price: "\$19.99",
               period: " one-time",
               badgeText: "⚡ BEST VALUE",
               isPopular: false,

@@ -15,7 +15,7 @@ class TopBannerWidget extends StatefulWidget {
     this.width,
     this.height,
     // ==========================================
-    // Parameters (متغيرات الـ API)
+    // 7 Parameters (متغيرات الـ API)
     // ==========================================
     this.latValue,
     this.lonValue,
@@ -24,7 +24,7 @@ class TopBannerWidget extends StatefulWidget {
     this.hdgValue,
     this.simSpeedValue,
     this.connectionStatus,
-    this.connectionColor, // المتغير الجديد الخاص بلون حالة الاتصال
+    this.connectionColor, // المتغير الخاص بلون حالة الاتصال
   }) : super(key: key);
 
   final double? width;
@@ -46,15 +46,12 @@ class TopBannerWidget extends StatefulWidget {
 
 class _TopBannerWidgetState extends State<TopBannerWidget> {
   // الألوان مطابقة للصورة تماماً
-  final Color bgColor = const Color(0xFF0F1115); // لون الخلفية الأساسي
-  final Color cardColor = const Color(0xFF15191E); // لون الكروت
-  final Color borderColor = const Color(0xFF2A2E35); // لون حواف الكروت والفواصل
-  final Color labelColor =
-      const Color(0xFF8B949E); // لون الكلمات (LAT, LON, الخ)
-  final Color valueColor =
-      const Color(0xFF3B82F6); // اللون الأزرق للأرقام والأيقونات
-  final Color dangerColor =
-      const Color(0xFFE53935); // اللون الأحمر للـ Disconnected الافتراضي
+  final Color bgColor = const Color(0xFF0F1115);
+  final Color cardColor = const Color(0xFF15191E);
+  final Color borderColor = const Color(0xFF2A2E35);
+  final Color labelColor = const Color(0xFF8B949E);
+  final Color valueColor = const Color(0xFF3B82F6);
+  final Color dangerColor = const Color(0xFFE53935);
 
   // تصميم صف الداتا الصغير (مثلاً LAT و 0.0)
   Widget _buildDataRow(String label, String value) {
@@ -62,12 +59,12 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          width: 32, // عرض ثابت للكلمة عشان الأرقام تطلع مظبوطة تحت بعض
+          width: 28, // عرض ثابت للكلمة
           child: Text(
             label,
             style: TextStyle(
               color: labelColor,
-              fontSize: 11,
+              fontSize: 10,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
             ),
@@ -79,7 +76,7 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
             color: valueColor,
             fontSize: 13,
             fontWeight: FontWeight.w500,
-            fontFamily: 'Monospace', // خط أرقام دقيق
+            fontFamily: 'Monospace',
           ),
         ),
       ],
@@ -96,17 +93,17 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
           label,
           style: TextStyle(
             color: labelColor,
-            fontSize: 10,
+            fontSize: 9,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.5,
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 2),
         Text(
           value,
           style: TextStyle(
             color: valueColor,
-            fontSize: 14,
+            fontSize: 13,
             fontWeight: FontWeight.w500,
             fontFamily: 'Monospace',
           ),
@@ -115,133 +112,186 @@ class _TopBannerWidgetState extends State<TopBannerWidget> {
     );
   }
 
-  // تصميم الفاصل الرأسي بين البيانات
-  Widget _buildVerticalDivider() {
+  // الفاصل الرأسي
+  Widget _buildVerticalDivider(bool isMobile) {
     return Container(
       width: 1,
-      height: 30,
+      height: 24,
       color: borderColor,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: EdgeInsets.symmetric(horizontal: isMobile ? 6.0 : 12.0),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // ارتفاع البانر 75 عشان الكروت تاخد راحتها جوا
-    return Container(
-      width: widget.width ?? double.infinity,
-      height: widget.height ?? 75.0,
-      color: bgColor,
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      // Scroll أفقي عشان لو الشاشة صغيرة (موبايل) ميعملش إيرور، وفي الايباد هيفرد براحته
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        physics: const BouncingScrollPhysics(),
-        child: Row(
-          children: [
-            // ==========================================
-            // الكارت الأول: الإحداثيات (Globe)
-            // ==========================================
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: cardColor,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: borderColor, width: 1),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.language,
-                      color: valueColor, size: 22), // أيقونة الكرة الأرضية
-                  const SizedBox(width: 12),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildDataRow("LAT", widget.latValue ?? "0.0"),
-                      const SizedBox(height: 4),
-                      _buildDataRow("LON", widget.lonValue ?? "0.0"),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+    // استخدام LayoutBuilder لمعرفة حجم الشاشة وعمل الـ Responsive
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // إذا كان العرض أقل من 600 بيكسل، نعتبره موبايل
+        final bool isMobile = constraints.maxWidth < 600;
 
-            const SizedBox(width: 8),
-
-            // ==========================================
-            // الكارت الثاني: بيانات الطيران (Airplane)
-            // ==========================================
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: cardColor,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: borderColor, width: 1),
-              ),
-              child: Row(
-                children: [
-                  // الأيقونة والسرعة/الارتفاع
-                  Icon(Icons.flight, color: valueColor, size: 22),
-                  const SizedBox(width: 12),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildDataRow("IAS", widget.iasValue ?? "0"),
-                      const SizedBox(height: 4),
-                      _buildDataRow("ALT", widget.altValue ?? "0"),
-                    ],
-                  ),
-
-                  _buildVerticalDivider(),
-
-                  // الاتجاه (HDG)
-                  _buildDataColumn("HDG", widget.hdgValue ?? "000°"),
-
-                  _buildVerticalDivider(),
-
-                  // سرعة المحاكي (SIM SPEED)
-                  _buildDataColumn("SIM SPEED", widget.simSpeedValue ?? "1"),
-                ],
-              ),
-            ),
-
-            const SizedBox(width: 8),
-
-            // ==========================================
-            // الكارت الثالث: حالة الاتصال (Disconnected)
-            // ==========================================
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: cardColor,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: borderColor, width: 1),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.radio_button_checked,
-                      color: widget.connectionColor ?? dangerColor, size: 16),
-                  const SizedBox(width: 10),
-                  Text(
-                    widget.connectionStatus ?? "Disconnected",
-                    style: TextStyle(
-                      color: widget.connectionColor ??
-                          dangerColor, // استخدام المتغير الجديد أو اللون الافتراضي
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
+        return Container(
+          width: widget.width ?? double.infinity,
+          height: widget.height ?? 65.0, // ارتفاع متناسب لحل الـ Overflow
+          color: bgColor,
+          padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+          child: Row(
+            crossAxisAlignment:
+                CrossAxisAlignment.stretch, // الكروت تاخد الارتفاع بالكامل
+            children: [
+              // ==========================================
+              // الكارت الأول: الإحداثيات (Globe)
+              // ==========================================
+              Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: isMobile ? 8.0 : 16.0),
+                decoration: BoxDecoration(
+                  color: cardColor,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: borderColor, width: 1),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.language,
+                        color: valueColor, size: isMobile ? 18 : 22),
+                    SizedBox(width: isMobile ? 6 : 12),
+                    FittedBox(
+                      // لحماية النصوص من الـ Overflow الرأسي
+                      fit: BoxFit.scaleDown,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildDataRow("LAT", widget.latValue ?? "0.0"),
+                          const SizedBox(height: 2),
+                          _buildDataRow("LON", widget.lonValue ?? "0.0"),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Icon(Icons.adjust,
-                      color: widget.connectionColor ?? dangerColor, size: 16),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+
+              const SizedBox(width: 6),
+
+              // ==========================================
+              // الكارت الثاني: بيانات الطيران (Airplane)
+              // ==========================================
+              // تم وضع الكارت في Expanded لكي يملأ عرض الشاشة (للآيباد والموبايل)
+              Expanded(
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: isMobile ? 6.0 : 16.0),
+                  decoration: BoxDecoration(
+                    color: cardColor,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: borderColor, width: 1),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .spaceEvenly, // توزيع المسافات بشكل ذكي
+                    children: [
+                      // الأيقونة والسرعة/الارتفاع
+                      Flexible(
+                        flex: 3,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Row(
+                            children: [
+                              Icon(Icons.flight,
+                                  color: valueColor, size: isMobile ? 18 : 22),
+                              SizedBox(width: isMobile ? 6 : 12),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildDataRow("IAS", widget.iasValue ?? "0"),
+                                  const SizedBox(height: 2),
+                                  _buildDataRow("ALT", widget.altValue ?? "0"),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      _buildVerticalDivider(isMobile),
+
+                      // الاتجاه (HDG)
+                      Flexible(
+                        flex: 2,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: _buildDataColumn(
+                              "HDG", widget.hdgValue ?? "000°"),
+                        ),
+                      ),
+
+                      _buildVerticalDivider(isMobile),
+
+                      // سرعة المحاكي (SIM SPEED)
+                      Flexible(
+                        flex: 2,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: _buildDataColumn(
+                              "SIM SPEED", widget.simSpeedValue ?? "1"),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 6),
+
+              // ==========================================
+              // الكارت الثالث: حالة الاتصال (Responsive)
+              // ==========================================
+              Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: isMobile ? 12.0 : 16.0),
+                decoration: BoxDecoration(
+                  color: cardColor,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: borderColor, width: 1),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // الدايرة دي هتفضل موجودة دايماً (بتنور باللون المطلوب)
+                    Icon(
+                      Icons.radio_button_checked,
+                      color: widget.connectionColor ?? dangerColor,
+                      size: isMobile ? 22 : 16,
+                    ),
+
+                    // لو الشاشة مش موبايل (يعني آيباد) نعرض الكلمة والأيقونة التانية
+                    if (!isMobile) ...[
+                      const SizedBox(width: 10),
+                      Text(
+                        widget.connectionStatus ?? "Disconnected",
+                        style: TextStyle(
+                          color: widget.connectionColor ?? dangerColor,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Icon(
+                        Icons.adjust,
+                        color: widget.connectionColor ?? dangerColor,
+                        size: 16,
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

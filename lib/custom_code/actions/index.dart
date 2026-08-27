@@ -63,3 +63,6 @@ export 'set_weight_controller.dart' show setWeightController;
 export 'send_pushback_command.dart' show sendPushbackCommand;
 export 'activate_license_m_s_f_s.dart' show activateLicenseMSFS;
 export 'generate_new_license_m_s_f_s.dart' show generateNewLicenseMSFS;
+export 'extend_license_m_s_f_s.dart' show extendLicenseMSFS;
+export 'extend_license_x_plane.dart' show extendLicenseXPlane;
+export 'restore_license_m_s_f_s.dart' show restoreLicenseMSFS;
