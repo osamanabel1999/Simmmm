@@ -846,7 +846,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                 ..onTap = () async {
                                   _model.restoredCodeMSFS =
                                       await actions.restoreLicenseMSFS();
-                                  if (_model.restoredCodeMSFS ==
+                                  if (_model.restoredCodeMSFS !=
                                       'No subscription found for this device.⁠') {
                                     await showDialog(
                                       context: context,
