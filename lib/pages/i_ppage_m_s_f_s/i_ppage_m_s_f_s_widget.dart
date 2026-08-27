@@ -883,7 +883,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                       ),
                                     );
                                   } else if (_model.restoredCodeMSFS ==
-                                      'subscription found for this device.') {
+                                      'No subscription found for this device.') {
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
