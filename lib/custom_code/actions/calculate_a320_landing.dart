@@ -29,10 +29,44 @@ Future<dynamic> calculateA320Landing(
 ) async {
   try {
     // =========================================================
+    // 0. طبقة الحماية (Safety Layer) لتفادي أعطال FlutterFlow المخفية
+    // =========================================================
+    final safeWeight =
+        (weight as dynamic) is num ? (weight as dynamic).toDouble() : 0.0;
+    final safeElevation =
+        (elevation as dynamic) is num ? (elevation as dynamic).toDouble() : 0.0;
+    final safeOat = (oat as dynamic) is num ? (oat as dynamic).toDouble() : 0.0;
+    final safeQnh =
+        (qnh as dynamic) is num ? (qnh as dynamic).toDouble() : 1013.25;
+    final safeWindDir =
+        (windDir as dynamic) is num ? (windDir as dynamic).toDouble() : 0.0;
+    final safeWindSpeed =
+        (windSpeed as dynamic) is num ? (windSpeed as dynamic).toDouble() : 0.0;
+    final safeRunwayHeading = (runwayHeading as dynamic) is num
+        ? (runwayHeading as dynamic).toDouble()
+        : 0.0;
+    final safeSlope =
+        (slope as dynamic) is num ? (slope as dynamic).toDouble() : 0.0;
+    final safeRunwayLength = (runwayLength as dynamic) is num
+        ? (runwayLength as dynamic).toDouble()
+        : 0.0;
+
+    final safeLdgConf =
+        (ldgConf as dynamic)?.toString().trim().toUpperCase() ?? '';
+    final safeRunCondition =
+        (runwayCondition as dynamic)?.toString().trim().toUpperCase() ?? '';
+    final safeAutobrake =
+        (autobrake as dynamic)?.toString().trim().toUpperCase() ?? '';
+    final safeReversers =
+        (reversersInop as dynamic)?.toString().trim().toUpperCase() ?? '';
+    final safeAntiIce =
+        (antiIceOn as dynamic)?.toString().trim().toUpperCase() ?? '';
+
+    // =========================================================
     // 1. حساب مركبة الرياح (Headwind / Tailwind)
     // =========================================================
-    double angleDiff = (windDir - runwayHeading) * (math.pi / 180.0);
-    double windComponent = windSpeed * math.cos(angleDiff);
+    double angleDiff = (safeWindDir - safeRunwayHeading) * (math.pi / 180.0);
+    double windComponent = safeWindSpeed * math.cos(angleDiff);
 
     double headwind = (windComponent > 0) ? windComponent : 0.0;
     double tailwind = (windComponent < 0) ? windComponent.abs() : 0.0;
@@ -40,10 +74,10 @@ Future<dynamic> calculateA320Landing(
     // =========================================================
     // 2. حساب السرعات (VLS, VAPP, O, S, F)
     // =========================================================
-    double vrefFull = 137.0 + (weight - 66.0);
+    double vrefFull = 137.0 + (safeWeight - 66.0);
 
     double vls = vrefFull;
-    if (ldgConf.toUpperCase().contains('3')) {
+    if (safeLdgConf.contains('3')) {
       vls += 4.0;
     }
 
@@ -53,9 +87,9 @@ Future<dynamic> calculateA320Landing(
 
     double vapp = vls + windCorr;
 
-    int oSpeed = (2.0 * weight + 85.0).round();
-    int sSpeed = (1.8 * weight + 75.0).round();
-    int fSpeed = (1.25 * weight + 70.0).round();
+    int oSpeed = (2.0 * safeWeight + 85.0).round();
+    int sSpeed = (1.8 * safeWeight + 75.0).round();
+    int fSpeed = (1.25 * safeWeight + 70.0).round();
 
     // =========================================================
     // 3. حساب مسافة الهبوط (Landing Distance Calculations)
@@ -68,8 +102,8 @@ Future<dynamic> calculateA320Landing(
     double slopePenalizer = 0.0;
     double qnhPenalizer = 0.0;
 
-    if (ldgConf.toUpperCase().contains('3')) {
-      if (autobrake.toUpperCase() == 'LOW') {
+    if (safeLdgConf.contains('3')) {
+      if (safeAutobrake == 'LOW') {
         baseDist = 2090.0;
         weightPenalizerOver = 40.0;
         altPenalizer = 70.0;
@@ -87,7 +121,7 @@ Future<dynamic> calculateA320Landing(
         qnhPenalizer = 20.0;
       }
     } else {
-      if (autobrake.toUpperCase() == 'LOW') {
+      if (safeAutobrake == 'LOW') {
         baseDist = 1950.0;
         weightPenalizerOver = 40.0;
         altPenalizer = 70.0;
@@ -109,14 +143,14 @@ Future<dynamic> calculateA320Landing(
     double distance = baseDist;
 
     // أ. تصحيح الوزن
-    if (weight > 66.0) {
-      distance += (weight - 66.0) * weightPenalizerOver;
-    } else if (weight < 66.0) {
-      distance -= (66.0 - weight) * 10.0;
+    if (safeWeight > 66.0) {
+      distance += (safeWeight - 66.0) * weightPenalizerOver;
+    } else if (safeWeight < 66.0) {
+      distance -= (66.0 - safeWeight) * 10.0;
     }
 
     // ب. تصحيح الارتفاع
-    distance += (elevation / 1000.0) * altPenalizer;
+    distance += (safeElevation / 1000.0) * altPenalizer;
 
     // ج. تصحيح الرياح
     if (tailwind > 0) {
@@ -126,46 +160,43 @@ Future<dynamic> calculateA320Landing(
     }
 
     // د. تصحيح الحرارة
-    double isaTemp = 15.0 - (2.0 * (elevation / 1000.0));
-    if (oat > isaTemp) {
-      distance += ((oat - isaTemp) / 10.0) * tempPenalizer;
+    double isaTemp = 15.0 - (2.0 * (safeElevation / 1000.0));
+    if (safeOat > isaTemp) {
+      distance += ((safeOat - isaTemp) / 10.0) * tempPenalizer;
     }
 
     // هـ. تصحيح ميل المدرج
-    if (slope < 0) {
-      distance += (slope.abs()) * slopePenalizer;
-    } else if (slope > 0) {
-      distance -= slope * (slopePenalizer / 2.0);
+    if (safeSlope < 0) {
+      distance += (safeSlope.abs()) * slopePenalizer;
+    } else if (safeSlope > 0) {
+      distance -= safeSlope * (slopePenalizer / 2.0);
     }
 
     // و. تصحيح الضغط الجوي
-    if (qnh < 1013.25) {
-      distance += ((1013.25 - qnh) / 10.0) * qnhPenalizer;
+    if (safeQnh < 1013.25) {
+      distance += ((1013.25 - safeQnh) / 10.0) * qnhPenalizer;
     }
 
     // ز. حالة المدرج والـ Reversers
-    if (runwayCondition.toUpperCase() == 'WET') {
+    if (safeRunCondition == 'WET') {
       distance *= 1.15;
-    } else if (runwayCondition.toUpperCase() == 'ICE' ||
-        runwayCondition.toUpperCase() == 'SLUSH') {
+    } else if (safeRunCondition == 'ICE' || safeRunCondition == 'SLUSH') {
       distance *= 1.30;
     }
 
-    if (reversersInop.toUpperCase() == 'YES' ||
-        reversersInop.toUpperCase() == 'INOP') {
-      if (runwayCondition.toUpperCase() == 'WET' ||
-          runwayCondition.toUpperCase() == 'ICE') {
+    if (safeReversers == 'YES' || safeReversers == 'INOP') {
+      if (safeRunCondition == 'WET' || safeRunCondition == 'ICE') {
         distance *= 1.10;
       } else {
-        if (autobrake.toUpperCase() == 'LOW') distance += 10.0;
+        if (safeAutobrake == 'LOW') distance += 10.0;
       }
     }
 
     // ح. تأثير الـ Anti-Ice
-    if (antiIceOn.toUpperCase() == 'ENGINE') {
-      distance += (autobrake.toUpperCase() == 'LOW') ? 70.0 : 50.0;
-    } else if (antiIceOn.toUpperCase() == 'TOTAL') {
-      distance += (autobrake.toUpperCase() == 'LOW') ? 160.0 : 120.0;
+    if (safeAntiIce == 'ENGINE') {
+      distance += (safeAutobrake == 'LOW') ? 70.0 : 50.0;
+    } else if (safeAntiIce == 'TOTAL') {
+      distance += (safeAutobrake == 'LOW') ? 160.0 : 120.0;
     }
 
     // ط. Air Distance والـ Safety Factor
@@ -175,7 +206,7 @@ Future<dynamic> calculateA320Landing(
     // =========================================================
     // 4. مقارنة المسافة بطول المدرج المتاح
     // =========================================================
-    double remainingRunway = runwayLength - factoredDistance;
+    double remainingRunway = safeRunwayLength - factoredDistance;
     bool isSafeToLand = remainingRunway >= 0;
 
     String runwayStatusMessage = isSafeToLand
@@ -185,11 +216,11 @@ Future<dynamic> calculateA320Landing(
     // =========================================================
     // 5. التنسيقات للـ UI
     // =========================================================
-    String formattedTemp = (oat >= 0) ? "+${oat.round()}°" : "${oat.round()}°";
+    String formattedTemp =
+        (safeOat >= 0) ? "+${safeOat.round()}°" : "${safeOat.round()}°";
     String formattedWind =
-        "${windDir.round().toString().padLeft(3, '0')}/${windSpeed.round()}";
-    String formattedConf =
-        ldgConf.toUpperCase().contains('3') ? "CONF 3" : "FULL";
+        "${safeWindDir.round().toString().padLeft(3, '0')}/${safeWindSpeed.round()}";
+    String formattedConf = safeLdgConf.contains('3') ? "CONF 3" : "FULL";
 
     // Map المخرجات
     Map<String, dynamic> resultCode = {
@@ -200,7 +231,7 @@ Future<dynamic> calculateA320Landing(
       "f_speed": fSpeed,
       "actual_distance": distance.round(),
       "factored_distance": factoredDistance.round(),
-      "qnh_display": qnh.round().toString(),
+      "qnh_display": safeQnh.round().toString(),
       "temp_display": formattedTemp,
       "ldg_conf_display": formattedConf,
       "wind_display": formattedWind,
@@ -209,7 +240,6 @@ Future<dynamic> calculateA320Landing(
       "runway_status_message": runwayStatusMessage,
     };
 
-    // تحويل الـ Map إلى JSON متوافق تماماً مع FlutterFlow Return Parameter
     return jsonDecode(jsonEncode(resultCode));
   } catch (e) {
     Map<String, dynamic> errorMap = {

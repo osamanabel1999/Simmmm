@@ -16064,7 +16064,14 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                       ],
                                     ),
                                   ),
-                                if (FFAppState().TabNumber == 9)
+                                if ((FFAppState().TabNumber == 9) &&
+                                    responsiveVisibility(
+                                      context: context,
+                                      phone: false,
+                                      tablet: false,
+                                      tabletLandscape: false,
+                                      desktop: false,
+                                    ))
                                   Expanded(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -19133,6 +19140,31 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                               ),
                                             ),
                                           ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                if (FFAppState().TabNumber == 9)
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            child: custom_widgets
+                                                .BriefingPageWidget(
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                              onStartDepartureBriefing:
+                                                  () async {},
+                                              onStartArrivalBriefing:
+                                                  () async {},
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     ),

@@ -11,3 +11,5 @@ export 'plane_teleport_map.dart' show PlaneTeleportMap;
 export 'simulator_station_home.dart' show SimulatorStationHome;
 export 'msfscheckout.dart' show Msfscheckout;
 export 'ultimate_bundle_checkout.dart' show UltimateBundleCheckout;
+export 'briefing_page_widget.dart' show BriefingPageWidget;
+export 'flight_plan_page_widget.dart' show FlightPlanPageWidget;

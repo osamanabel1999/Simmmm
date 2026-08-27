@@ -822,9 +822,18 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
-                                                                color: FFAppState()
-                                                                            .currentLAT >
-                                                                        0.0
+                                                                color: functions.isAnyTelemetryActive(
+                                                                            _model
+                                                                                .speed,
+                                                                            _model
+                                                                                .altitude,
+                                                                            _model
+                                                                                .heading,
+                                                                            _model
+                                                                                .latitude,
+                                                                            _model
+                                                                                .longitude) ==
+                                                                        true
                                                                     ? Color(
                                                                         0xFF00FF3C)
                                                                     : Color(
@@ -22914,7 +22923,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                   fontWeight: FontWeight.bold,
                                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                 ),
-                                                                                                fontSize: 20.0,
+                                                                                                fontSize: 18.0,
                                                                                                 letterSpacing: 0.0,
                                                                                                 fontWeight: FontWeight.bold,
                                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -22959,7 +22968,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                   fontWeight: FontWeight.bold,
                                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                 ),
-                                                                                                fontSize: 20.0,
+                                                                                                fontSize: 18.0,
                                                                                                 letterSpacing: 0.0,
                                                                                                 fontWeight: FontWeight.bold,
                                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -24952,6 +24961,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Color(0xFF2081FF),
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -25041,6 +25051,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Color(0xFF2081FF),
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -25130,6 +25141,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Color(0xFF2081FF),
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -25220,6 +25232,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Color(0xFF2081FF),
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -25313,6 +25326,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Color(0xFF2081FF),
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -25654,6 +25668,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                   fontWeight: FontWeight.w600,
                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
+                                                                                color: Color(0xFF2081FF),
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -25742,6 +25757,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                   fontWeight: FontWeight.w600,
                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
+                                                                                color: Color(0xFF2081FF),
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -25830,6 +25846,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                   fontWeight: FontWeight.w600,
                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
+                                                                                color: Color(0xFF2081FF),
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -25923,6 +25940,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                   fontWeight: FontWeight.w600,
                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
+                                                                                color: Color(0xFF2081FF),
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -26016,6 +26034,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                   fontWeight: FontWeight.w600,
                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                 ),
+                                                                                color: Color(0xFF2081FF),
                                                                                 letterSpacing: 0.0,
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -26295,6 +26314,55 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                       mainAxisSize:
                                                           MainAxisSize.max,
                                                       children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      8.0,
+                                                                      0.0,
+                                                                      8.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                '[ Arrival Briefing - ${getJsonField(
+                                                                  (_model.simbreifResponse
+                                                                          ?.jsonBody ??
+                                                                      ''),
+                                                                  r'''$.destination.icao_code''',
+                                                                ).toString()} ]',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .inter(
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
                                                         Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -27194,19 +27262,22 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             mainAxisAlignment:
                                                                                 MainAxisAlignment.center,
                                                                             children: [
-                                                                              Text(
-                                                                                'RWY LENGTH ',
-                                                                                textAlign: TextAlign.center,
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      font: GoogleFonts.inter(
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 80.0),
+                                                                                child: Text(
+                                                                                  'RWY LENGTH ',
+                                                                                  textAlign: TextAlign.center,
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        font: GoogleFonts.inter(
+                                                                                          fontWeight: FontWeight.w600,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                        ),
+                                                                                        fontSize: 11.8,
+                                                                                        letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w600,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                       ),
-                                                                                      fontSize: 11.8,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.w600,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                    ),
+                                                                                ),
                                                                               ),
                                                                             ],
                                                                           ),
@@ -27590,7 +27661,496 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                           ],
                                         ),
                                       ),
-                                    if (FFAppState().TabNumber == 4)
+                                    if (FFAppState().TabNumber == 9)
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                child: custom_widgets
+                                                    .BriefingPageWidget(
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                  departureRwyCode:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.origin.plan_rwy''',
+                                                  ).toString(),
+                                                  departureSidCode:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.general.sid_ident''',
+                                                  ).toString(),
+                                                  departureWxCat: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.origin.metar_category''',
+                                                  ).toString(),
+                                                  departureVisibility:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.origin.metar_visibility''',
+                                                  ).toString(),
+                                                  departureWind:
+                                                      '${getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.takeoff.conditions.wind_direction''',
+                                                  ).toString()}/${getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.takeoff.conditions.wind_speed''',
+                                                  ).toString()}',
+                                                  departureV1Speed:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.takeoff.runway[0].speeds_v1''',
+                                                  ).toString(),
+                                                  departureVrSpeed:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.takeoff.runway[0].speeds_vr''',
+                                                  ).toString(),
+                                                  departureV2Speed:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.takeoff.runway[0].speeds_v2''',
+                                                  ).toString(),
+                                                  departureEtow: (String? val) {
+                                                    return val != null &&
+                                                            double.tryParse(
+                                                                    val) !=
+                                                                null
+                                                        ? (double.parse(val) /
+                                                                1000)
+                                                            .toStringAsFixed(1)
+                                                        : "0.0";
+                                                  }(getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.weights.est_tow''',
+                                                  ).toString()),
+                                                  departureMtow: (String? val) {
+                                                    return val != null &&
+                                                            double.tryParse(
+                                                                    val) !=
+                                                                null
+                                                        ? (double.parse(val) /
+                                                                1000)
+                                                            .toStringAsFixed(1)
+                                                        : "0.0";
+                                                  }(getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.weights.max_tow''',
+                                                  ).toString()),
+                                                  arrivalRwyCode: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.destination.plan_rwy''',
+                                                  ).toString(),
+                                                  arrivalStarCode: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.general.star_ident''',
+                                                  ).toString(),
+                                                  arrivalWxCat: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.destination.metar_category''',
+                                                  ).toString(),
+                                                  arrivalVisibility:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.destination.metar_visibility''',
+                                                  ).toString(),
+                                                  arrivalWind: '${getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.landing.conditions.wind_direction''',
+                                                  ).toString()}/${getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.landing.conditions.wind_speed''',
+                                                  ).toString()}',
+                                                  arrivalVrefSpeed:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.takeoff.runway[0].speeds_v1''',
+                                                  ).toString(),
+                                                  arrivalFlapsSetting:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.landing.conditions.flap_setting''',
+                                                  ).toString(),
+                                                  arrivalRwyLength:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.tlr.landing.runway[0].length_lda''',
+                                                  ).toString(),
+                                                  arrivalElw: (String? val) {
+                                                    return val != null &&
+                                                            double.tryParse(
+                                                                    val) !=
+                                                                null
+                                                        ? (double.parse(val) /
+                                                                1000)
+                                                            .toStringAsFixed(1)
+                                                        : "0.0";
+                                                  }(getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.weights.est_ldw''',
+                                                  ).toString()),
+                                                  arrivalMlw: (String? val) {
+                                                    return val != null &&
+                                                            double.tryParse(
+                                                                    val) !=
+                                                                null
+                                                        ? (double.parse(val) /
+                                                                1000)
+                                                            .toStringAsFixed(1)
+                                                        : "0.0";
+                                                  }(getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.weights.max_ldw''',
+                                                  ).toString()),
+                                                  onStartDepartureBriefing:
+                                                      () async {
+                                                    await actions
+                                                        .captainSpeakBriefing(
+                                                      'Good morning Captain. This will be our departure briefing for Flight ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.general.flight_number''',
+                                                      ).toString()} to ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.origin.name''',
+                                                      ).toString()} Our estimated Zero Fuel Weight is ${(String? val) {
+                                                        return val != null &&
+                                                                double.tryParse(
+                                                                        val) !=
+                                                                    null
+                                                            ? (double.parse(
+                                                                        val) /
+                                                                    1000)
+                                                                .toStringAsFixed(
+                                                                    1)
+                                                            : "0.0";
+                                                      }(getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.weights.est_zfw''',
+                                                      ).toString())} tons, and Payload is ${(String? val) {
+                                                        return val != null &&
+                                                                double.tryParse(
+                                                                        val) !=
+                                                                    null
+                                                            ? (double.parse(
+                                                                        val) /
+                                                                    1000)
+                                                                .toStringAsFixed(
+                                                                    1)
+                                                            : "0.0";
+                                                      }(getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.weights.payload''',
+                                                      ).toString())}tons. With a planned Takeoff Fuel of ${(String val) {
+                                                        return double.tryParse(
+                                                                        val) !=
+                                                                    null
+                                                            ? (double.parse(
+                                                                        val) /
+                                                                    1000)
+                                                                .toStringAsFixed(
+                                                                    1)
+                                                            : "0.0";
+                                                      }(getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.fuel.plan_takeoff''',
+                                                      ).toString())} tons, including a Trip Fuel of ${(String val) {
+                                                        return double.tryParse(
+                                                                        val) !=
+                                                                    null
+                                                            ? (double.parse(
+                                                                        val) /
+                                                                    1000)
+                                                                .toStringAsFixed(
+                                                                    1)
+                                                            : "0.0";
+                                                      }(getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.fuel.enroute_burn''',
+                                                      ).toString())} tons, our Estimated Takeoff Weight is ${(String val) {
+                                                        return double.tryParse(
+                                                                        val) !=
+                                                                    null
+                                                            ? (double.parse(
+                                                                        val) /
+                                                                    1000)
+                                                                .toStringAsFixed(
+                                                                    1)
+                                                            : "0.0";
+                                                      }(getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.weights.est_tow''',
+                                                      ).toString())} tons. The performance calculated Takeoff Weight is ${(String? val) {
+                                                        return val != null &&
+                                                                double.tryParse(
+                                                                        val) !=
+                                                                    null
+                                                            ? (double.parse(
+                                                                        val) /
+                                                                    1000)
+                                                                .toStringAsFixed(
+                                                                    1)
+                                                            : "0.0";
+                                                      }(getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.weights.est_tow''',
+                                                      ).toString())} tons. Everything is within limits for our departure today. Departure Path: We are departing from Runway ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.origin.plan_rwy''',
+                                                      ).toString()}${getJsonField(
+                                                            (_model.simbreifResponse
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                            r'''$.general.sid_ident''',
+                                                          ) != null ? ' via the ${getJsonField(
+                                                          (_model.simbreifResponse
+                                                                  ?.jsonBody ??
+                                                              ''),
+                                                          r'''$.general.sid_ident''',
+                                                        ).toString()}  departure' : ' and willproceed direct as cleared by ATC. '} Our initial climb is set to a transition altitude of ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.origin.trans_alt''',
+                                                      ).toString()} feet, and we will be cruising at Flight Level ${(String? val) {
+                                                        return val
+                                                                    .toString()
+                                                                    .length >=
+                                                                3
+                                                            ? val
+                                                                .toString()
+                                                                .substring(0, 3)
+                                                            : val.toString();
+                                                      }(getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.general.initial_altitude''',
+                                                      ).toString())} Safety and Emergency: Takeoff speeds are cross-checked: V1 is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.takeoff.runway[0].speeds_v1''',
+                                                      ).toString()} Vr is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.takeoff.runway[0].speeds_vr''',
+                                                      ).toString()} and v2 is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.takeoff.runway[0].speeds_v2''',
+                                                      ).toString()} . In case of any failure before V1, I will call \'Stop\' and we will reject the takeoff on Runway ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.origin.plan_rwy''',
+                                                      ).toString()} . If an emergency occurs after V1, we will continue the takeoff and return to  ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.origin.name''',
+                                                      ).toString()} . Weather Report: Looking at the weather: Winds are from ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.takeoff.conditions.wind_direction''',
+                                                      ).toString()} degrees at ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.takeoff.conditions.wind_speed''',
+                                                      ).toString()} knots. The temperature is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.takeoff.conditions.temperature''',
+                                                      ).toString()} degrees. Visibility is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.origin.metar_visibility''',
+                                                      ).toString()} Briefing complete. Any questions, Captain?',
+                                                    );
+                                                  },
+                                                  onStartArrivalBriefing:
+                                                      () async {
+                                                    await actions
+                                                        .captainSpeakBriefing(
+                                                      'Okay, let\'s carry out a detailed Arrival Briefing. We are inbound to ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.destination.name''',
+                                                      ).toString()}arrival. We expect an ILS approach to Runway  ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.destination.plan_rwy''',
+                                                      ).toString()}. Runway and Landing Performance:  The Landing Distance Available is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.landing.runway[0].length_lda''',
+                                                      ).toString()} feet. Airport elevation is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.destination.elevation''',
+                                                      ).toString()} feet. We will be in Landing Configuration Flaps ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.landing.conditions.flap_setting''',
+                                                      ).toString()} with Auto-brake set to low or medium as required. Weight and  V-Speeds:  Estimated Landing Weight is ${(String val) {
+                                                        return double.tryParse(
+                                                                        val) !=
+                                                                    null
+                                                            ? (double.parse(
+                                                                        val) /
+                                                                    1000)
+                                                                .toStringAsFixed(
+                                                                    1)
+                                                            : "0.0";
+                                                      }(getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.weights.est_ldw''',
+                                                      ).toString())} tons. Target V-Ref is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.landing.distance_dry.speeds_vref''',
+                                                      ).toString()} knots. Weather and Environment:  Current winds at destination are ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.landing.conditions.wind_direction''',
+                                                      ).toString()} degrees at ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.landing.conditions.wind_speed''',
+                                                      ).toString()} knots, with a crosswind component of ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.takeoff.runway[0].crosswind_component''',
+                                                      ).toString()}knots. Temperature is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.tlr.landing.conditions.temperature''',
+                                                      ).toString()} degrees. Transition Level is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.destination.trans_level''',
+                                                      ).toString()}feet. Fuel and Alternate:  We expect to touchdown with ${(String val) {
+                                                        return double.tryParse(
+                                                                        val) !=
+                                                                    null
+                                                            ? (double.parse(
+                                                                        val) /
+                                                                    1000)
+                                                                .toStringAsFixed(
+                                                                    1)
+                                                            : "0.0";
+                                                      }(getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.fuel.plan_landing''',
+                                                      ).toString())} tons of fuel on board. In case of a diversion, our alternate is ${getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.alternate.name''',
+                                                      ).toString()}. Aircraft is technical-ready, stabilized approach criteria will be observed. Any questions, Captain?',
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    if ((FFAppState().TabNumber == 4) &&
+                                        responsiveVisibility(
+                                          context: context,
+                                          phone: false,
+                                          tablet: false,
+                                          tabletLandscape: false,
+                                          desktop: false,
+                                        ))
                                       Expanded(
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -29993,6 +30553,177 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                               ),
                                             ],
                                           ),
+                                        ),
+                                      ),
+                                    if (FFAppState().TabNumber == 4)
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                child: custom_widgets
+                                                    .FlightPlanPageWidget(
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                  routeTitle: '${getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.origin.icao_code''',
+                                                  ).toString()} - ${getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.destination.icao_code''',
+                                                  ).toString()}',
+                                                  callsign: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.atc.callsign''',
+                                                  ).toString(),
+                                                  departure: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.origin.icao_code''',
+                                                  ).toString(),
+                                                  arrival: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.destination.icao_code''',
+                                                  ).toString(),
+                                                  alternate: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.alternate.icao_code''',
+                                                  ).toString(),
+                                                  aircraftType: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.aircraft.icaocode''',
+                                                  ).toString(),
+                                                  altitude: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.general.initial_altitude''',
+                                                  ).toString(),
+                                                  airTime: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.times.est_time_enroute''',
+                                                  ).toString(),
+                                                  distance: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.general.route_distance''',
+                                                  ).toString(),
+                                                  averageWind: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.general.avg_wind_comp''',
+                                                  ).toString(),
+                                                  cruise: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.general.cruise_profile''',
+                                                  ).toString(),
+                                                  departureMetar: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.weather.orig_metar''',
+                                                  ).toString(),
+                                                  departureTaf: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.weather.orig_taf''',
+                                                  ).toString(),
+                                                  arrivalMetar: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.weather.dest_metar''',
+                                                  ).toString(),
+                                                  arrivalTaf: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.weather.dest_taf''',
+                                                  ).toString(),
+                                                  departureNotamCode:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.origin.icao_code''',
+                                                  ).toString(),
+                                                  departureNotam: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.origin.notam[:].notam_raw''',
+                                                  ).toString(),
+                                                  arrivalNotamCode:
+                                                      getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.destination.icao_code''',
+                                                  ).toString(),
+                                                  arrivalNotam: getJsonField(
+                                                    (_model.simbreifResponse
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.origin.notam[:].notam_raw''',
+                                                  ).toString(),
+                                                  onRouteTap: () async {
+                                                    context.pushNamed(
+                                                        FlightplanpageWidget
+                                                            .routeName);
+                                                  },
+                                                  onListenDepartureAtis:
+                                                      () async {
+                                                    await actions
+                                                        .professionalAtis(
+                                                      getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.origin.atis.message''',
+                                                      ).toString(),
+                                                    );
+                                                  },
+                                                  onListenArrivalAtis:
+                                                      () async {
+                                                    await actions
+                                                        .professionalAtis(
+                                                      getJsonField(
+                                                        (_model.simbreifResponse
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                        r'''$.destination.atis.message''',
+                                                      ).toString(),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     if ((FFAppState().FailureSubTab == 2) &&
