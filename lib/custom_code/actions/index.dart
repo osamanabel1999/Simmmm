@@ -35,8 +35,8 @@ export 'calculate_right_downwind_position.dart'
     show calculateRightDownwindPosition;
 export 'lock_portrait.dart' show lockPortrait;
 export 'get_final_paymob_link.dart' show getFinalPaymobLink;
-export 'activate_license.dart' show activateLicense;
-export 'generate_new_license.dart' show generateNewLicense;
+export 'activate_license_x_plane.dart' show activateLicenseXPlane;
+export 'generate_new_license_x_plane.dart' show generateNewLicenseXPlane;
 export 'send_m_s_f_s_command.dart' show sendMSFSCommand;
 export 'listen_to_m_s_f_s_data.dart' show listenToMSFSData;
 export 'get_flight_data.dart' show getFlightData;
@@ -60,3 +60,6 @@ export 'ground_services_and_doors_controller.dart'
     show groundServicesAndDoorsController;
 export 'pause_and_freeze_controller.dart' show pauseAndFreezeController;
 export 'set_weight_controller.dart' show setWeightController;
+export 'send_pushback_command.dart' show sendPushbackCommand;
+export 'activate_license_m_s_f_s.dart' show activateLicenseMSFS;
+export 'generate_new_license_m_s_f_s.dart' show generateNewLicenseMSFS;

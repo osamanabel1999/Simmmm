@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-class Bfmccheckout extends StatefulWidget {
-  const Bfmccheckout({
+class Msfscheckout extends StatefulWidget {
+  const Msfscheckout({
     Key? key,
     this.width,
     this.height,
@@ -30,10 +30,10 @@ class Bfmccheckout extends StatefulWidget {
   final Future Function()? onBuyBothSims;
 
   @override
-  _BfmccheckoutState createState() => _BfmccheckoutState();
+  _MsfscheckoutState createState() => _MsfscheckoutState();
 }
 
-class _BfmccheckoutState extends State<Bfmccheckout> {
+class _MsfscheckoutState extends State<Msfscheckout> {
   static const Color brandColor = Color(0xFF2081FF);
   static const Color cardBgColor = Color(0xFF161B22);
   static const Color pageBgColor = Color(0xFF0D1117);
@@ -76,7 +76,8 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
             ),
             const SizedBox(height: 16),
             const Text(
-              "X-Plane Access Pass",
+              "Microsoft Flight\nSimulator Access Pass",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 28,
@@ -192,7 +193,7 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "Get the Ultimate Bundle (X-Plane & MSFS)\nat a massive discount! Click here for details.",
+                      "Get the Ultimate Bundle (MSFS & X-Plane)\nat a massive discount! Click here for details.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.grey[300],

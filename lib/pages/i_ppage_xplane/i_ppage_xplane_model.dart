@@ -1,9 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
-import 'i_ppage_widget.dart' show IPpageWidget;
+import 'i_ppage_xplane_widget.dart' show IPpageXplaneWidget;
 import 'package:flutter/material.dart';
 
-class IPpageModel extends FlutterFlowModel<IPpageWidget> {
+class IPpageXplaneModel extends FlutterFlowModel<IPpageXplaneWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TextFieldipPc widget.
@@ -25,8 +25,8 @@ class IPpageModel extends FlutterFlowModel<IPpageWidget> {
   TextEditingController? codeTextController;
   late bool codeVisibility;
   String? Function(BuildContext, String?)? codeTextControllerValidator;
-  // Stores action output result for [Custom Action - activateLicense] action in Button widget.
-  String? status;
+  // Stores action output result for [Custom Action - activateLicenseXPlane] action in Button widget.
+  String? statusXplane;
 
   @override
   void initState(BuildContext context) {

@@ -797,8 +797,12 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                     0.0,
                                                                     0.0),
                                                         child: Text(
-                                                          FFAppState().currentLAT >
-                                                                  0.0
+                                                          (_model.latitude! >
+                                                                      0.0) ||
+                                                                  (_model.longitude! >
+                                                                      0.0) ||
+                                                                  (_model.heading! >
+                                                                      0.0)
                                                               ? 'Connected'
                                                               : 'Disconnected',
                                                           textAlign:
@@ -22973,238 +22977,6 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                     ),
                                                                   ),
                                                                 ),
-                                                                InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onTap:
-                                                                      () async {
-                                                                    await actions
-                                                                        .patternTeleporter(
-                                                                      FFAppState()
-                                                                          .ipPC,
-                                                                      getJsonField(
-                                                                        _model
-                                                                            .selectedRunway,
-                                                                        r'''$.ends[0].lat''',
-                                                                      ),
-                                                                      getJsonField(
-                                                                        _model
-                                                                            .selectedRunway,
-                                                                        r'''$.ends[0].lon''',
-                                                                      ),
-                                                                      ((getJsonField(
-                                                                                    _model.selectedRunway,
-                                                                                    r'''$.bearing''',
-                                                                                  ) +
-                                                                                  315) %
-                                                                              360)
-                                                                          .toDouble(),
-                                                                      ((double?
-                                                                          elevation) {
-                                                                        return elevation !=
-                                                                                null
-                                                                            ? elevation +
-                                                                                700.0
-                                                                            : null;
-                                                                      }(getJsonField(
-                                                                        (_model.airportResultApi?.jsonBody ??
-                                                                            ''),
-                                                                        r'''$.elevation''',
-                                                                      )))!,
-                                                                      'right_45_entry',
-                                                                      double.tryParse(_model
-                                                                          .textFieldSpeedEntryTextController
-                                                                          .text),
-                                                                    );
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width:
-                                                                        200.0,
-                                                                    height:
-                                                                        150.0,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryBackground,
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: Colors
-                                                                            .white,
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceEvenly,
-                                                                      children: [
-                                                                        Transform
-                                                                            .rotate(
-                                                                          angle:
-                                                                              180.0 * (math.pi / 180),
-                                                                          child:
-                                                                              Transform.rotate(
-                                                                            angle:
-                                                                                135.0 * (math.pi / 180),
-                                                                            child:
-                                                                                Icon(
-                                                                              Icons.airplanemode_active_rounded,
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              size: 100.0,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Text(
-                                                                          'Right 45° Entry',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                font: GoogleFonts.inter(
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                ),
-                                                                                fontSize: 15.0,
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FontWeight.bold,
-                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onTap:
-                                                                      () async {
-                                                                    await actions
-                                                                        .patternTeleporter(
-                                                                      FFAppState()
-                                                                          .ipPC,
-                                                                      getJsonField(
-                                                                        _model
-                                                                            .selectedRunway,
-                                                                        r'''$.ends[0].lat''',
-                                                                      ),
-                                                                      getJsonField(
-                                                                        _model
-                                                                            .selectedRunway,
-                                                                        r'''$.ends[0].lon''',
-                                                                      ),
-                                                                      valueOrDefault<
-                                                                          double>(
-                                                                        ((getJsonField(
-                                                                                      _model.selectedRunway,
-                                                                                      r'''$.bearing''',
-                                                                                    ) +
-                                                                                    45) %
-                                                                                360)
-                                                                            .toDouble(),
-                                                                        0.0,
-                                                                      ),
-                                                                      ((double?
-                                                                          elevation) {
-                                                                        return elevation !=
-                                                                                null
-                                                                            ? elevation +
-                                                                                700.0
-                                                                            : null;
-                                                                      }(getJsonField(
-                                                                        (_model.airportResultApi?.jsonBody ??
-                                                                            ''),
-                                                                        r'''$.elevation''',
-                                                                      )))!,
-                                                                      'left_45_entry',
-                                                                      double.tryParse(_model
-                                                                          .textFieldSpeedEntryTextController
-                                                                          .text),
-                                                                    );
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width:
-                                                                        200.0,
-                                                                    height:
-                                                                        150.0,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryBackground,
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: Colors
-                                                                            .white,
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceEvenly,
-                                                                      children: [
-                                                                        Transform
-                                                                            .rotate(
-                                                                          angle:
-                                                                              180.0 * (math.pi / 180),
-                                                                          child:
-                                                                              Transform.rotate(
-                                                                            angle:
-                                                                                235.0 * (math.pi / 180),
-                                                                            child:
-                                                                                Icon(
-                                                                              Icons.airplanemode_active_rounded,
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              size: 100.0,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Text(
-                                                                          'Left 45° Entry',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                font: GoogleFonts.inter(
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                ),
-                                                                                fontSize: 15.0,
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FontWeight.bold,
-                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
                                                               ],
                                                             ),
                                                           ),
@@ -23895,6 +23667,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                                                 fontWeight: FontWeight.w600,
                                                                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                                               ),
+                                                                                                                              color: Color(0xFF2081FF),
                                                                                                                               fontSize: 18.0,
                                                                                                                               letterSpacing: 0.0,
                                                                                                                               fontWeight: FontWeight.w600,
@@ -23910,8 +23683,10 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                                       height: 60.0,
                                                                                                                       decoration: BoxDecoration(
                                                                                                                         color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                                        borderRadius: BorderRadius.circular(8.0),
                                                                                                                         border: Border.all(
-                                                                                                                          color: Colors.white,
+                                                                                                                          color: Color(0xFF2081FF),
+                                                                                                                          width: 3.0,
                                                                                                                         ),
                                                                                                                       ),
                                                                                                                       child: Column(
@@ -24492,7 +24267,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                                     _model.selectedRunway,
                                                                                                                     r'''$.bearing''',
                                                                                                                   ) +
-                                                                                                                  315) %
+                                                                                                                  135) %
                                                                                                               360)
                                                                                                           .toDouble(),
                                                                                                       0.0,
@@ -24648,7 +24423,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                                                   _model.selectedRunway,
                                                                                                                   r'''$.bearing''',
                                                                                                                 ) +
-                                                                                                                45) %
+                                                                                                                225) %
                                                                                                             360)
                                                                                                         .toDouble(),
                                                                                                     ((double? elevation) {
@@ -39433,560 +39208,6 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                           ),
                                         ),
                                       ),
-                                    if (FFAppState().TabNumber == 500000000)
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.stretch,
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                width: 820.0,
-                                                height: 1000.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  border: Border.all(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
-                                                ),
-                                                child: Stack(
-                                                  children: [
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      10.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                '${(double var1) {
-                                                                  return var1
-                                                                      .round()
-                                                                      .toString()
-                                                                      .padLeft(
-                                                                          3,
-                                                                          '0');
-                                                                }(FFAppState().currentHeading)}°',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .start,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      font: GoogleFonts
-                                                                          .inter(
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontStyle,
-                                                                      ),
-                                                                      fontSize:
-                                                                          20.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Icon(
-                                                          Icons
-                                                              .airplanemode_active_rounded,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          size: 300.0,
-                                                        ),
-                                                        Expanded(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .stretch,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      await actions
-                                                                          .sendXPlaneCommand(
-                                                                        'BetterPushback/start_planner',
-                                                                        FFAppState()
-                                                                            .ipPC,
-                                                                      );
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          130.0,
-                                                                      height:
-                                                                          50.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            'PLAN',
-                                                                            style: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                  font: GoogleFonts.interTight(
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                  ),
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        await actions
-                                                                            .sendXPlaneCommand(
-                                                                          'BetterPushback/connect_first',
-                                                                          FFAppState()
-                                                                              .ipPC,
-                                                                        );
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            130.0,
-                                                                        height:
-                                                                            50.0,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
-                                                                          border:
-                                                                              Border.all(
-                                                                            color:
-                                                                                Colors.white,
-                                                                          ),
-                                                                        ),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Text(
-                                                                              'CONNECT ',
-                                                                              style: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                    font: GoogleFonts.interTight(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                    ),
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0,
-                                                                            5.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                  children: [
-                                                                    InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        await actions
-                                                                            .sendXPlaneCommand(
-                                                                          'BetterPushback/reconnect',
-                                                                          FFAppState()
-                                                                              .ipPC,
-                                                                        );
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            130.0,
-                                                                        height:
-                                                                            50.0,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
-                                                                          border:
-                                                                              Border.all(
-                                                                            color:
-                                                                                Colors.white,
-                                                                          ),
-                                                                        ),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Text(
-                                                                              'RECONNECT',
-                                                                              style: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                    font: GoogleFonts.interTight(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                    ),
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        await actions
-                                                                            .sendXPlaneCommand(
-                                                                          'BetterPushback/disconnect',
-                                                                          FFAppState()
-                                                                              .ipPC,
-                                                                        );
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            130.0,
-                                                                        height:
-                                                                            50.0,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
-                                                                          border:
-                                                                              Border.all(
-                                                                            color:
-                                                                                Colors.white,
-                                                                          ),
-                                                                        ),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Text(
-                                                                              'DISCONNECT',
-                                                                              style: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                    font: GoogleFonts.interTight(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                    ),
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      await actions
-                                                                          .sendXPlaneCommand(
-                                                                        'BetterPushback/reconnect',
-                                                                        FFAppState()
-                                                                            .ipPC,
-                                                                      );
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          130.0,
-                                                                      height:
-                                                                          50.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              Colors.white,
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            'STOP',
-                                                                            style: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                  font: GoogleFonts.interTight(
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                  ),
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.82, -0.76),
-                                                      child: InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          await actions
-                                                              .sendXPlaneCommand(
-                                                            'BetterPushback/cab_camera',
-                                                            FFAppState().ipPC,
-                                                          );
-                                                        },
-                                                        child: Container(
-                                                          width: 130.0,
-                                                          height: 50.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryBackground,
-                                                            border: Border.all(
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          ),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                'VIEW',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .override(
-                                                                      font: GoogleFonts
-                                                                          .interTight(
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
-                                                                            .titleSmall
-                                                                            .fontStyle,
-                                                                      ),
-                                                                      fontSize:
-                                                                          20.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .titleSmall
-                                                                          .fontStyle,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                     if (FFAppState().TabNumber == 5000)
                                       Expanded(
                                         child: Column(
@@ -40002,12 +39223,68 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                     .PushbackController(
                                                   width: double.infinity,
                                                   height: double.infinity,
-                                                  onConnect: () async {},
-                                                  onDisconnect: () async {},
-                                                  onStop: () async {},
+                                                  onConnect: () async {
+                                                    await actions
+                                                        .sendPushbackCommand(
+                                                      FFAppState().ipPC,
+                                                      'connect',
+                                                    );
+                                                  },
+                                                  onDisconnect: () async {
+                                                    await actions
+                                                        .sendPushbackCommand(
+                                                      FFAppState().ipPC,
+                                                      'disconnect',
+                                                    );
+                                                  },
+                                                  onStop: () async {
+                                                    await actions
+                                                        .sendPushbackCommand(
+                                                      FFAppState().ipPC,
+                                                      'disconnect',
+                                                    );
+                                                  },
                                                   onStraight: () async {},
-                                                  onTailLeft: () async {},
-                                                  onTailRight: () async {},
+                                                  onTailLeft: () async {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          'Lateral pushback steering is currently unavailable for this aircraft.',
+                                                          style: TextStyle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                          ),
+                                                        ),
+                                                        duration: Duration(
+                                                            milliseconds: 4000),
+                                                        backgroundColor:
+                                                            Color(0xFFE67E22),
+                                                      ),
+                                                    );
+                                                  },
+                                                  onTailRight: () async {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          'Lateral pushback steering is currently unavailable for this aircraft.',
+                                                          style: TextStyle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                          ),
+                                                        ),
+                                                        duration: Duration(
+                                                            milliseconds: 4000),
+                                                        backgroundColor:
+                                                            Color(0xFFE67E22),
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                             ),
@@ -40366,7 +39643,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                   onTap:
                                                                       () async {
                                                                     context.pushNamed(
-                                                                        IPpageWidget
+                                                                        IPpageXplaneWidget
                                                                             .routeName);
                                                                   },
                                                                   child:
@@ -40438,7 +39715,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                 0.0),
                                                                             child:
                                                                                 Text(
-                                                                              FFAppState().generatedCode,
+                                                                              FFAppState().generateCodeMSFS,
                                                                               textAlign: TextAlign.center,
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     font: GoogleFonts.inter(
@@ -40471,7 +39748,112 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                   onTap:
                                                                       () async {
                                                                     context.pushNamed(
-                                                                        IPpageWidget
+                                                                        IPpageXplaneWidget
+                                                                            .routeName);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    width: double
+                                                                        .infinity,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        color: Color(
+                                                                            0xFF1C1111),
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                12.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Icon(
+                                                                              Icons.calendar_month,
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              size: 20.0,
+                                                                            ),
+                                                                          ),
+                                                                          Expanded(
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                              child: Text(
+                                                                                'License Expiry',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      font: GoogleFonts.plusJakartaSans(
+                                                                                        fontWeight: FontWeight.w500,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                      ),
+                                                                                      color: FlutterFlowTheme.of(context).primaryText,
+                                                                                      fontSize: 14.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                20.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              FFAppState().licenseExpiryDateMSFS,
+                                                                              textAlign: TextAlign.center,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    font: GoogleFonts.inter(
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
+                                                                                    fontSize: 15.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    context.pushNamed(
+                                                                        IPpageXplaneWidget
                                                                             .routeName);
                                                                   },
                                                                   child:
@@ -40585,7 +39967,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                     onTap:
                                                                         () async {
                                                                       context.pushNamed(
-                                                                          IPpageWidget
+                                                                          IPpageXplaneWidget
                                                                               .routeName);
                                                                     },
                                                                     child:
@@ -40786,7 +40168,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             true);
 
                                                                     context.pushNamed(
-                                                                        IPpageWidget
+                                                                        IPpageXplaneWidget
                                                                             .routeName);
                                                                   }),
                                                                   onExit:

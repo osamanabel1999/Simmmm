@@ -43,7 +43,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ),
               ),
             )
-          : IPpageWidget(),
+          : HomeMenuWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
@@ -58,7 +58,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     ),
                   ),
                 )
-              : IPpageWidget(),
+              : HomeMenuWidget(),
         ),
         FFRoute(
           name: HomePageXPLANEWidget.routeName,
@@ -183,9 +183,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => FlightplanpageWidget(),
         ),
         FFRoute(
-          name: IPpageWidget.routeName,
-          path: IPpageWidget.routePath,
-          builder: (context, params) => IPpageWidget(),
+          name: IPpageXplaneWidget.routeName,
+          path: IPpageXplaneWidget.routePath,
+          builder: (context, params) => IPpageXplaneWidget(),
         ),
         FFRoute(
           name: TermsOFuseWidget.routeName,
@@ -203,9 +203,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => WebWidget(),
         ),
         FFRoute(
-          name: SubscribeWidget.routeName,
-          path: SubscribeWidget.routePath,
-          builder: (context, params) => SubscribeWidget(),
+          name: SubscribeXplaneWidget.routeName,
+          path: SubscribeXplaneWidget.routePath,
+          builder: (context, params) => SubscribeXplaneWidget(),
         ),
         FFRoute(
           name: AbouttWidget.routeName,
@@ -226,6 +226,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: HomePageMSFSWidget.routeName,
           path: HomePageMSFSWidget.routePath,
           builder: (context, params) => HomePageMSFSWidget(),
+        ),
+        FFRoute(
+          name: HomeMenuWidget.routeName,
+          path: HomeMenuWidget.routePath,
+          builder: (context, params) => HomeMenuWidget(),
+        ),
+        FFRoute(
+          name: IPpageMSFSWidget.routeName,
+          path: IPpageMSFSWidget.routePath,
+          builder: (context, params) => IPpageMSFSWidget(),
+        ),
+        FFRoute(
+          name: SubscribeMSFSWidget.routeName,
+          path: SubscribeMSFSWidget.routePath,
+          builder: (context, params) => SubscribeMSFSWidget(),
+        ),
+        FFRoute(
+          name: SubscribePackageXplaneMSFSWidget.routeName,
+          path: SubscribePackageXplaneMSFSWidget.routePath,
+          builder: (context, params) => SubscribePackageXplaneMSFSWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

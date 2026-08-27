@@ -247,6 +247,24 @@ class FFAppState extends ChangeNotifier {
   set RWYLENGHTlading(double value) {
     _RWYLENGHTlading = value;
   }
+
+  String _generateCodeMSFS = '';
+  String get generateCodeMSFS => _generateCodeMSFS;
+  set generateCodeMSFS(String value) {
+    _generateCodeMSFS = value;
+  }
+
+  String _licenseExpiryDateMSFS = '';
+  String get licenseExpiryDateMSFS => _licenseExpiryDateMSFS;
+  set licenseExpiryDateMSFS(String value) {
+    _licenseExpiryDateMSFS = value;
+  }
+
+  String _licenseExpiryDateXPlane = '';
+  String get licenseExpiryDateXPlane => _licenseExpiryDateXPlane;
+  set licenseExpiryDateXPlane(String value) {
+    _licenseExpiryDateXPlane = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

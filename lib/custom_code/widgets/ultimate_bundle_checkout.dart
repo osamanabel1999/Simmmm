@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-class Bfmccheckout extends StatefulWidget {
-  const Bfmccheckout({
+class UltimateBundleCheckout extends StatefulWidget {
+  const UltimateBundleCheckout({
     Key? key,
     this.width,
     this.height,
@@ -30,11 +30,12 @@ class Bfmccheckout extends StatefulWidget {
   final Future Function()? onBuyBothSims;
 
   @override
-  _BfmccheckoutState createState() => _BfmccheckoutState();
+  _UltimateBundleCheckoutState createState() => _UltimateBundleCheckoutState();
 }
 
-class _BfmccheckoutState extends State<Bfmccheckout> {
-  static const Color brandColor = Color(0xFF2081FF);
+class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
+  // Premium Gold/Amber color to make the Ultimate Bundle stand out and look exciting!
+  static const Color brandColor = Color(0xFFFFB300);
   static const Color cardBgColor = Color(0xFF161B22);
   static const Color pageBgColor = Color(0xFF0D1117);
 
@@ -55,15 +56,15 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
               decoration: BoxDecoration(
                 color: brandColor.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: brandColor.withOpacity(0.4)),
+                border: Border.all(color: brandColor.withOpacity(0.5)),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: const [
-                  Icon(Icons.bolt, color: brandColor, size: 18),
+                  Icon(Icons.workspace_premium, color: brandColor, size: 18),
                   SizedBox(width: 6),
                   Text(
-                    "CHOOSE YOUR ACCESS DURATION",
+                    "CHOOSE YOUR ULTIMATE PLAN",
                     style: TextStyle(
                       color: brandColor,
                       fontSize: 12,
@@ -76,17 +77,18 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
             ),
             const SizedBox(height: 16),
             const Text(
-              "X-Plane Access Pass",
+              "Ultimate Dual-Sim Pass\n(MSFS & X-Plane)",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 28,
-                fontWeight: FontWeight.w800,
+                fontSize: 26,
+                fontWeight: FontWeight.w900,
                 letterSpacing: 0.5,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              "All plans include full, unrestricted access to the entire application. Simply choose your preferred duration.",
+              "Get full, unrestricted access to BOTH simulators with a single license key. Double the experience, massive savings.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.grey[400],
@@ -98,14 +100,14 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
 
             // --- PLAN 1: Monthly ---
             _buildPlanCard(
-              title: "Monthly Pass",
-              subtitle: "30 Days Access",
-              price: "\$3.99",
+              title: "Monthly Ultimate",
+              subtitle: "30 Days Dual Access",
+              price: "\$4.99",
               period: "/ month",
-              badgeText: "SHORT TERM",
+              badgeText: "STARTER",
               isPopular: false,
               features: [
-                "100% Full App Access",
+                "Access to BOTH MSFS & X-Plane",
                 "Valid for 30 Days",
                 "Instant License Key Delivery",
               ],
@@ -117,14 +119,14 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
 
             // --- PLAN 2: Yearly (Featured) ---
             _buildPlanCard(
-              title: "Yearly Pass",
-              subtitle: "12 Months Access",
-              price: "\$19.99",
+              title: "Yearly Ultimate",
+              subtitle: "12 Months Dual Access",
+              price: "\$24.99",
               period: "/ year",
-              badgeText: "🔥 MOST POPULAR - SAVE 60%",
+              badgeText: "🔥 MOST POPULAR",
               isPopular: true,
               features: [
-                "100% Full App Access",
+                "Access to BOTH MSFS & X-Plane",
                 "Valid for a Full Year (365 Days)",
                 "Instant License Key Delivery",
               ],
@@ -136,14 +138,14 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
 
             // --- PLAN 3: Lifetime ---
             _buildPlanCard(
-              title: "Lifetime Pass",
-              subtitle: "Permanent Access",
-              price: "\$29.99",
+              title: "Lifetime Ultimate",
+              subtitle: "Permanent Dual Access",
+              price: "\$34.99",
               period: " one-time",
-              badgeText: "⚡ BEST VALUE",
+              badgeText: "⚡ ABSOLUTE BEST VALUE",
               isPopular: false,
               features: [
-                "100% Full App Access",
+                "Access to BOTH MSFS & X-Plane",
                 "Unlimited Lifetime Validity",
                 "Pay Once, Never Pay Again",
               ],
@@ -153,55 +155,47 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
 
             const SizedBox(height: 32),
 
-            // --- Bundle Offer (X-Plane + MSFS) ---
-            InkWell(
-              onTap: () async {
-                if (widget.onBuyBothSims != null) {
-                  await widget.onBuyBothSims!();
-                }
-              },
-              borderRadius: BorderRadius.circular(16),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      brandColor.withOpacity(0.2),
-                      Colors.purpleAccent.withOpacity(0.2),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                      color: brandColor.withOpacity(0.5), width: 1.5),
-                ),
-                child: Column(
-                  children: [
-                    const Icon(Icons.flight_takeoff,
-                        color: Colors.white, size: 32),
-                    const SizedBox(height: 12),
-                    const Text(
-                      "Fly on both simulators?",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      "Get the Ultimate Bundle (X-Plane & MSFS)\nat a massive discount! Click here for details.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.grey[300],
-                        fontSize: 13,
-                        height: 1.4,
-                      ),
-                    ),
+            // --- Bundle Value Highlight ---
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    brandColor.withOpacity(0.25),
+                    Colors.deepOrangeAccent.withOpacity(0.15),
                   ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
+                borderRadius: BorderRadius.circular(16),
+                border:
+                    Border.all(color: brandColor.withOpacity(0.6), width: 1.5),
+              ),
+              child: Column(
+                children: [
+                  const Icon(Icons.stars_rounded,
+                      color: Colors.white, size: 36),
+                  const SizedBox(height: 12),
+                  const Text(
+                    "Ultimate Value Unlocked!",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    "By choosing this bundle, you save significantly compared to buying individual access. Enjoy the absolute best of both worlds!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey[300],
+                      fontSize: 13,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -272,8 +266,8 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
             ? [
                 BoxShadow(
                   color: brandColor.withOpacity(0.25),
-                  blurRadius: 16,
-                  spreadRadius: 1,
+                  blurRadius: 18,
+                  spreadRadius: 2,
                   offset: const Offset(0, 4),
                 )
               ]
@@ -307,9 +301,9 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
                   child: Text(
                     badgeText,
                     style: TextStyle(
-                      color: isPopular ? Colors.white : brandColor,
+                      color: isPopular ? Colors.black87 : brandColor,
                       fontSize: 10,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
                 ),
@@ -387,8 +381,8 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: isPopular ? brandColor : Colors.transparent,
-                  foregroundColor: Colors.white,
-                  elevation: isPopular ? 4 : 0,
+                  foregroundColor: isPopular ? Colors.black87 : Colors.white,
+                  elevation: isPopular ? 6 : 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: const BorderSide(
@@ -401,7 +395,7 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
                   buttonText,
                   style: const TextStyle(
                     fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
               ),

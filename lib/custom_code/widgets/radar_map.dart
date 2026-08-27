@@ -67,7 +67,7 @@ class _RadarMapState extends State<RadarMap> {
   bool showLeftMenu = false;
   bool showRightMenu = false;
   String currentMapStyle =
-      'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
   String activeWeatherLayer = 'NONE';
 
   final MapController _mapController = MapController();
@@ -840,12 +840,14 @@ class _RadarMapState extends State<RadarMap> {
                         color: Colors.black87,
                         border: Border.all(color: Colors.white24)),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      _menuBtn("DARK", currentMapStyle.contains('dark'), () {
+                      _menuBtn("DARK", currentMapStyle.contains('Canvas'), () {
                         setState(() => currentMapStyle =
-                            'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png');
+                            'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}');
                       }),
-                      _menuBtn("SATELLITE", currentMapStyle.contains('ArcGIS'),
-                          () {
+                      _menuBtn(
+                          "SATELLITE",
+                          currentMapStyle.contains('ArcGIS') &&
+                              !currentMapStyle.contains('Canvas'), () {
                         setState(() => currentMapStyle =
                             'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}');
                       }),
