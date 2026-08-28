@@ -84,7 +84,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
               ),
             ),
             duration: Duration(milliseconds: 4000),
-            backgroundColor: FlutterFlowTheme.of(context).secondary,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           ),
         );
       }

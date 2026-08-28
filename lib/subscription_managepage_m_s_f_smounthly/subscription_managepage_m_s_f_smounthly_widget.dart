@@ -109,102 +109,116 @@ class _SubscriptionManagepageMSFSmounthlyWidgetState
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              if (FFAppState().subscriptionManagepageNumber == 1)
-                Expanded(
-                  child: Container(
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: custom_widgets.SubscriptionStatusCard(
                     width: double.infinity,
                     height: double.infinity,
-                    child: custom_widgets.SubscriptionStatusCard(
-                      width: double.infinity,
-                      height: double.infinity,
-                      status: 'Active',
-                      simulatorType: 'MSFS',
-                      licenseKey: FFAppState().generateCodeMSFS,
-                      expiryDate: FFAppState().licenseExpiryDateMSFS,
-                      priceText: revenue_cat.offerings!.current!.monthly!
-                          .storeProduct.priceString,
-                      planType: revenue_cat.offerings!.current!
+                    status: 'Active',
+                    simulatorType: 'MSFS',
+                    licenseKey: valueOrDefault<String>(
+                      FFAppState().generateCodeMSFS,
+                      '-',
+                    ),
+                    expiryDate: valueOrDefault<String>(
+                      FFAppState().licenseExpiryDateMSFS,
+                      '-',
+                    ),
+                    priceText: valueOrDefault<String>(
+                      revenue_cat.offerings!.current!.monthly!.storeProduct
+                          .priceString,
+                      '-',
+                    ),
+                    planType: valueOrDefault<String>(
+                      revenue_cat.offerings!.current!
                           .getPackage('\$rc_monthly')!
                           .storeProduct
                           .title,
-                      onRestorePressed: () async {
-                        _model.restoredCodeMSFS1 =
-                            await actions.restoreLicenseMSFS();
-                        if (_model.restoredCodeMSFS1 == 'License Expired.') {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return WebViewAware(
-                                child: AlertDialog(
-                                  title: Text('Your MSFS License is Expired!'),
-                                  content: Text(
-                                      'Your active MSFS license key has expired. Please renew your subscription.'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        } else if (_model.restoredCodeMSFS1 ==
-                            'No subscription found for this device.') {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return WebViewAware(
-                                child: AlertDialog(
-                                  title: Text('No MSFS Subscription Found!'),
-                                  content: Text(
-                                      'No MSFS subscription found for this device.'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return WebViewAware(
-                                child: AlertDialog(
-                                  title: Text('MSFS Subscription Restored!'),
-                                  content: Text(
-                                      'Your MSFS license key is:  ${_model.restoredCodeMSFS1}'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }
-
-                        safeSetState(() {});
-                      },
-                      onManageAppleSubscription: () async {},
-                      onSupportPressed: () async {
-                        await launchURL('https://discord.gg/3jJkuQeKaz');
-                      },
-                      onPrivacyPolicyPressed: () async {
-                        context.pushNamed(PrivacyPolicyPageWidget.routeName);
-                      },
+                      '-',
                     ),
+                    onRestorePressed: () async {
+                      _model.restoredCodeMSFS1 =
+                          await actions.restoreLicenseMSFS();
+                      if (_model.restoredCodeMSFS1 == 'License Expired.') {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('Your MSFS License is Expired!'),
+                                content: Text(
+                                    'Your active MSFS license key has expired. Please renew your subscription.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else if (_model.restoredCodeMSFS1 ==
+                          'No subscription found for this device.') {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('No MSFS Subscription Found!'),
+                                content: Text(
+                                    'No MSFS subscription found for this device.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('MSFS Subscription Restored!'),
+                                content: Text(
+                                    'Your MSFS license key is:  ${valueOrDefault<String>(
+                                  _model.restoredCodeMSFS1,
+                                  '-',
+                                )}'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
+
+                      safeSetState(() {});
+                    },
+                    onManageAppleSubscription: () async {},
+                    onSupportPressed: () async {
+                      await launchURL('https://discord.gg/3jJkuQeKaz');
+                    },
+                    onPrivacyPolicyPressed: () async {
+                      context.pushNamed(PrivacyPolicyPageWidget.routeName);
+                    },
                   ),
                 ),
+              ),
             ],
           ),
         ),
