@@ -41166,15 +41166,49 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                               '-',
                                                                             ),
                                                                           );
-                                                                          if (_model.licensePlanResultMSFS ==
-                                                                              'Monthly') {
+                                                                          _model.licenseSimTypeResultMSFS =
+                                                                              await actions.checkMSFSLicenseSimType(
+                                                                            valueOrDefault<String>(
+                                                                              FFAppState().generateCodeMSFS,
+                                                                              '-',
+                                                                            ),
+                                                                          );
+                                                                          if ((_model.licensePlanResultMSFS == 'Monthly') &&
+                                                                              (_model.licenseSimTypeResultMSFS !=
+                                                                                  'BothSIM')) {
                                                                             context.pushNamed(SubscriptionManagepageMSFSmounthlyWidget.routeName);
-                                                                          } else if (_model.licensePlanResultMSFS ==
-                                                                              'Yearly') {
+                                                                          } else if ((_model.licensePlanResultMSFS == 'Yearly') &&
+                                                                              (_model.licenseSimTypeResultMSFS !=
+                                                                                  'BothSIM')) {
                                                                             context.pushNamed(SubscriptionManagepageMSFSyearlyWidget.routeName);
-                                                                          } else if (_model.licensePlanResultMSFS ==
-                                                                              'Lifetime') {
+                                                                          } else if ((_model.licensePlanResultMSFS == 'Lifetime') &&
+                                                                              (_model.licenseSimTypeResultMSFS !=
+                                                                                  'BothSIM')) {
                                                                             context.pushNamed(SubscriptionManagepageMSFSlifetimeWidget.routeName);
+                                                                          } else if ((_model.licensePlanResultMSFS == 'Monthly') &&
+                                                                              (_model.licenseSimTypeResultMSFS ==
+                                                                                  'BothSIM')) {
+                                                                            context.pushNamed(SubscriptionManagepageAllsimMonthlyWidget.routeName);
+                                                                          } else if ((_model.licensePlanResultMSFS == 'Yearly') &&
+                                                                              (_model.licenseSimTypeResultMSFS ==
+                                                                                  'BothSIM')) {
+                                                                            context.pushNamed(SubscriptionManagepageAllsimYearlyWidget.routeName);
+                                                                          } else if ((_model.licensePlanResultMSFS == 'Lifetime') &&
+                                                                              (_model.licenseSimTypeResultMSFS == 'BothSIM')) {
+                                                                            context.pushNamed(SubscriptionManagepageAllsimLifetimeWidget.routeName);
+                                                                          } else {
+                                                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                                              SnackBar(
+                                                                                content: Text(
+                                                                                  'Failed',
+                                                                                  style: TextStyle(
+                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  ),
+                                                                                ),
+                                                                                duration: Duration(milliseconds: 4000),
+                                                                                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              ),
+                                                                            );
                                                                           }
 
                                                                           safeSetState(
