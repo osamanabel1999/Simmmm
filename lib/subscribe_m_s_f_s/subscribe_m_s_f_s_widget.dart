@@ -104,13 +104,18 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                   child: custom_widgets.Msfscheckout(
                     width: double.infinity,
                     height: double.infinity,
-                    monthlyPrice: revenue_cat
-                        .offerings!.current!.monthly!.storeProduct.priceString,
-                    yearlyPrice: revenue_cat
-                        .offerings!.current!.annual!.storeProduct.priceString,
-                    lifetimePrice: revenue_cat
-                        .offerings!.current!.lifetime!.storeProduct.price
-                        .toString(),
+                    monthlyPrice: revenue_cat.offerings!.current!
+                        .getPackage('\$rc_monthly')!
+                        .storeProduct
+                        .priceString,
+                    yearlyPrice: revenue_cat.offerings!.current!
+                        .getPackage('\$rc_annual')!
+                        .storeProduct
+                        .priceString,
+                    lifetimePrice: revenue_cat.offerings!.current!
+                        .getPackage('\$rc_lifetime')!
+                        .storeProduct
+                        .priceString,
                     onBuyMonthly: () async {
                       _model.mSFSmonthly =
                           await revenue_cat.purchasePackage('\$rc_monthly');
@@ -121,6 +126,118 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                         );
                         FFAppState().generateCodeMSFS =
                             _model.generateCodeMSFS1Month!;
+                        safeSetState(() {});
+
+                        context.pushNamed(IPpageMSFSWidget.routeName);
+
+                        await Future.delayed(
+                          Duration(
+                            milliseconds: 500,
+                          ),
+                        );
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('Congratulations! '),
+                                content: Text(
+                                    'Here is your license key:${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Payment failed or was cancelled. Please try again.',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                          ),
+                        );
+                      }
+
+                      safeSetState(() {});
+                    },
+                    onBuyYearly: () async {
+                      _model.mSFSyearly =
+                          await revenue_cat.purchasePackage('\$rc_annual');
+                      if (_model.mSFSyearly == true) {
+                        _model.generateCodeMSFS1Year =
+                            await actions.generateNewLicenseMSFS(
+                          '1_year',
+                        );
+                        FFAppState().generateCodeMSFS =
+                            _model.generateCodeMSFS1Year!;
+                        safeSetState(() {});
+
+                        context.pushNamed(IPpageMSFSWidget.routeName);
+
+                        await Future.delayed(
+                          Duration(
+                            milliseconds: 500,
+                          ),
+                        );
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('Congratulations! '),
+                                content: Text(
+                                    'Here is your license key:${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Payment failed or was cancelled. Please try again.',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                          ),
+                        );
+                      }
+
+                      safeSetState(() {});
+                    },
+                    onBuyLifetime: () async {
+                      _model.mSFSlifetime =
+                          await revenue_cat.purchasePackage('\$rc_lifetime');
+                      if (_model.mSFSlifetime == true) {
+                        _model.generateCodeMSFSLifeTime =
+                            await actions.generateNewLicenseMSFS(
+                          'lifetime',
+                        );
+                        FFAppState().generateCodeMSFS =
+                            _model.generateCodeMSFSLifeTime!;
                         safeSetState(() {});
 
                         context.pushNamed(IPpageMSFSWidget.routeName);
@@ -164,82 +281,6 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                           ),
                         );
                       }
-
-                      safeSetState(() {});
-                    },
-                    onBuyYearly: () async {
-                      _model.generateCodeMSFS1Year =
-                          await actions.generateNewLicenseMSFS(
-                        '1_year',
-                      );
-                      FFAppState().generateCodeMSFS =
-                          _model.generateCodeMSFS1Year!;
-                      safeSetState(() {});
-
-                      context.pushNamed(IPpageMSFSWidget.routeName);
-
-                      await Future.delayed(
-                        Duration(
-                          milliseconds: 1500,
-                        ),
-                      );
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return WebViewAware(
-                            child: AlertDialog(
-                              title: Text('Congratulations! '),
-                              content: Text(
-                                  'Here is your license key:${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: Text('Ok'),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-
-                      safeSetState(() {});
-                    },
-                    onBuyLifetime: () async {
-                      _model.generateCodeMSFSLifeTime =
-                          await actions.generateNewLicenseMSFS(
-                        'lifetime',
-                      );
-                      FFAppState().generateCodeMSFS =
-                          _model.generateCodeMSFSLifeTime!;
-                      safeSetState(() {});
-
-                      context.pushNamed(IPpageMSFSWidget.routeName);
-
-                      await Future.delayed(
-                        Duration(
-                          milliseconds: 1500,
-                        ),
-                      );
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return WebViewAware(
-                            child: AlertDialog(
-                              title: Text('Congratulations! '),
-                              content: Text(
-                                  'Here is your license key:${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: Text('Ok'),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
 
                       safeSetState(() {});
                     },

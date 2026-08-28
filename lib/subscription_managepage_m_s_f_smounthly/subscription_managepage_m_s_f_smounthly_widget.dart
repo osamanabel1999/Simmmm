@@ -121,8 +121,10 @@ class _SubscriptionManagepageMSFSmounthlyWidgetState
                     expiryDate: FFAppState().licenseExpiryDateMSFS,
                     priceText: revenue_cat
                         .offerings!.current!.monthly!.storeProduct.priceString,
-                    planType:
-                        revenue_cat.offerings!.current!.monthly!.identifier,
+                    planType: revenue_cat.offerings!.current!
+                        .getPackage('\$rc_monthly')!
+                        .storeProduct
+                        .title,
                     onRestorePressed: () async {},
                     onManageAppleSubscription: () async {},
                     onSupportPressed: () async {},
