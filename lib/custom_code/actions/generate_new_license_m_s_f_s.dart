@@ -22,6 +22,21 @@ Future<String> generateNewLicenseMSFS(String? duration) async {
   String newCode =
       List.generate(8, (index) => chars[Random().nextInt(chars.length)]).join();
 
+  // 1. تحديد نوع المحاكي (ثابت)
+  const String simType = 'MSFS';
+
+  // 2. تحويل الـ duration لاسم خطة بتنسيق عربي/إنجليزي نضيف للشاشة
+  String cleanPlanType = 'شهري - Monthly';
+  final String currentDuration = (duration == null || duration.trim().isEmpty)
+      ? '1_month'
+      : duration.trim();
+
+  if (currentDuration == '12_months' || currentDuration == 'yearly') {
+    cleanPlanType = 'سنوي - Yearly';
+  } else if (currentDuration == 'lifetime') {
+    cleanPlanType = 'مدى الحياة - Lifetime';
+  }
+
   final url = Uri.parse('https://api.airtable.com/v0/$baseId/$tableId');
 
   try {
@@ -35,9 +50,9 @@ Future<String> generateNewLicenseMSFS(String? duration) async {
         'typecast': true,
         'fields': {
           'LicenseKey': newCode,
-          'Duration': (duration == null || duration.trim().isEmpty)
-              ? '1_month'
-              : duration.trim(),
+          'Duration': currentDuration,
+          'PlanType': cleanPlanType,
+          'SimType': simType,
         }
       }),
     );

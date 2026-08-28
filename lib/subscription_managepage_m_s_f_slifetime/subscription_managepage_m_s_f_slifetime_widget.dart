@@ -10,23 +10,23 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-import 'subscription_managepage_m_s_f_smounthly_model.dart';
-export 'subscription_managepage_m_s_f_smounthly_model.dart';
+import 'subscription_managepage_m_s_f_slifetime_model.dart';
+export 'subscription_managepage_m_s_f_slifetime_model.dart';
 
-class SubscriptionManagepageMSFSmounthlyWidget extends StatefulWidget {
-  const SubscriptionManagepageMSFSmounthlyWidget({super.key});
+class SubscriptionManagepageMSFSlifetimeWidget extends StatefulWidget {
+  const SubscriptionManagepageMSFSlifetimeWidget({super.key});
 
-  static String routeName = 'subscriptionManagepageMSFSmounthly';
-  static String routePath = '/subscriptionManagepageMSFSmounthly';
+  static String routeName = 'subscriptionManagepageMSFSlifetime';
+  static String routePath = '/subscriptionManagepageMSFSlifetime';
 
   @override
-  State<SubscriptionManagepageMSFSmounthlyWidget> createState() =>
-      _SubscriptionManagepageMSFSmounthlyWidgetState();
+  State<SubscriptionManagepageMSFSlifetimeWidget> createState() =>
+      _SubscriptionManagepageMSFSlifetimeWidgetState();
 }
 
-class _SubscriptionManagepageMSFSmounthlyWidgetState
-    extends State<SubscriptionManagepageMSFSmounthlyWidget> {
-  late SubscriptionManagepageMSFSmounthlyModel _model;
+class _SubscriptionManagepageMSFSlifetimeWidgetState
+    extends State<SubscriptionManagepageMSFSlifetimeWidget> {
+  late SubscriptionManagepageMSFSlifetimeModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -34,7 +34,7 @@ class _SubscriptionManagepageMSFSmounthlyWidgetState
   void initState() {
     super.initState();
     _model =
-        createModel(context, () => SubscriptionManagepageMSFSmounthlyModel());
+        createModel(context, () => SubscriptionManagepageMSFSlifetimeModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -128,14 +128,14 @@ class _SubscriptionManagepageMSFSmounthlyWidgetState
                     ),
                     priceText: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
-                          .getPackage('\$rc_monthly')!
+                          .getPackage('\$rc_lifetime')!
                           .storeProduct
                           .priceString,
                       '-',
                     ),
                     planType: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
-                          .getPackage('\$rc_monthly')!
+                          .getPackage('\$rc_lifetime')!
                           .storeProduct
                           .title,
                       '-',

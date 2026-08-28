@@ -252,6 +252,54 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: SubscriptionManagepageMSFSmounthlyWidget.routePath,
           builder: (context, params) =>
               SubscriptionManagepageMSFSmounthlyWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionManagepageMSFSyearlyWidget.routeName,
+          path: SubscriptionManagepageMSFSyearlyWidget.routePath,
+          builder: (context, params) =>
+              SubscriptionManagepageMSFSyearlyWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionManagepageMSFSlifetimeWidget.routeName,
+          path: SubscriptionManagepageMSFSlifetimeWidget.routePath,
+          builder: (context, params) =>
+              SubscriptionManagepageMSFSlifetimeWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionManagepageXplaneMonthlyWidget.routeName,
+          path: SubscriptionManagepageXplaneMonthlyWidget.routePath,
+          builder: (context, params) =>
+              SubscriptionManagepageXplaneMonthlyWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionManagepageXplaneYearlyWidget.routeName,
+          path: SubscriptionManagepageXplaneYearlyWidget.routePath,
+          builder: (context, params) =>
+              SubscriptionManagepageXplaneYearlyWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionManagepageXplaneLifetimeWidget.routeName,
+          path: SubscriptionManagepageXplaneLifetimeWidget.routePath,
+          builder: (context, params) =>
+              SubscriptionManagepageXplaneLifetimeWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionManagepageAllsimMonthlyWidget.routeName,
+          path: SubscriptionManagepageAllsimMonthlyWidget.routePath,
+          builder: (context, params) =>
+              SubscriptionManagepageAllsimMonthlyWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionManagepageAllsimYearlyWidget.routeName,
+          path: SubscriptionManagepageAllsimYearlyWidget.routePath,
+          builder: (context, params) =>
+              SubscriptionManagepageAllsimYearlyWidget(),
+        ),
+        FFRoute(
+          name: SubscriptionManagepageAllsimLifetimeWidget.routeName,
+          path: SubscriptionManagepageAllsimLifetimeWidget.routePath,
+          builder: (context, params) =>
+              SubscriptionManagepageAllsimLifetimeWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -27,3 +27,19 @@ export '/subscribe_package_xplane_m_s_f_s/subscribe_package_xplane_m_s_f_s_widge
     show SubscribePackageXplaneMSFSWidget;
 export '/subscription_managepage_m_s_f_smounthly/subscription_managepage_m_s_f_smounthly_widget.dart'
     show SubscriptionManagepageMSFSmounthlyWidget;
+export '/subscription_managepage_m_s_f_syearly/subscription_managepage_m_s_f_syearly_widget.dart'
+    show SubscriptionManagepageMSFSyearlyWidget;
+export '/subscription_managepage_m_s_f_slifetime/subscription_managepage_m_s_f_slifetime_widget.dart'
+    show SubscriptionManagepageMSFSlifetimeWidget;
+export '/subscription_managepage_xplane_monthly/subscription_managepage_xplane_monthly_widget.dart'
+    show SubscriptionManagepageXplaneMonthlyWidget;
+export '/subscription_managepage_xplane_yearly/subscription_managepage_xplane_yearly_widget.dart'
+    show SubscriptionManagepageXplaneYearlyWidget;
+export '/subscription_managepage_xplane_lifetime/subscription_managepage_xplane_lifetime_widget.dart'
+    show SubscriptionManagepageXplaneLifetimeWidget;
+export '/subscription_managepage_allsim_monthly/subscription_managepage_allsim_monthly_widget.dart'
+    show SubscriptionManagepageAllsimMonthlyWidget;
+export '/subscription_managepage_allsim_yearly/subscription_managepage_allsim_yearly_widget.dart'
+    show SubscriptionManagepageAllsimYearlyWidget;
+export '/subscription_managepage_allsim_lifetime/subscription_managepage_allsim_lifetime_widget.dart'
+    show SubscriptionManagepageAllsimLifetimeWidget;

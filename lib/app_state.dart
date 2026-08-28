@@ -35,6 +35,15 @@ class FFAppState extends ChangeNotifier {
       _savedLicenseKeyMSFS =
           prefs.getString('ff_savedLicenseKeyMSFS') ?? _savedLicenseKeyMSFS;
     });
+    _safeInit(() {
+      _msfsplan = prefs.getInt('ff_msfsplan') ?? _msfsplan;
+    });
+    _safeInit(() {
+      _xplaneplan = prefs.getInt('ff_xplaneplan') ?? _xplaneplan;
+    });
+    _safeInit(() {
+      _bundleplan = prefs.getInt('ff_bundleplan') ?? _bundleplan;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -287,6 +296,27 @@ class FFAppState extends ChangeNotifier {
   int get subscriptionManagepageNumber => _subscriptionManagepageNumber;
   set subscriptionManagepageNumber(int value) {
     _subscriptionManagepageNumber = value;
+  }
+
+  int _msfsplan = 0;
+  int get msfsplan => _msfsplan;
+  set msfsplan(int value) {
+    _msfsplan = value;
+    prefs.setInt('ff_msfsplan', value);
+  }
+
+  int _xplaneplan = 0;
+  int get xplaneplan => _xplaneplan;
+  set xplaneplan(int value) {
+    _xplaneplan = value;
+    prefs.setInt('ff_xplaneplan', value);
+  }
+
+  int _bundleplan = 0;
+  int get bundleplan => _bundleplan;
+  set bundleplan(int value) {
+    _bundleplan = value;
+    prefs.setInt('ff_bundleplan', value);
   }
 }
 

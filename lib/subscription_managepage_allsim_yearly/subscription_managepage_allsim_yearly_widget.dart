@@ -10,23 +10,23 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-import 'subscription_managepage_m_s_f_smounthly_model.dart';
-export 'subscription_managepage_m_s_f_smounthly_model.dart';
+import 'subscription_managepage_allsim_yearly_model.dart';
+export 'subscription_managepage_allsim_yearly_model.dart';
 
-class SubscriptionManagepageMSFSmounthlyWidget extends StatefulWidget {
-  const SubscriptionManagepageMSFSmounthlyWidget({super.key});
+class SubscriptionManagepageAllsimYearlyWidget extends StatefulWidget {
+  const SubscriptionManagepageAllsimYearlyWidget({super.key});
 
-  static String routeName = 'subscriptionManagepageMSFSmounthly';
-  static String routePath = '/subscriptionManagepageMSFSmounthly';
+  static String routeName = 'subscriptionManagepageAllsimYearly';
+  static String routePath = '/subscriptionManagepageAllsimYearly';
 
   @override
-  State<SubscriptionManagepageMSFSmounthlyWidget> createState() =>
-      _SubscriptionManagepageMSFSmounthlyWidgetState();
+  State<SubscriptionManagepageAllsimYearlyWidget> createState() =>
+      _SubscriptionManagepageAllsimYearlyWidgetState();
 }
 
-class _SubscriptionManagepageMSFSmounthlyWidgetState
-    extends State<SubscriptionManagepageMSFSmounthlyWidget> {
-  late SubscriptionManagepageMSFSmounthlyModel _model;
+class _SubscriptionManagepageAllsimYearlyWidgetState
+    extends State<SubscriptionManagepageAllsimYearlyWidget> {
+  late SubscriptionManagepageAllsimYearlyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -34,7 +34,7 @@ class _SubscriptionManagepageMSFSmounthlyWidgetState
   void initState() {
     super.initState();
     _model =
-        createModel(context, () => SubscriptionManagepageMSFSmounthlyModel());
+        createModel(context, () => SubscriptionManagepageAllsimYearlyModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -117,7 +117,7 @@ class _SubscriptionManagepageMSFSmounthlyWidgetState
                     width: double.infinity,
                     height: double.infinity,
                     status: 'Active',
-                    simulatorType: 'MSFS',
+                    simulatorType: 'X-PLANE & MSFS',
                     licenseKey: valueOrDefault<String>(
                       FFAppState().generateCodeMSFS,
                       '-',
@@ -128,14 +128,14 @@ class _SubscriptionManagepageMSFSmounthlyWidgetState
                     ),
                     priceText: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
-                          .getPackage('\$rc_monthly')!
+                          .getPackage('msfs_xplane_yearly')!
                           .storeProduct
                           .priceString,
                       '-',
                     ),
                     planType: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
-                          .getPackage('\$rc_monthly')!
+                          .getPackage('msfs_xplane_yearly')!
                           .storeProduct
                           .title,
                       '-',

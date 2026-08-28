@@ -41135,9 +41135,48 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             .transparent,
                                                                     onTap:
                                                                         () async {
-                                                                      context.pushNamed(
-                                                                          SubscriptionManagepageMSFSmounthlyWidget
-                                                                              .routeName);
+                                                                      _model.licensePlanResultMSFS1 =
+                                                                          await actions
+                                                                              .checkMSFSLicensePlan(
+                                                                        FFAppState()
+                                                                            .generateCodeMSFS,
+                                                                      );
+                                                                      if (_model
+                                                                              .licensePlanResultMSFS ==
+                                                                          'Monthly') {
+                                                                        context.pushNamed(
+                                                                            SubscriptionManagepageMSFSmounthlyWidget.routeName);
+                                                                      } else if (_model
+                                                                              .licensePlanResultMSFS ==
+                                                                          'Yearly') {
+                                                                        context.pushNamed(
+                                                                            SubscriptionManagepageMSFSyearlyWidget.routeName);
+                                                                      } else if (_model
+                                                                              .licensePlanResultMSFS ==
+                                                                          'Lifetime') {
+                                                                        context.pushNamed(
+                                                                            SubscriptionManagepageMSFSlifetimeWidget.routeName);
+                                                                      } else {
+                                                                        ScaffoldMessenger.of(context)
+                                                                            .showSnackBar(
+                                                                          SnackBar(
+                                                                            content:
+                                                                                Text(
+                                                                              'failed',
+                                                                              style: TextStyle(
+                                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                              ),
+                                                                            ),
+                                                                            duration:
+                                                                                Duration(milliseconds: 4000),
+                                                                            backgroundColor:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                          ),
+                                                                        );
+                                                                      }
+
+                                                                      safeSetState(
+                                                                          () {});
                                                                     },
                                                                     child:
                                                                         AnimatedContainer(
@@ -41222,10 +41261,53 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                     safeSetState(() =>
                                                                         _model.mouseRegionHovered3 =
                                                                             true);
+                                                                    _model.licensePlanResultMSFS =
+                                                                        await actions
+                                                                            .checkMSFSLicensePlan(
+                                                                      FFAppState()
+                                                                          .generateCodeMSFS,
+                                                                    );
+                                                                    if (_model
+                                                                            .licensePlanResultMSFS ==
+                                                                        'Monthly') {
+                                                                      context.pushNamed(
+                                                                          SubscriptionManagepageMSFSmounthlyWidget
+                                                                              .routeName);
+                                                                    } else if (_model
+                                                                            .licensePlanResultMSFS ==
+                                                                        'Yearly') {
+                                                                      context.pushNamed(
+                                                                          SubscriptionManagepageMSFSyearlyWidget
+                                                                              .routeName);
+                                                                    } else if (_model
+                                                                            .licensePlanResultMSFS ==
+                                                                        'Lifetime') {
+                                                                      context.pushNamed(
+                                                                          SubscriptionManagepageMSFSlifetimeWidget
+                                                                              .routeName);
+                                                                    } else {
+                                                                      ScaffoldMessenger.of(
+                                                                              context)
+                                                                          .showSnackBar(
+                                                                        SnackBar(
+                                                                          content:
+                                                                              Text(
+                                                                            'failed',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                            ),
+                                                                          ),
+                                                                          duration:
+                                                                              Duration(milliseconds: 4000),
+                                                                          backgroundColor:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                        ),
+                                                                      );
+                                                                    }
 
-                                                                    context.pushNamed(
-                                                                        SubscriptionManagepageMSFSmounthlyWidget
-                                                                            .routeName);
+                                                                    safeSetState(
+                                                                        () {});
                                                                   }),
                                                                   onExit:
                                                                       ((event) async {
