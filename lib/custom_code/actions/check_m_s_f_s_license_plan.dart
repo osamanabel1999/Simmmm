@@ -42,10 +42,11 @@ Future<String?> checkMSFSLicensePlan(String? licenseKey) async {
         final fields = record['fields'] ?? {};
         if (fields['LicenseKey']?.toString().trim() == cleanKey) {
           final String rawDuration =
-              fields['Duration']?.toString().trim() ?? '';
+              fields['Duration']?.toString().trim().toLowerCase() ?? '';
 
-          // تحويل الكود لنص إنجليزي نظيف للعرض والمقارنة
-          if (rawDuration == '12_months' || rawDuration == 'yearly') {
+          if (rawDuration == '1_year' ||
+              rawDuration == '12_months' ||
+              rawDuration == 'yearly') {
             return 'Yearly';
           } else if (rawDuration == 'lifetime') {
             return 'Lifetime';

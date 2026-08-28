@@ -41143,17 +41143,17 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                       );
                                                                       if (_model
                                                                               .licensePlanResultMSFS ==
-                                                                          'Monthly') {
+                                                                          'Monthly Pass') {
                                                                         context.pushNamed(
                                                                             SubscriptionManagepageMSFSmounthlyWidget.routeName);
                                                                       } else if (_model
                                                                               .licensePlanResultMSFS ==
-                                                                          'Yearly') {
+                                                                          'Annual Pass') {
                                                                         context.pushNamed(
                                                                             SubscriptionManagepageMSFSyearlyWidget.routeName);
                                                                       } else if (_model
                                                                               .licensePlanResultMSFS ==
-                                                                          'Lifetime') {
+                                                                          'Yearly Pass') {
                                                                         context.pushNamed(
                                                                             SubscriptionManagepageMSFSlifetimeWidget.routeName);
                                                                       } else {
@@ -41216,7 +41216,35 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                               Colors.transparent,
                                                                           onTap:
                                                                               () async {
-                                                                            context.pushNamed(SubscriptionManagepageMSFSmounthlyWidget.routeName);
+                                                                            _model.licensePlanResultMSFS2 =
+                                                                                await actions.checkMSFSLicensePlan(
+                                                                              FFAppState().generateCodeMSFS,
+                                                                            );
+                                                                            if (_model.licensePlanResultMSFS ==
+                                                                                'Monthly Pass') {
+                                                                              context.pushNamed(SubscriptionManagepageMSFSmounthlyWidget.routeName);
+                                                                            } else if (_model.licensePlanResultMSFS ==
+                                                                                'Annual Pass') {
+                                                                              context.pushNamed(SubscriptionManagepageMSFSyearlyWidget.routeName);
+                                                                            } else if (_model.licensePlanResultMSFS ==
+                                                                                'Yearly Pass') {
+                                                                              context.pushNamed(SubscriptionManagepageMSFSlifetimeWidget.routeName);
+                                                                            } else {
+                                                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                                                SnackBar(
+                                                                                  content: Text(
+                                                                                    'failed',
+                                                                                    style: TextStyle(
+                                                                                      color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    ),
+                                                                                  ),
+                                                                                  duration: Duration(milliseconds: 4000),
+                                                                                  backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                ),
+                                                                              );
+                                                                            }
+
+                                                                            safeSetState(() {});
                                                                           },
                                                                           child:
                                                                               Row(
@@ -41269,19 +41297,19 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                     );
                                                                     if (_model
                                                                             .licensePlanResultMSFS ==
-                                                                        'Monthly') {
+                                                                        'Monthly Pass') {
                                                                       context.pushNamed(
                                                                           SubscriptionManagepageMSFSmounthlyWidget
                                                                               .routeName);
                                                                     } else if (_model
                                                                             .licensePlanResultMSFS ==
-                                                                        'Yearly') {
+                                                                        'Annual Pass') {
                                                                       context.pushNamed(
                                                                           SubscriptionManagepageMSFSyearlyWidget
                                                                               .routeName);
                                                                     } else if (_model
                                                                             .licensePlanResultMSFS ==
-                                                                        'Lifetime') {
+                                                                        'Yearly Pass') {
                                                                       context.pushNamed(
                                                                           SubscriptionManagepageMSFSlifetimeWidget
                                                                               .routeName);

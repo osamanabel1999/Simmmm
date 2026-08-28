@@ -51,9 +51,9 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
         TextEditingController(text: FFAppState().ivaoVatsimID.toString());
     _model.textFieldIVAOidFocusNode ??= FocusNode();
 
-    _model.codeLicenseMSFSTextController ??=
+    _model.codeLicenseMSFSSTextController ??=
         TextEditingController(text: FFAppState().generateCodeMSFS);
-    _model.codeLicenseMSFSFocusNode ??= FocusNode();
+    _model.codeLicenseMSFSSFocusNode ??= FocusNode();
   }
 
   @override
@@ -466,11 +466,11 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                       child: Container(
                         width: double.infinity,
                         child: TextFormField(
-                          controller: _model.codeLicenseMSFSTextController,
-                          focusNode: _model.codeLicenseMSFSFocusNode,
+                          controller: _model.codeLicenseMSFSSTextController,
+                          focusNode: _model.codeLicenseMSFSSFocusNode,
                           autofocus: false,
                           enabled: true,
-                          obscureText: !_model.codeLicenseMSFSVisibility,
+                          obscureText: !_model.codeLicenseMSFSSVisibility,
                           decoration: InputDecoration(
                             isDense: true,
                             labelText: 'License Number',
@@ -551,12 +551,12 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                             suffixIcon: InkWell(
                               onTap: () async {
                                 safeSetState(() =>
-                                    _model.codeLicenseMSFSVisibility =
-                                        !_model.codeLicenseMSFSVisibility);
+                                    _model.codeLicenseMSFSSVisibility =
+                                        !_model.codeLicenseMSFSSVisibility);
                               },
                               focusNode: FocusNode(skipTraversal: true),
                               child: Icon(
-                                _model.codeLicenseMSFSVisibility
+                                _model.codeLicenseMSFSSVisibility
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
                                 size: 22,
@@ -584,7 +584,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                           cursorColor: FlutterFlowTheme.of(context).primaryText,
                           enableInteractiveSelection: true,
                           validator: _model
-                              .codeLicenseMSFSTextControllerValidator
+                              .codeLicenseMSFSSTextControllerValidator
                               .asValidator(context),
                         ),
                       ),
@@ -600,9 +600,11 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                               _model.textFieldIVAOidTextController.text);
                           FFAppState().SimbreifID = int.parse(
                               _model.textFieldSimbreifIDTextController.text);
+                          FFAppState().generateCodeMSFS =
+                              _model.codeLicenseMSFSSTextController.text;
                           safeSetState(() {});
                           _model.statusMSFS = await actions.activateLicenseMSFS(
-                            _model.codeLicenseMSFSTextController.text,
+                            _model.codeLicenseMSFSSTextController.text,
                           );
                           if (_model.statusMSFS == 'Success') {
                             context.pushNamed(HomePageMSFSWidget.routeName);

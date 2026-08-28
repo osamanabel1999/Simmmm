@@ -201,6 +201,8 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
   String? licensePlanResultMSFS;
   // Stores action output result for [Custom Action - checkMSFSLicensePlan] action in wrapWidget widget.
   String? licensePlanResultMSFS1;
+  // Stores action output result for [Custom Action - checkMSFSLicensePlan] action in option widget.
+  String? licensePlanResultMSFS2;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered4 = false;
   // State field(s) for MouseRegion widget.
