@@ -14,6 +14,9 @@ class Bfmccheckout extends StatefulWidget {
     Key? key,
     this.width,
     this.height,
+    this.monthlyPrice,
+    this.yearlyPrice,
+    this.lifetimePrice,
     this.onBuyMonthly,
     this.onBuyYearly,
     this.onBuyLifetime,
@@ -23,6 +26,9 @@ class Bfmccheckout extends StatefulWidget {
 
   final double? width;
   final double? height;
+  final String? monthlyPrice;
+  final String? yearlyPrice;
+  final String? lifetimePrice;
   final Future Function()? onBuyMonthly;
   final Future Function()? onBuyYearly;
   final Future Function()? onBuyLifetime;
@@ -100,7 +106,7 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
             _buildPlanCard(
               title: "Monthly Pass",
               subtitle: "30 Days Access",
-              price: "\$2.99",
+              price: widget.monthlyPrice ?? "\$2.99",
               period: "/ month",
               badgeText: "SHORT TERM",
               isPopular: false,
@@ -119,7 +125,7 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
             _buildPlanCard(
               title: "Yearly Pass",
               subtitle: "12 Months Access",
-              price: "\$12.99",
+              price: widget.yearlyPrice ?? "\$12.99",
               period: "/ year",
               badgeText: "🔥 MOST POPULAR - SAVE 80%",
               isPopular: true,
@@ -138,7 +144,7 @@ class _BfmccheckoutState extends State<Bfmccheckout> {
             _buildPlanCard(
               title: "Lifetime Pass",
               subtitle: "Permanent Access",
-              price: "\$19.99",
+              price: widget.lifetimePrice ?? "\$19.99",
               period: " one-time",
               badgeText: "⚡ BEST VALUE",
               isPopular: false,

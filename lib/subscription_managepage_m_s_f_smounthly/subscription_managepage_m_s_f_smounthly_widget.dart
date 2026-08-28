@@ -3,35 +3,37 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'subscription_managepage_model.dart';
-export 'subscription_managepage_model.dart';
+import 'subscription_managepage_m_s_f_smounthly_model.dart';
+export 'subscription_managepage_m_s_f_smounthly_model.dart';
 
-class SubscriptionManagepageWidget extends StatefulWidget {
-  const SubscriptionManagepageWidget({super.key});
+class SubscriptionManagepageMSFSmounthlyWidget extends StatefulWidget {
+  const SubscriptionManagepageMSFSmounthlyWidget({super.key});
 
-  static String routeName = 'subscriptionManagepage';
-  static String routePath = '/subscriptionManagepage';
+  static String routeName = 'subscriptionManagepageMSFSmounthly';
+  static String routePath = '/subscriptionManagepageMSFSmounthly';
 
   @override
-  State<SubscriptionManagepageWidget> createState() =>
-      _SubscriptionManagepageWidgetState();
+  State<SubscriptionManagepageMSFSmounthlyWidget> createState() =>
+      _SubscriptionManagepageMSFSmounthlyWidgetState();
 }
 
-class _SubscriptionManagepageWidgetState
-    extends State<SubscriptionManagepageWidget> {
-  late SubscriptionManagepageModel _model;
+class _SubscriptionManagepageMSFSmounthlyWidgetState
+    extends State<SubscriptionManagepageMSFSmounthlyWidget> {
+  late SubscriptionManagepageMSFSmounthlyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SubscriptionManagepageModel());
+    _model =
+        createModel(context, () => SubscriptionManagepageMSFSmounthlyModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -117,8 +119,10 @@ class _SubscriptionManagepageWidgetState
                     simulatorType: 'MSFS',
                     licenseKey: FFAppState().generateCodeMSFS,
                     expiryDate: FFAppState().licenseExpiryDateMSFS,
-                    priceText: '19.99',
-                    planType: FFAppState().currentPlanTypeMSFS,
+                    priceText: revenue_cat
+                        .offerings!.current!.monthly!.storeProduct.priceString,
+                    planType:
+                        revenue_cat.offerings!.current!.monthly!.identifier,
                     onRestorePressed: () async {},
                     onManageAppleSubscription: () async {},
                     onSupportPressed: () async {},

@@ -41136,7 +41136,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                     onTap:
                                                                         () async {
                                                                       context.pushNamed(
-                                                                          SubscriptionManagepageWidget
+                                                                          SubscriptionManagepageMSFSmounthlyWidget
                                                                               .routeName);
                                                                     },
                                                                     child:
@@ -41177,7 +41177,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                               Colors.transparent,
                                                                           onTap:
                                                                               () async {
-                                                                            context.pushNamed(SubscriptionManagepageWidget.routeName);
+                                                                            context.pushNamed(SubscriptionManagepageMSFSmounthlyWidget.routeName);
                                                                           },
                                                                           child:
                                                                               Row(
@@ -41224,7 +41224,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             true);
 
                                                                     context.pushNamed(
-                                                                        SubscriptionManagepageWidget
+                                                                        SubscriptionManagepageMSFSmounthlyWidget
                                                                             .routeName);
                                                                   }),
                                                                   onExit:

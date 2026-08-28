@@ -14,6 +14,9 @@ class UltimateBundleCheckout extends StatefulWidget {
     Key? key,
     this.width,
     this.height,
+    this.monthlyPrice,
+    this.yearlyPrice,
+    this.lifetimePrice,
     this.onBuyMonthly,
     this.onBuyYearly,
     this.onBuyLifetime,
@@ -23,6 +26,9 @@ class UltimateBundleCheckout extends StatefulWidget {
 
   final double? width;
   final double? height;
+  final String? monthlyPrice;
+  final String? yearlyPrice;
+  final String? lifetimePrice;
   final Future Function()? onBuyMonthly;
   final Future Function()? onBuyYearly;
   final Future Function()? onBuyLifetime;
@@ -102,7 +108,7 @@ class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
             _buildPlanCard(
               title: "Monthly Ultimate",
               subtitle: "30 Days Dual Access",
-              price: "\$4.99",
+              price: widget.monthlyPrice ?? "\$4.99",
               period: "/ month",
               badgeText: "STARTER",
               isPopular: false,
@@ -121,7 +127,7 @@ class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
             _buildPlanCard(
               title: "Yearly Ultimate",
               subtitle: "12 Months Dual Access",
-              price: "\$19.99",
+              price: widget.yearlyPrice ?? "\$19.99",
               period: "/ year",
               badgeText: "🔥 MOST POPULAR",
               isPopular: true,
@@ -140,7 +146,7 @@ class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
             _buildPlanCard(
               title: "Lifetime Ultimate",
               subtitle: "Permanent Dual Access",
-              price: "\$29.99",
+              price: widget.lifetimePrice ?? "\$29.99",
               period: " one-time",
               badgeText: "⚡ ABSOLUTE BEST VALUE",
               isPopular: false,

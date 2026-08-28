@@ -104,6 +104,13 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                   child: custom_widgets.Msfscheckout(
                     width: double.infinity,
                     height: double.infinity,
+                    monthlyPrice: revenue_cat
+                        .offerings!.current!.monthly!.storeProduct.priceString,
+                    yearlyPrice: revenue_cat
+                        .offerings!.current!.annual!.storeProduct.priceString,
+                    lifetimePrice: revenue_cat
+                        .offerings!.current!.lifetime!.storeProduct.price
+                        .toString(),
                     onBuyMonthly: () async {
                       _model.mSFSmonthly =
                           await revenue_cat.purchasePackage('\$rc_monthly');
