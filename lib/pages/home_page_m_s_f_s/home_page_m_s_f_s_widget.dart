@@ -41175,19 +41175,6 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                           } else if (_model.licensePlanResultMSFS ==
                                                                               'Lifetime') {
                                                                             context.pushNamed(SubscriptionManagepageMSFSlifetimeWidget.routeName);
-                                                                          } else {
-                                                                            ScaffoldMessenger.of(context).showSnackBar(
-                                                                              SnackBar(
-                                                                                content: Text(
-                                                                                  'failed',
-                                                                                  style: TextStyle(
-                                                                                    color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  ),
-                                                                                ),
-                                                                                duration: Duration(milliseconds: 4000),
-                                                                                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                              ),
-                                                                            );
                                                                           }
 
                                                                           safeSetState(

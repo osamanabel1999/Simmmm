@@ -275,8 +275,6 @@ class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
   double? sliderRInnerValue;
   // State field(s) for SliderROuter widget.
   double? sliderROuterValue;
-  // Stores action output result for [Custom Action - checkMSFSLicensePlan] action in option widget.
-  String? licensePlanResultMSFS;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered1 = false;
   // State field(s) for MouseRegion widget.

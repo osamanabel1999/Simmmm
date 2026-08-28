@@ -229,15 +229,15 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       safeSetState(() {});
                     },
                     onBuyLifetime: () async {
-                      _model.xplanelifetime =
+                      _model.xplanelifetime6 =
                           await revenue_cat.purchasePackage('xplane_lifetime');
-                      if (_model.xplanelifetime == true) {
-                        _model.generateCodeXplaneLifeTime =
+                      if (_model.xplanelifetime6 == true) {
+                        _model.generateCodeXplaneLifeTime6 =
                             await actions.generateNewLicenseXPlane(
                           'lifetime',
                         );
                         FFAppState().generatedCode =
-                            _model.generateCodeXplaneLifeTime!;
+                            _model.generateCodeXplaneLifeTime6!;
                         safeSetState(() {});
 
                         context.pushNamed(IPpageXplaneWidget.routeName);

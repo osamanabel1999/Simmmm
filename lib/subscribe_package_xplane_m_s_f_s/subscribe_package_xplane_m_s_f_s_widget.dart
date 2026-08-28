@@ -131,18 +131,18 @@ class _SubscribePackageXplaneMSFSWidgetState
                       _model.mSFSandXplanemonthly = await revenue_cat
                           .purchasePackage('msfs_xplane_monthly');
                       if (_model.mSFSandXplanemonthly == true) {
-                        _model.generateCodeXplaneandMSFS1Month1 =
-                            await actions.generateNewLicenseMSFS(
+                        _model.generateCodeXplaneandMSFSforbothSIMMonth1 =
+                            await actions.generateNewLicenseMSFSforBothSIM(
                           '1_month',
                         );
-                        _model.generateCodeXplaneandMSFS1Month2 =
-                            await actions.generateNewLicenseXPlane(
+                        _model.generateCodeXplaneandMSFSforbothSIMMonthU =
+                            await actions.generateNewLicenseXPlaneforothSIM(
                           '1_month',
                         );
                         FFAppState().generateCodeMSFS =
-                            _model.generateCodeXplaneandMSFS1Month1!;
+                            _model.generateCodeXplaneandMSFSforbothSIMMonth1!;
                         FFAppState().generatedCode =
-                            _model.generateCodeXplaneandMSFS1Month2!;
+                            _model.generateCodeXplaneandMSFSforbothSIMMonthU!;
                         safeSetState(() {});
 
                         context.pushNamed(HomeMenuWidget.routeName);
@@ -193,18 +193,18 @@ class _SubscribePackageXplaneMSFSWidgetState
                       _model.mSFSandXplaneyearly1 = await revenue_cat
                           .purchasePackage('msfs_xplane_yearly');
                       if (_model.mSFSandXplaneyearly1 == true) {
-                        _model.generateCodeXplaneandMSFS1Year2 =
-                            await actions.generateNewLicenseXPlane(
+                        _model.generateCodeXplaneandMSFSforbothsimYearKK =
+                            await actions.generateNewLicenseXPlaneforothSIM(
                           '1_yearly',
                         );
-                        _model.generateCodeXplaneandMSFS1Year1 =
-                            await actions.generateNewLicenseMSFS(
+                        _model.generateCodeXplaneandMSFSforbothSIMYearF =
+                            await actions.generateNewLicenseMSFSforBothSIM(
                           '1_yearly',
                         );
                         FFAppState().generateCodeMSFS =
-                            _model.generateCodeXplaneandMSFS1Year1!;
+                            _model.generateCodeXplaneandMSFSforbothSIMYearF!;
                         FFAppState().generatedCode =
-                            _model.generateCodeXplaneandMSFS1Month2!;
+                            _model.generateCodeXplaneandMSFSforbothsimYearKK!;
                         safeSetState(() {});
 
                         context.pushNamed(HomeMenuWidget.routeName);
@@ -252,21 +252,21 @@ class _SubscribePackageXplaneMSFSWidgetState
                       safeSetState(() {});
                     },
                     onBuyLifetime: () async {
-                      _model.mSFSandXplanelifetime = await revenue_cat
+                      _model.mSFSandXplanelifetime6 = await revenue_cat
                           .purchasePackage('msfs_xplane_lifetime');
-                      if (_model.mSFSandXplanelifetime == true) {
-                        _model.generateCodeXplaneandMSFSlifetime2 =
-                            await actions.generateNewLicenseXPlane(
+                      if (_model.mSFSandXplanelifetime6 == true) {
+                        _model.generateCodeXplaneandMSFSfotbothSIMlifetimeN =
+                            await actions.generateNewLicenseXPlaneforothSIM(
                           'lifetime',
                         );
-                        _model.generateCodeXplaneandMSFSlifetime1 =
-                            await actions.generateNewLicenseMSFS(
+                        _model.generateCodeXplaneandMSFforbothSIMSlifetimeG =
+                            await actions.generateNewLicenseMSFSforBothSIM(
                           'lifetime',
                         );
-                        FFAppState().generateCodeMSFS =
-                            _model.generateCodeXplaneandMSFSlifetime1!;
-                        FFAppState().generatedCode =
-                            _model.generateCodeXplaneandMSFS1Month2!;
+                        FFAppState().generateCodeMSFS = _model
+                            .generateCodeXplaneandMSFforbothSIMSlifetimeG!;
+                        FFAppState().generatedCode = _model
+                            .generateCodeXplaneandMSFSfotbothSIMlifetimeN!;
                         safeSetState(() {});
 
                         context.pushNamed(HomeMenuWidget.routeName);
