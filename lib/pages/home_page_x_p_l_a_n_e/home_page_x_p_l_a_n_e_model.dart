@@ -275,12 +275,16 @@ class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
   double? sliderRInnerValue;
   // State field(s) for SliderROuter widget.
   double? sliderROuterValue;
+  // Stores action output result for [Custom Action - checkMSFSLicensePlan] action in option widget.
+  String? licensePlanResultMSFS;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered1 = false;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered2 = false;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered3 = false;
+  // Stores action output result for [Custom Action - checkXPlaneLicensePlan] action in option widget.
+  String? licensePlanResultXplane;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered4 = false;
   // State field(s) for MouseRegion widget.
@@ -289,6 +293,10 @@ class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
   bool mouseRegionHovered6 = false;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered7 = false;
+  // State field(s) for MouseRegion widget.
+  bool mouseRegionHovered8 = false;
+  // State field(s) for MouseRegion widget.
+  bool mouseRegionHovered9 = false;
 
   @override
   void initState(BuildContext context) {}

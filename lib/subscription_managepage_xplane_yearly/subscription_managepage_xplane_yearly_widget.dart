@@ -118,14 +118,8 @@ class _SubscriptionManagepageXplaneYearlyWidgetState
                     height: double.infinity,
                     status: 'Active',
                     simulatorType: 'X-PLANE',
-                    licenseKey: valueOrDefault<String>(
-                      FFAppState().generateCodeMSFS,
-                      '-',
-                    ),
-                    expiryDate: valueOrDefault<String>(
-                      FFAppState().licenseExpiryDateMSFS,
-                      '-',
-                    ),
+                    licenseKey: FFAppState().generatedCode,
+                    expiryDate: FFAppState().licenseExpiryDateXPlane,
                     priceText: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
                           .getPackage('xplane_yearly')!

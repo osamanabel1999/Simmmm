@@ -118,14 +118,8 @@ class _SubscriptionManagepageXplaneMonthlyWidgetState
                     height: double.infinity,
                     status: 'Active',
                     simulatorType: 'X-PLANE',
-                    licenseKey: valueOrDefault<String>(
-                      FFAppState().generateCodeMSFS,
-                      '-',
-                    ),
-                    expiryDate: valueOrDefault<String>(
-                      FFAppState().licenseExpiryDateMSFS,
-                      '-',
-                    ),
+                    licenseKey: FFAppState().generatedCode,
+                    expiryDate: FFAppState().licenseExpiryDateXPlane,
                     priceText: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
                           .getPackage('xplane_monthly')!
@@ -141,17 +135,17 @@ class _SubscriptionManagepageXplaneMonthlyWidgetState
                       '-',
                     ),
                     onRestorePressed: () async {
-                      _model.restoredCodeMSFS1 =
-                          await actions.restoreLicenseMSFS();
-                      if (_model.restoredCodeMSFS1 == 'License Expired.') {
+                      _model.restoredCodeXPlane1 =
+                          await actions.restoreLicenseXPlane();
+                      if (_model.restoredCodeXPlane1 == 'License Expired.') {
                         await showDialog(
                           context: context,
                           builder: (alertDialogContext) {
                             return WebViewAware(
                               child: AlertDialog(
-                                title: Text('Your MSFS License is Expired!'),
+                                title: Text('Your X-Plane License is Expired!'),
                                 content: Text(
-                                    'Your active MSFS license key has expired. Please renew your subscription.'),
+                                    'Your active X-Plane license key has expired. Please renew your subscription.'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
@@ -163,16 +157,16 @@ class _SubscriptionManagepageXplaneMonthlyWidgetState
                             );
                           },
                         );
-                      } else if (_model.restoredCodeMSFS1 ==
+                      } else if (_model.restoredCodeXPlane1 ==
                           'No subscription found for this device.') {
                         await showDialog(
                           context: context,
                           builder: (alertDialogContext) {
                             return WebViewAware(
                               child: AlertDialog(
-                                title: Text('No MSFS Subscription Found!'),
+                                title: Text('No X-Plane Subscription Found!'),
                                 content: Text(
-                                    'No MSFS subscription found for this device.'),
+                                    'No X-Plane subscription found for this device.'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
@@ -190,12 +184,9 @@ class _SubscriptionManagepageXplaneMonthlyWidgetState
                           builder: (alertDialogContext) {
                             return WebViewAware(
                               child: AlertDialog(
-                                title: Text('MSFS Subscription Restored!'),
+                                title: Text('X-Plane Subscription Restored!'),
                                 content: Text(
-                                    'Your MSFS license key is:  ${valueOrDefault<String>(
-                                  _model.restoredCodeMSFS1,
-                                  '-',
-                                )}'),
+                                    'Your X-Plane license key is:  ${_model.restoredCodeXPlane1}'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>

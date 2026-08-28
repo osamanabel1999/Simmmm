@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_ad_banner.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
@@ -118,12 +117,8 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                         .storeProduct
                         .priceString,
                     onBuyMonthly: () async {
-                      unawaited(
-                        () async {
-                          _model.xplanemonthly = await revenue_cat
-                              .purchasePackage('xplane_monthly');
-                        }(),
-                      );
+                      _model.xplanemonthly =
+                          await revenue_cat.purchasePackage('xplane_monthly');
                       if (_model.xplanemonthly == true) {
                         _model.generateCodeXplane1Month =
                             await actions.generateNewLicenseXPlane(
@@ -178,12 +173,8 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       safeSetState(() {});
                     },
                     onBuyYearly: () async {
-                      unawaited(
-                        () async {
-                          _model.xplaneyearly = await revenue_cat
-                              .purchasePackage('xplane_yearly');
-                        }(),
-                      );
+                      _model.xplaneyearly =
+                          await revenue_cat.purchasePackage('xplane_yearly');
                       if (_model.xplaneyearly == true) {
                         _model.generateCodeXplane1Year =
                             await actions.generateNewLicenseXPlane(
@@ -238,12 +229,8 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       safeSetState(() {});
                     },
                     onBuyLifetime: () async {
-                      unawaited(
-                        () async {
-                          _model.xplanelifetime = await revenue_cat
-                              .purchasePackage('xplane_lifetime');
-                        }(),
-                      );
+                      _model.xplanelifetime =
+                          await revenue_cat.purchasePackage('xplane_lifetime');
                       if (_model.xplanelifetime == true) {
                         _model.generateCodeXplaneLifeTime =
                             await actions.generateNewLicenseXPlane(

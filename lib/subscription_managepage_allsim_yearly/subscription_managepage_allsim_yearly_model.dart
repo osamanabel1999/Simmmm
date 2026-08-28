@@ -1,5 +1,4 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
 import 'subscription_managepage_allsim_yearly_widget.dart'
     show SubscriptionManagepageAllsimYearlyWidget;
 import 'package:flutter/material.dart';
@@ -10,8 +9,10 @@ class SubscriptionManagepageAllsimYearlyModel
 
   // Stores action output result for [Custom Action - getPlanTypeMSFS] action in subscriptionManagepageAllsimYearly widget.
   String? currentPlanTypeMSFS;
-  // Stores action output result for [Custom Action - restoreLicenseMSFS] action in SubscriptionStatusCardMSFSMonthly widget.
-  String? restoredCodeMSFS1;
+  // Stores action output result for [Custom Action - restoreLicenseMSFS] action in XplaneMsfsPageStatusCard widget.
+  String? restoredCodeMSFS4;
+  // Stores action output result for [Custom Action - restoreLicenseXPlane] action in XplaneMsfsPageStatusCard widget.
+  String? restoredCodeXPlane5;
 
   @override
   void initState(BuildContext context) {}

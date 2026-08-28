@@ -33634,6 +33634,141 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.stretch,
                                               children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 8.0, 0.0, 8.0),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      _model.licensePlanResultMSFS =
+                                                          await actions
+                                                              .checkMSFSLicensePlan(
+                                                        valueOrDefault<String>(
+                                                          FFAppState()
+                                                              .generateCodeMSFS,
+                                                          '-',
+                                                        ),
+                                                      );
+                                                      if (_model
+                                                              .licensePlanResultMSFS ==
+                                                          'Monthly') {
+                                                        context.pushNamed(
+                                                            SubscriptionManagepageMSFSmounthlyWidget
+                                                                .routeName);
+                                                      } else if (_model
+                                                              .licensePlanResultMSFS ==
+                                                          'Yearly') {
+                                                        context.pushNamed(
+                                                            SubscriptionManagepageMSFSyearlyWidget
+                                                                .routeName);
+                                                      } else if (_model
+                                                              .licensePlanResultMSFS ==
+                                                          'Lifetime') {
+                                                        context.pushNamed(
+                                                            SubscriptionManagepageMSFSlifetimeWidget
+                                                                .routeName);
+                                                      } else {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              'failed',
+                                                              style: TextStyle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                            ),
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    4000),
+                                                            backgroundColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                          ),
+                                                        );
+                                                      }
+
+                                                      safeSetState(() {});
+                                                    },
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      12.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Icon(
+                                                            Icons
+                                                                .monetization_on_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 20.0,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              'MY Subscription',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .plusJakartaSans(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    fontSize:
+                                                                        14.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
@@ -34351,6 +34486,161 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                           8.0,
                                                                           0.0,
                                                                           8.0),
+                                                                  child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      _model.licensePlanResultXplane =
+                                                                          await actions
+                                                                              .checkXPlaneLicensePlan(
+                                                                        FFAppState()
+                                                                            .generatedCode,
+                                                                      );
+                                                                      if (_model
+                                                                              .licensePlanResultXplane ==
+                                                                          'Monthly') {
+                                                                        context.pushNamed(
+                                                                            SubscriptionManagepageXplaneMonthlyWidget.routeName);
+                                                                      } else if (_model
+                                                                              .licensePlanResultXplane ==
+                                                                          'Yearly') {
+                                                                        context.pushNamed(
+                                                                            SubscriptionManagepageXplaneYearlyWidget.routeName);
+                                                                      } else if (_model
+                                                                              .licensePlanResultXplane ==
+                                                                          'Lifetime') {
+                                                                        context.pushNamed(
+                                                                            SubscriptionManagepageXplaneLifetimeWidget.routeName);
+                                                                      } else {
+                                                                        ScaffoldMessenger.of(context)
+                                                                            .showSnackBar(
+                                                                          SnackBar(
+                                                                            content:
+                                                                                Text(
+                                                                              'failed',
+                                                                              style: TextStyle(
+                                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                              ),
+                                                                            ),
+                                                                            duration:
+                                                                                Duration(milliseconds: 4000),
+                                                                            backgroundColor:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                          ),
+                                                                        );
+                                                                      }
+
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    },
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              12.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.monetization_on,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            size:
+                                                                                20.0,
+                                                                          ),
+                                                                        ),
+                                                                        Expanded(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                12.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              'MY Subscription',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    font: GoogleFonts.plusJakartaSans(
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
+                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    fontSize: 14.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              onEnter:
+                                                                  ((event) async {
+                                                                safeSetState(() =>
+                                                                    _model.mouseRegionHovered3 =
+                                                                        true);
+                                                              }),
+                                                              onExit:
+                                                                  ((event) async {
+                                                                safeSetState(() =>
+                                                                    _model.mouseRegionHovered3 =
+                                                                        false);
+                                                              }),
+                                                            ),
+                                                            MouseRegion(
+                                                              opaque: false,
+                                                              cursor: SystemMouseCursors
+                                                                      .basic ??
+                                                                  MouseCursor
+                                                                      .defer,
+                                                              child:
+                                                                  AnimatedContainer(
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        150),
+                                                                curve: Curves
+                                                                    .easeInOut,
+                                                                width: double
+                                                                    .infinity,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: Color(
+                                                                        0xFF1C1111),
+                                                                  ),
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0),
                                                                   child: Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
@@ -34404,13 +34694,13 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                               onEnter:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered3 =
+                                                                    _model.mouseRegionHovered4 =
                                                                         true);
                                                               }),
                                                               onExit:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered3 =
+                                                                    _model.mouseRegionHovered4 =
                                                                         false);
                                                               }),
                                                             ),
@@ -34564,13 +34854,13 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                               onEnter:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered4 =
+                                                                    _model.mouseRegionHovered5 =
                                                                         true);
                                                               }),
                                                               onExit:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered4 =
+                                                                    _model.mouseRegionHovered5 =
                                                                         false);
                                                               }),
                                                             ),
@@ -34678,13 +34968,13 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                               onEnter:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered5 =
+                                                                    _model.mouseRegionHovered6 =
                                                                         true);
                                                               }),
                                                               onExit:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered5 =
+                                                                    _model.mouseRegionHovered6 =
                                                                         false);
                                                               }),
                                                             ),
@@ -34796,13 +35086,13 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                               onEnter:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered6 =
+                                                                    _model.mouseRegionHovered7 =
                                                                         true);
                                                               }),
                                                               onExit:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered6 =
+                                                                    _model.mouseRegionHovered7 =
                                                                         false);
                                                               }),
                                                             ),
@@ -34910,13 +35200,13 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                               onEnter:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered7 =
+                                                                    _model.mouseRegionHovered8 =
                                                                         true);
                                                               }),
                                                               onExit:
                                                                   ((event) async {
                                                                 safeSetState(() =>
-                                                                    _model.mouseRegionHovered7 =
+                                                                    _model.mouseRegionHovered8 =
                                                                         false);
                                                               }),
                                                             ),
@@ -34924,6 +35214,46 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                               thickness: 1.0,
                                                               color: Color(
                                                                   0xFFE0E3E7),
+                                                            ),
+                                                            MouseRegion(
+                                                              opaque: false,
+                                                              cursor: SystemMouseCursors
+                                                                      .basic ??
+                                                                  MouseCursor
+                                                                      .defer,
+                                                              child:
+                                                                  AnimatedContainer(
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        150),
+                                                                curve: Curves
+                                                                    .easeInOut,
+                                                                width: double
+                                                                    .infinity,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: Color(
+                                                                        0xFF1C1111),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              onEnter:
+                                                                  ((event) async {
+                                                                safeSetState(() =>
+                                                                    _model.mouseRegionHovered9 =
+                                                                        true);
+                                                              }),
+                                                              onExit:
+                                                                  ((event) async {
+                                                                safeSetState(() =>
+                                                                    _model.mouseRegionHovered9 =
+                                                                        false);
+                                                              }),
                                                             ),
                                                           ],
                                                         ),

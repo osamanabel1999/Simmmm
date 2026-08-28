@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
-import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -113,15 +112,16 @@ class _SubscriptionManagepageAllsimMonthlyWidgetState
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
-                  child: custom_widgets.SubscriptionStatusCard(
+                  child: custom_widgets.XplaneMsfsPageStatusCard(
                     width: double.infinity,
                     height: double.infinity,
                     status: 'Active',
                     simulatorType: 'X-PLANE & MSFS',
-                    licenseKey: valueOrDefault<String>(
+                    msfsLicenseKey: valueOrDefault<String>(
                       FFAppState().generateCodeMSFS,
                       '-',
                     ),
+                    xplaneLicenseKey: FFAppState().generatedCode,
                     expiryDate: valueOrDefault<String>(
                       FFAppState().licenseExpiryDateMSFS,
                       '-',
@@ -140,10 +140,10 @@ class _SubscriptionManagepageAllsimMonthlyWidgetState
                           .title,
                       '-',
                     ),
-                    onRestorePressed: () async {
-                      _model.restoredCodeMSFS1 =
+                    onRestoreMsfsPressed: () async {
+                      _model.restoredCodeMSFS3 =
                           await actions.restoreLicenseMSFS();
-                      if (_model.restoredCodeMSFS1 == 'License Expired.') {
+                      if (_model.restoredCodeMSFS3 == 'License Expired.') {
                         await showDialog(
                           context: context,
                           builder: (alertDialogContext) {
@@ -163,7 +163,7 @@ class _SubscriptionManagepageAllsimMonthlyWidgetState
                             );
                           },
                         );
-                      } else if (_model.restoredCodeMSFS1 ==
+                      } else if (_model.restoredCodeMSFS3 ==
                           'No subscription found for this device.') {
                         await showDialog(
                           context: context,
@@ -192,10 +192,75 @@ class _SubscriptionManagepageAllsimMonthlyWidgetState
                               child: AlertDialog(
                                 title: Text('MSFS Subscription Restored!'),
                                 content: Text(
-                                    'Your MSFS license key is:  ${valueOrDefault<String>(
-                                  _model.restoredCodeMSFS1,
-                                  '-',
-                                )}'),
+                                    'Your MSFS license key is:  ${_model.restoredCodeMSFS3}'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
+
+                      safeSetState(() {});
+                    },
+                    onRestoreXplanePressed: () async {
+                      _model.restoredCodeXPlane4 =
+                          await actions.restoreLicenseXPlane();
+                      if (_model.restoredCodeXPlane4 == 'License Expired.') {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('Your X-Plane License is Expired!'),
+                                content: Text(
+                                    'Your active X-Plane license key has expired. Please renew your subscription.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else if (_model.restoredCodeXPlane4 ==
+                          'No subscription found for this device.') {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('No X-Plane Subscription Found!'),
+                                content: Text(
+                                    'No X-Plane subscription found for this device.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('X-Plane Subscription Restored!'),
+                                content: Text(
+                                    'Your X-Plane license key is:  ${_model.restoredCodeXPlane4}'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
@@ -215,9 +280,7 @@ class _SubscriptionManagepageAllsimMonthlyWidgetState
                     onSupportPressed: () async {
                       await launchURL('https://discord.gg/3jJkuQeKaz');
                     },
-                    onPrivacyPolicyPressed: () async {
-                      context.pushNamed(PrivacyPolicyPageWidget.routeName);
-                    },
+                    onPrivacyPolicyPressed: () async {},
                   ),
                 ),
               ),

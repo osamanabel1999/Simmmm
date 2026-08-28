@@ -10,8 +10,8 @@ class SubscriptionManagepageXplaneMonthlyModel
 
   // Stores action output result for [Custom Action - getPlanTypeMSFS] action in subscriptionManagepageXplaneMonthly widget.
   String? currentPlanTypeMSFS;
-  // Stores action output result for [Custom Action - restoreLicenseMSFS] action in SubscriptionStatusCardMSFSMonthly widget.
-  String? restoredCodeMSFS1;
+  // Stores action output result for [Custom Action - restoreLicenseXPlane] action in SubscriptionStatusCardMSFSMonthly widget.
+  String? restoredCodeXPlane1;
 
   @override
   void initState(BuildContext context) {}

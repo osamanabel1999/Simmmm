@@ -70,3 +70,4 @@ export 'restore_license_x_plane.dart' show restoreLicenseXPlane;
 export 'get_plan_type_m_s_f_s.dart' show getPlanTypeMSFS;
 export 'check_m_s_f_s_license.dart' show checkMSFSLicense;
 export 'check_m_s_f_s_license_plan.dart' show checkMSFSLicensePlan;
+export 'check_x_plane_license_plan.dart' show checkXPlaneLicensePlan;
