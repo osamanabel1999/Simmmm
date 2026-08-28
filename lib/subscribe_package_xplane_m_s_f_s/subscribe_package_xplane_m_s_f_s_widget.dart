@@ -106,18 +106,27 @@ class _SubscribePackageXplaneMSFSWidgetState
                   child: custom_widgets.UltimateBundleCheckout(
                     width: double.infinity,
                     height: double.infinity,
-                    monthlyPrice: revenue_cat.offerings!.current!
-                        .getPackage('msfs_xplane_monthly')!
-                        .storeProduct
-                        .priceString,
-                    yearlyPrice: revenue_cat.offerings!.current!
-                        .getPackage('msfs_xplane_yearly')!
-                        .storeProduct
-                        .priceString,
-                    lifetimePrice: revenue_cat.offerings!.current!
-                        .getPackage('msfs_xplane_yearly')!
-                        .storeProduct
-                        .priceString,
+                    monthlyPrice: valueOrDefault<String>(
+                      revenue_cat.offerings!.current!
+                          .getPackage('msfs_xplane_monthly')!
+                          .storeProduct
+                          .priceString,
+                      '-',
+                    ),
+                    yearlyPrice: valueOrDefault<String>(
+                      revenue_cat.offerings!.current!
+                          .getPackage('msfs_xplane_yearly')!
+                          .storeProduct
+                          .priceString,
+                      '-',
+                    ),
+                    lifetimePrice: valueOrDefault<String>(
+                      revenue_cat.offerings!.current!
+                          .getPackage('msfs_xplane_yearly')!
+                          .storeProduct
+                          .priceString,
+                      '-',
+                    ),
                     onBuyMonthly: () async {
                       _model.mSFSandXplanemonthly = await revenue_cat
                           .purchasePackage('msfs_xplane_monthly');
@@ -140,7 +149,7 @@ class _SubscribePackageXplaneMSFSWidgetState
 
                         await Future.delayed(
                           Duration(
-                            milliseconds: 1500,
+                            milliseconds: 500,
                           ),
                         );
                         await showDialog(
@@ -304,7 +313,9 @@ class _SubscribePackageXplaneMSFSWidgetState
 
                       safeSetState(() {});
                     },
-                    onContactUs: () async {},
+                    onContactUs: () async {
+                      await launchURL('https://discord.gg/3jJkuQeKaz');
+                    },
                     onBuyBothSims: () async {},
                   ),
                 ),
