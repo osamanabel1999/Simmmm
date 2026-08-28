@@ -254,7 +254,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                     onBuyLifetime: () async {
                       _model.mSFSandXplanelifetime = await revenue_cat
                           .purchasePackage('msfs_xplane_lifetime');
-                      if (_model.mSFSandXplaneyearly1 == true) {
+                      if (_model.mSFSandXplanelifetime == true) {
                         _model.generateCodeXplaneandMSFSlifetime2 =
                             await actions.generateNewLicenseXPlane(
                           'lifetime',

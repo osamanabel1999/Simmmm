@@ -253,7 +253,7 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                               .purchasePackage('xplane_lifetime');
                         }(),
                       );
-                      if (_model.xplaneyearly == true) {
+                      if (_model.xplanelifetime == true) {
                         _model.generateCodeXplaneLifeTime =
                             await actions.generateNewLicenseXPlane(
                           'lifetime',
