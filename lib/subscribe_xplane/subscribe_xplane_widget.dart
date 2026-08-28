@@ -105,27 +105,9 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                   child: custom_widgets.Bfmccheckout(
                     width: double.infinity,
                     height: double.infinity,
-                    monthlyPrice: valueOrDefault<String>(
-                      revenue_cat.offerings!.current!
-                          .getPackage('xplane_monthly')!
-                          .storeProduct
-                          .priceString,
-                      '-',
-                    ),
-                    yearlyPrice: valueOrDefault<String>(
-                      revenue_cat.offerings!.current!
-                          .getPackage('xplane_yearly')!
-                          .storeProduct
-                          .priceString,
-                      '-',
-                    ),
-                    lifetimePrice: valueOrDefault<String>(
-                      revenue_cat.offerings!.current!
-                          .getPackage('xplane_lifetime')!
-                          .storeProduct
-                          .priceString,
-                      '-',
-                    ),
+                    monthlyPrice: '11',
+                    yearlyPrice: '115',
+                    lifetimePrice: '312',
                     onBuyMonthly: () async {
                       unawaited(
                         () async {
