@@ -284,7 +284,9 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
 
                       safeSetState(() {});
                     },
-                    onContactUs: () async {},
+                    onContactUs: () async {
+                      await launchURL('https://discord.gg/3jJkuQeKaz');
+                    },
                     onBuyBothSims: () async {
                       context.pushNamed(
                           SubscribePackageXplaneMSFSWidget.routeName);

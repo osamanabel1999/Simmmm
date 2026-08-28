@@ -282,6 +282,12 @@ class FFAppState extends ChangeNotifier {
   set currentPlanTypeMSFS(String value) {
     _currentPlanTypeMSFS = value;
   }
+
+  int _subscriptionManagepageNumber = 0;
+  int get subscriptionManagepageNumber => _subscriptionManagepageNumber;
+  set subscriptionManagepageNumber(int value) {
+    _subscriptionManagepageNumber = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

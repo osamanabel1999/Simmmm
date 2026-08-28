@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -105,135 +106,201 @@ class _SubscribePackageXplaneMSFSWidgetState
                   child: custom_widgets.UltimateBundleCheckout(
                     width: double.infinity,
                     height: double.infinity,
+                    monthlyPrice: revenue_cat.offerings!.current!
+                        .getPackage('msfs_xplane_monthly')!
+                        .storeProduct
+                        .priceString,
+                    yearlyPrice: revenue_cat.offerings!.current!
+                        .getPackage('msfs_xplane_yearly')!
+                        .storeProduct
+                        .priceString,
+                    lifetimePrice: revenue_cat.offerings!.current!
+                        .getPackage('msfs_xplane_yearly')!
+                        .storeProduct
+                        .priceString,
                     onBuyMonthly: () async {
-                      _model.generateCodeXplaneandMSFS1Month2 =
-                          await actions.generateNewLicenseXPlane(
-                        '1_year',
-                      );
-                      _model.generateCodeXplaneandMSFS1Month1 =
-                          await actions.generateNewLicenseMSFS(
-                        '1_year',
-                      );
-                      FFAppState().generateCodeMSFS =
-                          _model.generateCodeXplaneandMSFS1Month2!;
-                      FFAppState().generatedCode =
-                          _model.generateCodeXplaneandMSFS1Month1!;
-                      safeSetState(() {});
+                      _model.mSFSandXplanemonthly = await revenue_cat
+                          .purchasePackage('msfs_xplane_monthly');
+                      if (_model.mSFSandXplanemonthly == true) {
+                        _model.generateCodeXplaneandMSFS1Month1 =
+                            await actions.generateNewLicenseMSFS(
+                          '1_month',
+                        );
+                        _model.generateCodeXplaneandMSFS1Month2 =
+                            await actions.generateNewLicenseXPlane(
+                          '1_month',
+                        );
+                        FFAppState().generateCodeMSFS =
+                            _model.generateCodeXplaneandMSFS1Month1!;
+                        FFAppState().generatedCode =
+                            _model.generateCodeXplaneandMSFS1Month2!;
+                        safeSetState(() {});
 
-                      context.pushNamed(HomeMenuWidget.routeName);
+                        context.pushNamed(HomeMenuWidget.routeName);
 
-                      await Future.delayed(
-                        Duration(
-                          milliseconds: 1500,
-                        ),
-                      );
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return WebViewAware(
-                            child: AlertDialog(
-                              title: Text('Congratulations! '),
-                              content: Text(
-                                  'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators.Your Activation License Keys:Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}     And X-Plane License: ${FFAppState().generatedCode} Important Note: Please make sure to copy or save these keys (or take a screenshot) before closing this page!'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: Text('Ok'),
-                                ),
-                              ],
+                        await Future.delayed(
+                          Duration(
+                            milliseconds: 1500,
+                          ),
+                        );
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('Congratulations! '),
+                                content: Text(
+                                    'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators.Your Activation License Keys:Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}     And X-Plane License: ${FFAppState().generatedCode} Important Note: Please make sure to copy or save these keys (or take a screenshot) before closing this page!'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Payment failed or was cancelled. Please try again.',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                             ),
-                          );
-                        },
-                      );
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                          ),
+                        );
+                      }
 
                       safeSetState(() {});
                     },
                     onBuyYearly: () async {
-                      _model.generateCodeXplaneandMSFS1Year2 =
-                          await actions.generateNewLicenseXPlane(
-                        '1_month',
-                      );
-                      _model.generateCodeXplaneandMSFS1Year1 =
-                          await actions.generateNewLicenseMSFS(
-                        '1_month',
-                      );
-                      FFAppState().generateCodeMSFS =
-                          _model.generateCodeXplaneandMSFS1Month2!;
-                      FFAppState().generatedCode =
-                          _model.generateCodeXplaneandMSFS1Month1!;
-                      safeSetState(() {});
+                      _model.mSFSandXplaneyearly1 = await revenue_cat
+                          .purchasePackage('msfs_xplane_yearly');
+                      if (_model.mSFSandXplaneyearly1 == true) {
+                        _model.generateCodeXplaneandMSFS1Year2 =
+                            await actions.generateNewLicenseXPlane(
+                          '1_yearly',
+                        );
+                        _model.generateCodeXplaneandMSFS1Year1 =
+                            await actions.generateNewLicenseMSFS(
+                          '1_yearly',
+                        );
+                        FFAppState().generateCodeMSFS =
+                            _model.generateCodeXplaneandMSFS1Year1!;
+                        FFAppState().generatedCode =
+                            _model.generateCodeXplaneandMSFS1Month2!;
+                        safeSetState(() {});
 
-                      context.pushNamed(HomeMenuWidget.routeName);
+                        context.pushNamed(HomeMenuWidget.routeName);
 
-                      await Future.delayed(
-                        Duration(
-                          milliseconds: 1500,
-                        ),
-                      );
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return WebViewAware(
-                            child: AlertDialog(
-                              title: Text('Congratulations! '),
-                              content: Text(
-                                  'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators.Your Activation License Keys:Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}     And X-Plane License: ${FFAppState().generatedCode} Important Note: Please make sure to copy or save these keys (or take a screenshot) before closing this page!'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: Text('Ok'),
-                                ),
-                              ],
+                        await Future.delayed(
+                          Duration(
+                            milliseconds: 500,
+                          ),
+                        );
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('Congratulations! '),
+                                content: Text(
+                                    'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators.Your Activation License Keys:Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}     And X-Plane License: ${FFAppState().generatedCode} Important Note: Please make sure to copy or save these keys (or take a screenshot) before closing this page!'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Payment failed or was cancelled. Please try again.',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                             ),
-                          );
-                        },
-                      );
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                          ),
+                        );
+                      }
 
                       safeSetState(() {});
                     },
                     onBuyLifetime: () async {
-                      _model.generateCodeXplaneandMSFSlifetime2 =
-                          await actions.generateNewLicenseXPlane(
-                        'lifetime',
-                      );
-                      _model.generateCodeXplaneandMSFSlifetime1 =
-                          await actions.generateNewLicenseMSFS(
-                        'lifetime',
-                      );
-                      FFAppState().generateCodeMSFS =
-                          _model.generateCodeXplaneandMSFS1Month2!;
-                      FFAppState().generatedCode =
-                          _model.generateCodeXplaneandMSFS1Month1!;
-                      safeSetState(() {});
+                      _model.mSFSandXplanelifetime = await revenue_cat
+                          .purchasePackage('msfs_xplane_lifetime');
+                      if (_model.mSFSandXplaneyearly1 == true) {
+                        _model.generateCodeXplaneandMSFSlifetime2 =
+                            await actions.generateNewLicenseXPlane(
+                          'lifetime',
+                        );
+                        _model.generateCodeXplaneandMSFSlifetime1 =
+                            await actions.generateNewLicenseMSFS(
+                          'lifetime',
+                        );
+                        FFAppState().generateCodeMSFS =
+                            _model.generateCodeXplaneandMSFSlifetime1!;
+                        FFAppState().generatedCode =
+                            _model.generateCodeXplaneandMSFS1Month2!;
+                        safeSetState(() {});
 
-                      context.pushNamed(HomeMenuWidget.routeName);
+                        context.pushNamed(HomeMenuWidget.routeName);
 
-                      await Future.delayed(
-                        Duration(
-                          milliseconds: 1500,
-                        ),
-                      );
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return WebViewAware(
-                            child: AlertDialog(
-                              title: Text('Congratulations! '),
-                              content: Text(
-                                  'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators.Your Activation License Keys:Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}     And X-Plane License: ${FFAppState().generatedCode} Important Note: Please make sure to copy or save these keys (or take a screenshot) before closing this page!'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: Text('Ok'),
-                                ),
-                              ],
+                        await Future.delayed(
+                          Duration(
+                            milliseconds: 500,
+                          ),
+                        );
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('Congratulations! '),
+                                content: Text(
+                                    'Thank you for purchasing the Ultimate Dual-Sim Pass! You now have full access to both simulators.Your Activation License Keys:Microsoft Flight Simulator:  ${FFAppState().generateCodeMSFS}     And X-Plane License: ${FFAppState().generatedCode} Important Note: Please make sure to copy or save these keys (or take a screenshot) before closing this page!'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Payment failed or was cancelled. Please try again.',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                             ),
-                          );
-                        },
-                      );
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                          ),
+                        );
+                      }
 
                       safeSetState(() {});
                     },

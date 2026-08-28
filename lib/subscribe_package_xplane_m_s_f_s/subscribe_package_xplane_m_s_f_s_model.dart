@@ -8,14 +8,20 @@ class SubscribePackageXplaneMSFSModel
     extends FlutterFlowModel<SubscribePackageXplaneMSFSWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Custom Action - generateNewLicenseXPlane] action in UltimateBundleCheckout widget.
-  String? generateCodeXplaneandMSFS1Month2;
+  // Stores action output result for [RevenueCat - Purchase] action in UltimateBundleCheckout widget.
+  bool? mSFSandXplanemonthly;
   // Stores action output result for [Custom Action - generateNewLicenseMSFS] action in UltimateBundleCheckout widget.
   String? generateCodeXplaneandMSFS1Month1;
+  // Stores action output result for [Custom Action - generateNewLicenseXPlane] action in UltimateBundleCheckout widget.
+  String? generateCodeXplaneandMSFS1Month2;
+  // Stores action output result for [RevenueCat - Purchase] action in UltimateBundleCheckout widget.
+  bool? mSFSandXplaneyearly1;
   // Stores action output result for [Custom Action - generateNewLicenseXPlane] action in UltimateBundleCheckout widget.
   String? generateCodeXplaneandMSFS1Year2;
   // Stores action output result for [Custom Action - generateNewLicenseMSFS] action in UltimateBundleCheckout widget.
   String? generateCodeXplaneandMSFS1Year1;
+  // Stores action output result for [RevenueCat - Purchase] action in UltimateBundleCheckout widget.
+  bool? mSFSandXplanelifetime;
   // Stores action output result for [Custom Action - generateNewLicenseXPlane] action in UltimateBundleCheckout widget.
   String? generateCodeXplaneandMSFSlifetime2;
   // Stores action output result for [Custom Action - generateNewLicenseMSFS] action in UltimateBundleCheckout widget.
