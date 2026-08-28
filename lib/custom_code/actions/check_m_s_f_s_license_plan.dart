@@ -41,16 +41,28 @@ Future<String?> checkMSFSLicensePlan(String? licenseKey) async {
       for (var record in records) {
         final fields = record['fields'] ?? {};
         if (fields['LicenseKey']?.toString().trim() == cleanKey) {
+          // فحص عمود Duration أو PlanType أيهما يحتوي على البيانات
           final String rawDuration =
               fields['Duration']?.toString().trim().toLowerCase() ?? '';
+          final String rawPlan =
+              fields['PlanType']?.toString().trim().toLowerCase() ?? '';
 
-          if (rawDuration == '1_year' ||
-              rawDuration == '12_months' ||
-              rawDuration == 'yearly') {
+          final combined = "$rawDuration $rawPlan";
+
+          // لو الكلمة دالة على سنة أو سنوي
+          if (combined.contains('1_year') ||
+              combined.contains('12_months') ||
+              combined.contains('yearly') ||
+              combined.contains('سنوي')) {
             return 'Yearly';
-          } else if (rawDuration == 'lifetime') {
+          }
+          // لو الكلمة دالة على مدى الحياة
+          else if (combined.contains('lifetime') ||
+              combined.contains('مدى الحياة')) {
             return 'Lifetime';
-          } else {
+          }
+          // الباقي يعتبر شهري
+          else {
             return 'Monthly';
           }
         }

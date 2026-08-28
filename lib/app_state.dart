@@ -32,6 +32,10 @@ class FFAppState extends ChangeNotifier {
       _generatedCode = prefs.getString('ff_generatedCode') ?? _generatedCode;
     });
     _safeInit(() {
+      _generateCodeMSFS =
+          prefs.getString('ff_generateCodeMSFS') ?? _generateCodeMSFS;
+    });
+    _safeInit(() {
       _savedLicenseKeyMSFS =
           prefs.getString('ff_savedLicenseKeyMSFS') ?? _savedLicenseKeyMSFS;
     });
@@ -265,6 +269,7 @@ class FFAppState extends ChangeNotifier {
   String get generateCodeMSFS => _generateCodeMSFS;
   set generateCodeMSFS(String value) {
     _generateCodeMSFS = value;
+    prefs.setString('ff_generateCodeMSFS', value);
   }
 
   String _licenseExpiryDateMSFS = '';

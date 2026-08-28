@@ -122,7 +122,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                     ),
                     lifetimePrice: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
-                          .getPackage('msfs_xplane_yearly')!
+                          .getPackage('msfs_xplane_lifetime')!
                           .storeProduct
                           .priceString,
                       '-',

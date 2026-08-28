@@ -41120,166 +41120,112 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                       MouseCursor
                                                                           .defer,
                                                                   child:
-                                                                      InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      _model.licensePlanResultMSFS1 =
-                                                                          await actions
-                                                                              .checkMSFSLicensePlan(
-                                                                        FFAppState()
-                                                                            .generateCodeMSFS,
-                                                                      );
-                                                                      if (_model
-                                                                              .licensePlanResultMSFS ==
-                                                                          'Monthly Pass') {
-                                                                        context.pushNamed(
-                                                                            SubscriptionManagepageMSFSmounthlyWidget.routeName);
-                                                                      } else if (_model
-                                                                              .licensePlanResultMSFS ==
-                                                                          'Annual Pass') {
-                                                                        context.pushNamed(
-                                                                            SubscriptionManagepageMSFSyearlyWidget.routeName);
-                                                                      } else if (_model
-                                                                              .licensePlanResultMSFS ==
-                                                                          'Yearly Pass') {
-                                                                        context.pushNamed(
-                                                                            SubscriptionManagepageMSFSlifetimeWidget.routeName);
-                                                                      } else {
-                                                                        ScaffoldMessenger.of(context)
-                                                                            .showSnackBar(
-                                                                          SnackBar(
-                                                                            content:
-                                                                                Text(
-                                                                              'failed',
-                                                                              style: TextStyle(
+                                                                      AnimatedContainer(
+                                                                    duration: Duration(
+                                                                        milliseconds:
+                                                                            150),
+                                                                    curve: Curves
+                                                                        .easeInOut,
+                                                                    width: double
+                                                                        .infinity,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        color: Color(
+                                                                            0xFF1C1111),
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0),
+                                                                      child:
+                                                                          InkWell(
+                                                                        splashColor:
+                                                                            Colors.transparent,
+                                                                        focusColor:
+                                                                            Colors.transparent,
+                                                                        hoverColor:
+                                                                            Colors.transparent,
+                                                                        highlightColor:
+                                                                            Colors.transparent,
+                                                                        onTap:
+                                                                            () async {
+                                                                          _model.licensePlanResultMSFS =
+                                                                              await actions.checkMSFSLicensePlan(
+                                                                            valueOrDefault<String>(
+                                                                              FFAppState().generateCodeMSFS,
+                                                                              '-',
+                                                                            ),
+                                                                          );
+                                                                          if (_model.licensePlanResultMSFS ==
+                                                                              'Monthly') {
+                                                                            context.pushNamed(SubscriptionManagepageMSFSmounthlyWidget.routeName);
+                                                                          } else if (_model.licensePlanResultMSFS ==
+                                                                              'Yearly') {
+                                                                            context.pushNamed(SubscriptionManagepageMSFSyearlyWidget.routeName);
+                                                                          } else if (_model.licensePlanResultMSFS ==
+                                                                              'Lifetime') {
+                                                                            context.pushNamed(SubscriptionManagepageMSFSlifetimeWidget.routeName);
+                                                                          } else {
+                                                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                                              SnackBar(
+                                                                                content: Text(
+                                                                                  'failed',
+                                                                                  style: TextStyle(
+                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  ),
+                                                                                ),
+                                                                                duration: Duration(milliseconds: 4000),
+                                                                                backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              ),
+                                                                            );
+                                                                          }
+
+                                                                          safeSetState(
+                                                                              () {});
+                                                                        },
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                              child: Icon(
+                                                                                Icons.monetization_on_rounded,
                                                                                 color: FlutterFlowTheme.of(context).primaryText,
+                                                                                size: 20.0,
                                                                               ),
                                                                             ),
-                                                                            duration:
-                                                                                Duration(milliseconds: 4000),
-                                                                            backgroundColor:
-                                                                                FlutterFlowTheme.of(context).primaryBackground,
-                                                                          ),
-                                                                        );
-                                                                      }
-
-                                                                      safeSetState(
-                                                                          () {});
-                                                                    },
-                                                                    child:
-                                                                        AnimatedContainer(
-                                                                      duration: Duration(
-                                                                          milliseconds:
-                                                                              150),
-                                                                      curve: Curves
-                                                                          .easeInOut,
-                                                                      width: double
-                                                                          .infinity,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryBackground,
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              Color(0xFF1C1111),
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0,
-                                                                            8.0),
-                                                                        child:
-                                                                            InkWell(
-                                                                          splashColor:
-                                                                              Colors.transparent,
-                                                                          focusColor:
-                                                                              Colors.transparent,
-                                                                          hoverColor:
-                                                                              Colors.transparent,
-                                                                          highlightColor:
-                                                                              Colors.transparent,
-                                                                          onTap:
-                                                                              () async {
-                                                                            _model.licensePlanResultMSFS2 =
-                                                                                await actions.checkMSFSLicensePlan(
-                                                                              FFAppState().generateCodeMSFS,
-                                                                            );
-                                                                            if (_model.licensePlanResultMSFS ==
-                                                                                'Monthly Pass') {
-                                                                              context.pushNamed(SubscriptionManagepageMSFSmounthlyWidget.routeName);
-                                                                            } else if (_model.licensePlanResultMSFS ==
-                                                                                'Annual Pass') {
-                                                                              context.pushNamed(SubscriptionManagepageMSFSyearlyWidget.routeName);
-                                                                            } else if (_model.licensePlanResultMSFS ==
-                                                                                'Yearly Pass') {
-                                                                              context.pushNamed(SubscriptionManagepageMSFSlifetimeWidget.routeName);
-                                                                            } else {
-                                                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                                                SnackBar(
-                                                                                  content: Text(
-                                                                                    'failed',
-                                                                                    style: TextStyle(
-                                                                                      color: FlutterFlowTheme.of(context).primaryText,
-                                                                                    ),
-                                                                                  ),
-                                                                                  duration: Duration(milliseconds: 4000),
-                                                                                  backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                ),
-                                                                              );
-                                                                            }
-
-                                                                            safeSetState(() {});
-                                                                          },
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Padding(
+                                                                            Expanded(
+                                                                              child: Padding(
                                                                                 padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                                                                                child: Icon(
-                                                                                  Icons.monetization_on_rounded,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  size: 20.0,
-                                                                                ),
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                                                                                  child: Text(
-                                                                                    'MY Subscription',
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          font: GoogleFonts.plusJakartaSans(
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                          ),
-                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                          fontSize: 14.0,
-                                                                                          letterSpacing: 0.0,
+                                                                                child: Text(
+                                                                                  'MY Subscription',
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        font: GoogleFonts.plusJakartaSans(
                                                                                           fontWeight: FontWeight.w500,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
-                                                                                  ),
+                                                                                        color: FlutterFlowTheme.of(context).primaryText,
+                                                                                        fontSize: 14.0,
+                                                                                        letterSpacing: 0.0,
+                                                                                        fontWeight: FontWeight.w500,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                      ),
                                                                                 ),
                                                                               ),
-                                                                            ],
-                                                                          ),
+                                                                            ),
+                                                                          ],
                                                                         ),
                                                                       ),
                                                                     ),
@@ -41289,53 +41235,6 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                     safeSetState(() =>
                                                                         _model.mouseRegionHovered3 =
                                                                             true);
-                                                                    _model.licensePlanResultMSFS =
-                                                                        await actions
-                                                                            .checkMSFSLicensePlan(
-                                                                      FFAppState()
-                                                                          .generateCodeMSFS,
-                                                                    );
-                                                                    if (_model
-                                                                            .licensePlanResultMSFS ==
-                                                                        'Monthly Pass') {
-                                                                      context.pushNamed(
-                                                                          SubscriptionManagepageMSFSmounthlyWidget
-                                                                              .routeName);
-                                                                    } else if (_model
-                                                                            .licensePlanResultMSFS ==
-                                                                        'Annual Pass') {
-                                                                      context.pushNamed(
-                                                                          SubscriptionManagepageMSFSyearlyWidget
-                                                                              .routeName);
-                                                                    } else if (_model
-                                                                            .licensePlanResultMSFS ==
-                                                                        'Yearly Pass') {
-                                                                      context.pushNamed(
-                                                                          SubscriptionManagepageMSFSlifetimeWidget
-                                                                              .routeName);
-                                                                    } else {
-                                                                      ScaffoldMessenger.of(
-                                                                              context)
-                                                                          .showSnackBar(
-                                                                        SnackBar(
-                                                                          content:
-                                                                              Text(
-                                                                            'failed',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                            ),
-                                                                          ),
-                                                                          duration:
-                                                                              Duration(milliseconds: 4000),
-                                                                          backgroundColor:
-                                                                              FlutterFlowTheme.of(context).primaryBackground,
-                                                                        ),
-                                                                      );
-                                                                    }
-
-                                                                    safeSetState(
-                                                                        () {});
                                                                   }),
                                                                   onExit:
                                                                       ((event) async {
