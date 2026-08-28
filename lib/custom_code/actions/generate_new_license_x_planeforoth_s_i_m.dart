@@ -28,15 +28,15 @@ Future<String> generateNewLicenseXPlaneforothSIM(String? duration) async {
       ? '1_month'
       : duration.trim().toLowerCase();
 
-  // تحديد نوع الباقة باللغة الإنجليزية
-  String cleanPlanType = 'Monthly';
+  // تحديد نوع الباقة باحترافية بناءً على الكلمة الموجودة في عمود Duration
+  String cleanPlanType = 'Monthly'; // القيمة الافتراضية
 
-  if (currentDuration == '1_year' ||
-      currentDuration == '12_months' ||
-      currentDuration == 'yearly') {
+  if (currentDuration.contains('year')) {
     cleanPlanType = 'Yearly';
-  } else if (currentDuration == 'lifetime') {
+  } else if (currentDuration.contains('life')) {
     cleanPlanType = 'Lifetime';
+  } else if (currentDuration.contains('month')) {
+    cleanPlanType = 'Monthly';
   }
 
   final url = Uri.parse(
