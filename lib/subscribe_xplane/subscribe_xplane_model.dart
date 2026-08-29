@@ -8,14 +8,20 @@ class SubscribeXplaneModel extends FlutterFlowModel<SubscribeXplaneWidget> {
 
   // Stores action output result for [RevenueCat - Purchase] action in Bfmccheckout widget.
   bool? xplanemonthly;
+  // Stores action output result for [Custom Action - getRevenueCatUserId] action in Bfmccheckout widget.
+  String? currentUserId;
   // Stores action output result for [Custom Action - generateNewLicenseXPlane] action in Bfmccheckout widget.
   String? generateCodeXplane1Month;
   // Stores action output result for [RevenueCat - Purchase] action in Bfmccheckout widget.
   bool? xplaneyearly;
+  // Stores action output result for [Custom Action - getRevenueCatUserId] action in Bfmccheckout widget.
+  String? currentUserId1;
   // Stores action output result for [Custom Action - generateNewLicenseXPlane] action in Bfmccheckout widget.
   String? generateCodeXplane1Year;
   // Stores action output result for [RevenueCat - Purchase] action in Bfmccheckout widget.
   bool? xplanelifetime6;
+  // Stores action output result for [Custom Action - getRevenueCatUserId] action in Bfmccheckout widget.
+  String? currentUserId2;
   // Stores action output result for [Custom Action - generateNewLicenseXPlane] action in Bfmccheckout widget.
   String? generateCodeXplaneLifeTime6;
 

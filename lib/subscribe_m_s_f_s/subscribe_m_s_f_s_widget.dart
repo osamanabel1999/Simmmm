@@ -120,9 +120,12 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                       _model.mSFSmonthly =
                           await revenue_cat.purchasePackage('\$rc_monthly');
                       if (_model.mSFSmonthly == true) {
+                        _model.getRevenueCatUserId3 =
+                            await actions.getRevenueCatUserId();
                         _model.generateCodeMSFS1Month =
                             await actions.generateNewLicenseMSFS(
                           '1_month',
+                          _model.getRevenueCatUserId3,
                         );
                         FFAppState().generateCodeMSFS =
                             _model.generateCodeMSFS1Month!;
@@ -176,9 +179,12 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                       _model.mSFSyearly =
                           await revenue_cat.purchasePackage('\$rc_annual');
                       if (_model.mSFSyearly == true) {
+                        _model.currentUserId5 =
+                            await actions.getRevenueCatUserId();
                         _model.generateCodeMSFS1Year =
                             await actions.generateNewLicenseMSFS(
                           '1_year',
+                          _model.currentUserId5,
                         );
                         FFAppState().generateCodeMSFS =
                             _model.generateCodeMSFS1Year!;
@@ -232,9 +238,12 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                       _model.mSFSlifetime =
                           await revenue_cat.purchasePackage('\$rc_lifetime');
                       if (_model.mSFSlifetime == true) {
+                        _model.currentUserId6 =
+                            await actions.getRevenueCatUserId();
                         _model.generateCodeMSFSLifeTime =
                             await actions.generateNewLicenseMSFS(
                           'lifetime',
+                          _model.currentUserId6,
                         );
                         FFAppState().generateCodeMSFS =
                             _model.generateCodeMSFSLifeTime!;

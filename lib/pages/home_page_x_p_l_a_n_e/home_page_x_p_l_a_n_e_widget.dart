@@ -34373,21 +34373,48 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                         FFAppState()
                                                                             .generatedCode,
                                                                       );
-                                                                      if (_model
-                                                                              .licensePlanResultXplane ==
-                                                                          'Monthly') {
+                                                                      _model.licenseSimTypeXplane =
+                                                                          await actions
+                                                                              .checkXplaneSimType(
+                                                                        FFAppState()
+                                                                            .generatedCode,
+                                                                      );
+                                                                      if ((_model.licensePlanResultXplane ==
+                                                                              'Monthly') &&
+                                                                          (_model.licenseSimTypeXplane !=
+                                                                              'BothSIM')) {
                                                                         context.pushNamed(
                                                                             SubscriptionManagepageXplaneMonthlyWidget.routeName);
-                                                                      } else if (_model
-                                                                              .licensePlanResultXplane ==
-                                                                          'Yearly') {
+                                                                      } else if ((_model.licensePlanResultXplane ==
+                                                                              'Yearly') &&
+                                                                          (_model.licenseSimTypeXplane !=
+                                                                              'BothSIM')) {
                                                                         context.pushNamed(
                                                                             SubscriptionManagepageXplaneYearlyWidget.routeName);
-                                                                      } else if (_model
-                                                                              .licensePlanResultXplane ==
-                                                                          'Lifetime') {
+                                                                      } else if ((_model.licensePlanResultXplane ==
+                                                                              'Lifetime') &&
+                                                                          (_model.licenseSimTypeXplane !=
+                                                                              'BothSIM')) {
                                                                         context.pushNamed(
                                                                             SubscriptionManagepageXplaneLifetimeWidget.routeName);
+                                                                      } else if ((_model.licensePlanResultXplane ==
+                                                                              'Monthly') &&
+                                                                          (_model.licenseSimTypeXplane ==
+                                                                              'BothSIM')) {
+                                                                        context.pushNamed(
+                                                                            SubscriptionManagepageAllsimMonthlyWidget.routeName);
+                                                                      } else if ((_model.licensePlanResultXplane ==
+                                                                              'Yearly') &&
+                                                                          (_model.licenseSimTypeXplane ==
+                                                                              'BothSIM')) {
+                                                                        context.pushNamed(
+                                                                            SubscriptionManagepageAllsimYearlyWidget.routeName);
+                                                                      } else if ((_model.licensePlanResultXplane ==
+                                                                              'Lifetime') &&
+                                                                          (_model.licenseSimTypeXplane ==
+                                                                              'BothSIM')) {
+                                                                        context.pushNamed(
+                                                                            SubscriptionManagepageAllsimLifetimeWidget.routeName);
                                                                       } else {
                                                                         ScaffoldMessenger.of(context)
                                                                             .showSnackBar(

@@ -120,9 +120,12 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       _model.xplanemonthly =
                           await revenue_cat.purchasePackage('xplane_monthly');
                       if (_model.xplanemonthly == true) {
+                        _model.currentUserId =
+                            await actions.getRevenueCatUserId();
                         _model.generateCodeXplane1Month =
                             await actions.generateNewLicenseXPlane(
                           '1_month',
+                          _model.currentUserId,
                         );
                         FFAppState().generatedCode =
                             _model.generateCodeXplane1Month!;
@@ -176,9 +179,12 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       _model.xplaneyearly =
                           await revenue_cat.purchasePackage('xplane_yearly');
                       if (_model.xplaneyearly == true) {
+                        _model.currentUserId1 =
+                            await actions.getRevenueCatUserId();
                         _model.generateCodeXplane1Year =
                             await actions.generateNewLicenseXPlane(
                           '1_year',
+                          _model.currentUserId1,
                         );
                         FFAppState().generatedCode =
                             _model.generateCodeXplane1Year!;
@@ -232,9 +238,12 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       _model.xplanelifetime6 =
                           await revenue_cat.purchasePackage('xplane_lifetime');
                       if (_model.xplanelifetime6 == true) {
+                        _model.currentUserId2 =
+                            await actions.getRevenueCatUserId();
                         _model.generateCodeXplaneLifeTime6 =
                             await actions.generateNewLicenseXPlane(
                           'lifetime',
+                          _model.currentUserId2,
                         );
                         FFAppState().generatedCode =
                             _model.generateCodeXplaneLifeTime6!;

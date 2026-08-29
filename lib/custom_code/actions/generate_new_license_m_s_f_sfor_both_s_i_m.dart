@@ -12,7 +12,8 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 
-Future<String> generateNewLicenseMSFSforBothSIM(String? duration) async {
+Future<String> generateNewLicenseMSFSforBothSIM(
+    String? duration, String? appUserId) async {
   const String token =
       'patZuFHBTfOuzMmP7.b473d75321c56e35e5f7c0d76fcc330098903b08fabc3860400953058a89e39d';
   const String baseId = 'appmz3issohHsNLRM';
@@ -27,6 +28,8 @@ Future<String> generateNewLicenseMSFSforBothSIM(String? duration) async {
   final String currentDuration = (duration == null || duration.trim().isEmpty)
       ? '1_month'
       : duration.trim().toLowerCase();
+
+  final String cleanUserId = (appUserId == null) ? '' : appUserId.trim();
 
   // تحديد نوع الباقة باحترافية بناءً على الكلمة الموجودة في عمود Duration
   String cleanPlanType = 'Monthly'; // القيمة الافتراضية
@@ -55,6 +58,7 @@ Future<String> generateNewLicenseMSFSforBothSIM(String? duration) async {
           'Duration': currentDuration,
           'PlanType': cleanPlanType,
           'SimType': simType,
+          'AppUserID': cleanUserId,
         }
       }),
     );

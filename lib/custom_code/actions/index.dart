@@ -76,3 +76,5 @@ export 'generate_new_license_m_s_f_sfor_both_s_i_m.dart'
 export 'generate_new_license_x_planeforoth_s_i_m.dart'
     show generateNewLicenseXPlaneforothSIM;
 export 'check_m_s_f_s_license_sim_type.dart' show checkMSFSLicenseSimType;
+export 'check_xplane_sim_type.dart' show checkXplaneSimType;
+export 'get_revenue_cat_user_id.dart' show getRevenueCatUserId;

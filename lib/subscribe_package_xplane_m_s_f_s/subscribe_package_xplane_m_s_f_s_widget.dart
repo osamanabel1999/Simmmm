@@ -131,13 +131,17 @@ class _SubscribePackageXplaneMSFSWidgetState
                       _model.mSFSandXplanemonthly = await revenue_cat
                           .purchasePackage('msfs_xplane_monthly');
                       if (_model.mSFSandXplanemonthly == true) {
+                        _model.currentUserId7 =
+                            await actions.getRevenueCatUserId();
                         _model.generateCodeXplaneandMSFSforbothSIMMonth1 =
                             await actions.generateNewLicenseMSFSforBothSIM(
                           '1_month',
+                          _model.currentUserId7,
                         );
                         _model.generateCodeXplaneandMSFSforbothSIMMonthU =
                             await actions.generateNewLicenseXPlaneforothSIM(
                           '1_month',
+                          _model.currentUserId7,
                         );
                         FFAppState().generateCodeMSFS =
                             _model.generateCodeXplaneandMSFSforbothSIMMonth1!;
@@ -193,13 +197,17 @@ class _SubscribePackageXplaneMSFSWidgetState
                       _model.mSFSandXplaneyearly1 = await revenue_cat
                           .purchasePackage('msfs_xplane_yearly');
                       if (_model.mSFSandXplaneyearly1 == true) {
+                        _model.currentUserId8 =
+                            await actions.getRevenueCatUserId();
                         _model.generateCodeXplaneandMSFSforbothsimYearKK =
                             await actions.generateNewLicenseXPlaneforothSIM(
                           '1_yearly',
+                          _model.currentUserId8,
                         );
                         _model.generateCodeXplaneandMSFSforbothSIMYearF =
                             await actions.generateNewLicenseMSFSforBothSIM(
                           '1_yearly',
+                          _model.currentUserId8,
                         );
                         FFAppState().generateCodeMSFS =
                             _model.generateCodeXplaneandMSFSforbothSIMYearF!;
@@ -255,13 +263,17 @@ class _SubscribePackageXplaneMSFSWidgetState
                       _model.mSFSandXplanelifetime6 = await revenue_cat
                           .purchasePackage('msfs_xplane_lifetime');
                       if (_model.mSFSandXplanelifetime6 == true) {
+                        _model.currentUserId9 =
+                            await actions.getRevenueCatUserId();
                         _model.generateCodeXplaneandMSFSfotbothSIMlifetimeN =
                             await actions.generateNewLicenseXPlaneforothSIM(
                           'lifetime',
+                          _model.currentUserId9,
                         );
                         _model.generateCodeXplaneandMSFforbothSIMSlifetimeG =
                             await actions.generateNewLicenseMSFSforBothSIM(
                           'lifetime',
+                          _model.currentUserId9,
                         );
                         FFAppState().generateCodeMSFS = _model
                             .generateCodeXplaneandMSFforbothSIMSlifetimeG!;
