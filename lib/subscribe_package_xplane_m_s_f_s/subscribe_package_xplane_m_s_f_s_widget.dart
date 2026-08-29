@@ -267,7 +267,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                       );
                       if (_model.existingLicense4 == 'NOT_FOUND') {
                         _model.mSFSandXplaneyearly2 = await revenue_cat
-                            .purchasePackage('xplane_lifetime');
+                            .purchasePackage('msfs_xplane_lifetime');
                         if (_model.mSFSandXplaneyearly2 == true) {
                           _model.generateCodeXplaneLifeTime88 =
                               await actions.generateNewLicenseXPlane(
@@ -328,8 +328,6 @@ class _SubscribePackageXplaneMSFSWidgetState
                           );
                         }
                       } else {
-                        context.pushNamed(HomeMenuWidget.routeName);
-
                         await showDialog(
                           context: context,
                           builder: (alertDialogContext) {
@@ -349,6 +347,8 @@ class _SubscribePackageXplaneMSFSWidgetState
                             );
                           },
                         );
+
+                        context.pushNamed(HomeMenuWidget.routeName);
                       }
 
                       safeSetState(() {});

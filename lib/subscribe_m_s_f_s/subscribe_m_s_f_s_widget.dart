@@ -297,8 +297,6 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                           );
                         }
                       } else {
-                        context.pushNamed(IPpageMSFSWidget.routeName);
-
                         await showDialog(
                           context: context,
                           builder: (alertDialogContext) {
@@ -318,6 +316,8 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                             );
                           },
                         );
+
+                        context.pushNamed(IPpageMSFSWidget.routeName);
                       }
 
                       safeSetState(() {});
