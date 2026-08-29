@@ -235,35 +235,76 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       safeSetState(() {});
                     },
                     onBuyLifetime: () async {
-                      _model.xplanelifetime6 =
-                          await revenue_cat.purchasePackage('xplane_lifetime');
-                      if (_model.xplanelifetime6 == true) {
-                        _model.currentUserId2 =
-                            await actions.getRevenueCatUserId();
-                        _model.generateCodeXplaneLifeTime6 =
-                            await actions.generateNewLicenseXPlane(
-                          'lifetime',
-                          _model.currentUserId2,
-                        );
-                        FFAppState().generatedCode =
-                            _model.generateCodeXplaneLifeTime6!;
-                        safeSetState(() {});
+                      _model.currentUserId2 =
+                          await actions.getRevenueCatUserId();
+                      _model.existingLicense =
+                          await actions.checkXPlaneUserLicense(
+                        _model.currentUserId2,
+                      );
+                      if (_model.existingLicense == 'NOT_FOUND') {
+                        _model.xplanelifetime6 = await revenue_cat
+                            .purchasePackage('xplane_lifetime');
+                        if (_model.xplanelifetime6 == true) {
+                          _model.generateCodeXplaneLifeTime6 =
+                              await actions.generateNewLicenseXPlane(
+                            'lifetime',
+                            _model.currentUserId2,
+                          );
+                          FFAppState().generatedCode =
+                              _model.generateCodeXplaneLifeTime6!;
+                          safeSetState(() {});
 
-                        context.pushNamed(IPpageXplaneWidget.routeName);
+                          context.pushNamed(IPpageXplaneWidget.routeName);
 
-                        await Future.delayed(
-                          Duration(
-                            milliseconds: 500,
-                          ),
-                        );
+                          await Future.delayed(
+                            Duration(
+                              milliseconds: 500,
+                            ),
+                          );
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return WebViewAware(
+                                child: AlertDialog(
+                                  title: Text('Congratulations! '),
+                                  content: Text(
+                                      'Here is your license key:${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Payment failed or was cancelled. Please try again.',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                            ),
+                          );
+                        }
+                      } else {
                         await showDialog(
                           context: context,
                           builder: (alertDialogContext) {
                             return WebViewAware(
                               child: AlertDialog(
-                                title: Text('Congratulations! '),
+                                title: Text('License Already Active'),
                                 content: Text(
-                                    'Here is your license key:${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
+                                    'You already own a lifetime license associated with this account!  Your License Key: ${_model.existingLicense}  If your code does not appear, please tap \'Restore Purchases\' on the main screen.'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
@@ -274,20 +315,6 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                               ),
                             );
                           },
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Payment failed or was cancelled. Please try again.',
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                            duration: Duration(milliseconds: 4000),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                          ),
                         );
                       }
 
