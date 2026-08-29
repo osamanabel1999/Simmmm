@@ -33919,7 +33919,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                         child:
                                                                             Text(
                                                                           FFAppState()
-                                                                              .licenseExpiryDateXPlane,
+                                                                              .globalExpiryDate,
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: FlutterFlowTheme.of(context)

@@ -122,10 +122,7 @@ class _SubscriptionManagepageMSFSyearlyWidgetState
                       FFAppState().generateCodeMSFS,
                       '-',
                     ),
-                    expiryDate: valueOrDefault<String>(
-                      FFAppState().licenseExpiryDateMSFS,
-                      '-',
-                    ),
+                    expiryDate: FFAppState().globalExpiryDate,
                     priceText: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
                           .getPackage('\$rc_annual')!

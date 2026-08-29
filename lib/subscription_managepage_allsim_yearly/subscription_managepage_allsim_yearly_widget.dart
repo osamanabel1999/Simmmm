@@ -122,7 +122,7 @@ class _SubscriptionManagepageAllsimYearlyWidgetState
                       '-',
                     ),
                     xplaneLicenseKey: FFAppState().generatedCode,
-                    expiryDate: FFAppState().licenseExpiryDateXPlane,
+                    expiryDate: FFAppState().globalExpiryDate,
                     priceText: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
                           .getPackage('msfs_xplane_yearly')!

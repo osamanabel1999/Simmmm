@@ -119,7 +119,7 @@ class _SubscriptionManagepageXplaneLifetimeWidgetState
                     status: 'Active',
                     simulatorType: 'X-PLANE',
                     licenseKey: FFAppState().generatedCode,
-                    expiryDate: FFAppState().licenseExpiryDateXPlane,
+                    expiryDate: FFAppState().globalExpiryDate,
                     priceText: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
                           .getPackage('xplane_lifetime')!
