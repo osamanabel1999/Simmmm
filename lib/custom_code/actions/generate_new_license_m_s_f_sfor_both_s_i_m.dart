@@ -31,8 +31,8 @@ Future<String> generateNewLicenseMSFSforBothSIM(
 
   final String cleanUserId = (appUserId == null) ? '' : appUserId.trim();
 
-  // تحديد نوع الباقة باحترافية بناءً على الكلمة الموجودة في عمود Duration
-  String cleanPlanType = 'Monthly'; // القيمة الافتراضية
+  // تحديد نوع الباقة باحترافية
+  String cleanPlanType = 'Monthly';
 
   if (currentDuration.contains('year')) {
     cleanPlanType = 'Yearly';
@@ -40,6 +40,23 @@ Future<String> generateNewLicenseMSFSforBothSIM(
     cleanPlanType = 'Lifetime';
   } else if (currentDuration.contains('month')) {
     cleanPlanType = 'Monthly';
+  }
+
+  // حساب تاريخ الانتهاء بصيغة YYYY-MM-DD أو كتابة Lifetime
+  DateTime now = DateTime.now();
+  String expiryDateOnlyStr;
+
+  if (cleanPlanType == 'Lifetime') {
+    expiryDateOnlyStr = 'Lifetime';
+  } else if (cleanPlanType == 'Yearly') {
+    DateTime nextYear = DateTime(now.year + 1, now.month, now.day);
+    expiryDateOnlyStr =
+        "${nextYear.year.toString().padLeft(4, '0')}-${nextYear.month.toString().padLeft(2, '0')}-${nextYear.day.toString().padLeft(2, '0')}";
+  } else {
+    // الشهري (نضيف شهر واحد)
+    DateTime nextMonth = DateTime(now.year, now.month + 1, now.day);
+    expiryDateOnlyStr =
+        "${nextMonth.year.toString().padLeft(4, '0')}-${nextMonth.month.toString().padLeft(2, '0')}-${nextMonth.day.toString().padLeft(2, '0')}";
   }
 
   final url = Uri.parse('https://api.airtable.com/v0/$baseId/$tableId');
@@ -59,6 +76,7 @@ Future<String> generateNewLicenseMSFSforBothSIM(
           'PlanType': cleanPlanType,
           'SimType': simType,
           'AppUserID': cleanUserId,
+          'ExpiryDateOnly': expiryDateOnlyStr,
         }
       }),
     );

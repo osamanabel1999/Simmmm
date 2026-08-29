@@ -42,6 +42,23 @@ Future<String> generateNewLicenseXPlane(
     cleanPlanType = 'Lifetime';
   }
 
+  // حساب تاريخ الانتهاء بصيغة YYYY-MM-DD أو كتابة Lifetime
+  DateTime now = DateTime.now();
+  String expiryDateOnlyStr;
+
+  if (cleanPlanType == 'Lifetime') {
+    expiryDateOnlyStr = 'Lifetime';
+  } else if (cleanPlanType == 'Yearly') {
+    DateTime nextYear = DateTime(now.year + 1, now.month, now.day);
+    expiryDateOnlyStr =
+        "${nextYear.year.toString().padLeft(4, '0')}-${nextYear.month.toString().padLeft(2, '0')}-${nextYear.day.toString().padLeft(2, '0')}";
+  } else {
+    // الشهري (نضيف شهر واحد)
+    DateTime nextMonth = DateTime(now.year, now.month + 1, now.day);
+    expiryDateOnlyStr =
+        "${nextMonth.year.toString().padLeft(4, '0')}-${nextMonth.month.toString().padLeft(2, '0')}-${nextMonth.day.toString().padLeft(2, '0')}";
+  }
+
   final url = Uri.parse(
       'https://api.airtable.com/v0/$baseId/${Uri.encodeComponent(tableName)}');
 
@@ -60,6 +77,7 @@ Future<String> generateNewLicenseXPlane(
           'PlanType': cleanPlanType,
           'SimType': simType,
           'AppUserID': cleanUserId,
+          'ExpiryDateOnly': expiryDateOnlyStr,
           'IsUsed': false,
         }
       }),

@@ -195,7 +195,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                     },
                     onBuyYearly: () async {
                       _model.mSFSandXplaneyearly1 = await revenue_cat
-                          .purchasePackage('msfs_xplane_lifetime');
+                          .purchasePackage('msfs_xplane_yearly');
                       if (_model.mSFSandXplaneyearly1 == true) {
                         _model.currentUserId8 =
                             await actions.getRevenueCatUserId();
