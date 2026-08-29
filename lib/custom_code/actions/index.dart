@@ -80,3 +80,7 @@ export 'check_xplane_sim_type.dart' show checkXplaneSimType;
 export 'get_revenue_cat_user_id.dart' show getRevenueCatUserId;
 export 'check_m_s_f_s_user_license.dart' show checkMSFSUserLicense;
 export 'check_x_plane_user_license.dart' show checkXPlaneUserLicense;
+export 'check_x_plane_license_expire_dateonly.dart'
+    show checkXPlaneLicenseExpireDateonly;
+export 'check_m_s_f_s_license_expire_dateonly.dart'
+    show checkMSFSLicenseExpireDateonly;

@@ -323,6 +323,12 @@ class FFAppState extends ChangeNotifier {
     _bundleplan = value;
     prefs.setInt('ff_bundleplan', value);
   }
+
+  String _globalExpiryDate = '-';
+  String get globalExpiryDate => _globalExpiryDate;
+  set globalExpiryDate(String value) {
+    _globalExpiryDate = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

@@ -211,6 +211,8 @@ class HomePageMSFSModel extends FlutterFlowModel<HomePageMSFSWidget> {
   bool mouseRegionHovered7 = false;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered8 = false;
+  // Stores action output result for [Custom Action - checkMSFSLicenseExpireDateonly] action in Container widget.
+  String? globalExpiryDateMSFS;
 
   @override
   void initState(BuildContext context) {}

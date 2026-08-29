@@ -40755,7 +40755,10 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                                 0.0),
                                                                             child:
                                                                                 Text(
-                                                                              FFAppState().licenseExpiryDateMSFS,
+                                                                              valueOrDefault<String>(
+                                                                                FFAppState().globalExpiryDate,
+                                                                                '-',
+                                                                              ),
                                                                               textAlign: TextAlign.center,
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     font: GoogleFonts.inter(
@@ -44418,6 +44421,16 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       FFAppState().TabNumber = 13;
+                                      safeSetState(() {});
+                                      _model.globalExpiryDateMSFS =
+                                          await actions
+                                              .checkMSFSLicenseExpireDateonly(
+                                        FFAppState().generateCodeMSFS,
+                                      );
+                                      FFAppState().globalExpiryDate =
+                                          _model.globalExpiryDateMSFS!;
+                                      safeSetState(() {});
+
                                       safeSetState(() {});
                                     },
                                     child: Container(
