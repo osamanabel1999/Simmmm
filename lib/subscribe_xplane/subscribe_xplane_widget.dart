@@ -241,7 +241,17 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                           await actions.checkXPlaneUserLicense(
                         _model.currentUserId2,
                       );
-                      if (_model.existingLicense == 'NOT_FOUND') {
+                      _model.licensePlanResultXplaneB =
+                          await actions.checkXPlaneLicensePlan(
+                        _model.existingLicense,
+                      );
+                      _model.licenseSimTypeXplaneB =
+                          await actions.checkXplaneSimType(
+                        _model.existingLicense,
+                      );
+                      if ((_model.existingLicense == 'NOT_FOUND') &&
+                          (_model.licensePlanResultXplaneB == 'Lifetime') &&
+                          (_model.licenseSimTypeXplaneB == 'X-Plane')) {
                         _model.xplanelifetime6 = await revenue_cat
                             .purchasePackage('xplane_lifetime');
                         if (_model.xplanelifetime6 == true) {

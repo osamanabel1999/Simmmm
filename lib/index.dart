@@ -19,8 +19,7 @@ export '/msfs/msfs_widget.dart' show MsfsWidget;
 export '/pages/home_page_m_s_f_s/home_page_m_s_f_s_widget.dart'
     show HomePageMSFSWidget;
 export '/home_menu/home_menu_widget.dart' show HomeMenuWidget;
-export '/pages/i_ppage_m_s_f_s/i_ppage_m_s_f_s_widget.dart'
-    show IPpageMSFSWidget;
+export '/i_ppage_m_s_f_s/i_ppage_m_s_f_s_widget.dart' show IPpageMSFSWidget;
 export '/subscribe_m_s_f_s/subscribe_m_s_f_s_widget.dart'
     show SubscribeMSFSWidget;
 export '/subscribe_package_xplane_m_s_f_s/subscribe_package_xplane_m_s_f_s_widget.dart'

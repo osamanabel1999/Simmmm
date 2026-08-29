@@ -241,7 +241,20 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                           await actions.checkXPlaneUserLicense(
                         _model.currentUserId11,
                       );
-                      if (_model.existingLicense1 == 'NOT_FOUND') {
+                      _model.licensePlanResultMSFSuu =
+                          await actions.checkMSFSLicensePlan(
+                        _model.existingLicense1,
+                      );
+                      _model.licenseSimTypeResultMSFSuu =
+                          await actions.checkMSFSLicenseSimType(
+                        valueOrDefault<String>(
+                          FFAppState().generateCodeMSFS,
+                          '-',
+                        ),
+                      );
+                      if ((_model.existingLicense1 == 'NOT_FOUND') &&
+                          (_model.licensePlanResultMSFSuu == 'Lifetime') &&
+                          (_model.licenseSimTypeResultMSFSuu == 'MSFS')) {
                         _model.xplanelifetime8 = await revenue_cat
                             .purchasePackage('xplane_lifetime');
                         if (_model.xplanelifetime8 == true) {

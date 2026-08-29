@@ -22,6 +22,10 @@ class SubscribeMSFSModel extends FlutterFlowModel<SubscribeMSFSWidget> {
   String? currentUserId11;
   // Stores action output result for [Custom Action - checkXPlaneUserLicense] action in Msfscheckout widget.
   String? existingLicense1;
+  // Stores action output result for [Custom Action - checkMSFSLicensePlan] action in Msfscheckout widget.
+  String? licensePlanResultMSFSuu;
+  // Stores action output result for [Custom Action - checkMSFSLicenseSimType] action in Msfscheckout widget.
+  String? licenseSimTypeResultMSFSuu;
   // Stores action output result for [RevenueCat - Purchase] action in Msfscheckout widget.
   bool? xplanelifetime8;
   // Stores action output result for [Custom Action - generateNewLicenseMSFS] action in Msfscheckout widget.

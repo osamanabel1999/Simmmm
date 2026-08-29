@@ -260,32 +260,57 @@ class _SubscribePackageXplaneMSFSWidgetState
                       safeSetState(() {});
                     },
                     onBuyLifetime: () async {
-                      _model.currentUserId12 =
+                      _model.currentUserId16 =
                           await actions.getRevenueCatUserId();
-                      _model.existingLicense4 = await actions.checkMSFSLicense(
-                        'currentUserId12',
+                      _model.existingLicenseXplane =
+                          await actions.checkXPlaneUserLicense(
+                        _model.currentUserId16,
                       );
-                      if (_model.existingLicense4 == 'NOT_FOUND') {
-                        _model.mSFSandXplaneyearly2 = await revenue_cat
+                      _model.existingLicenseMSFS =
+                          await actions.checkMSFSUserLicense(
+                        _model.currentUserId16,
+                      );
+                      _model.licensePlanResultXplane16 =
+                          await actions.checkXPlaneLicensePlan(
+                        _model.existingLicenseXplane,
+                      );
+                      _model.licensePlanResultMSFS16 =
+                          await actions.checkMSFSLicensePlan(
+                        _model.existingLicenseMSFS,
+                      );
+                      _model.licenseSimTypeXplane16 =
+                          await actions.checkXplaneSimType(
+                        _model.existingLicenseXplane,
+                      );
+                      _model.licenseSimTypeResultMSFS16 =
+                          await actions.checkMSFSLicenseSimType(
+                        _model.existingLicenseMSFS,
+                      );
+                      if ((_model.existingLicenseXplane == 'NOT_FOUND') &&
+                          (_model.licensePlanResultMSFS16 == 'Lifetime') &&
+                          (_model.licenseSimTypeResultMSFS16 == 'BothSIM') &&
+                          (_model.licensePlanResultXplane16 == 'Lifetime') &&
+                          (_model.licenseSimTypeXplane16 == 'BothSIM')) {
+                        _model.xplanelifetime99 = await revenue_cat
                             .purchasePackage('msfs_xplane_lifetime');
-                        if (_model.mSFSandXplaneyearly2 == true) {
-                          _model.generateCodeXplaneLifeTime88 =
-                              await actions.generateNewLicenseXPlane(
+                        if (_model.xplanelifetime99 == true) {
+                          _model.licensMSFSforBothSim =
+                              await actions.generateNewLicenseMSFSforBothSIM(
                             'lifetime',
-                            _model.currentUserId12,
+                            _model.currentUserId16,
                           );
-                          _model.generateCodeMSFSLifeTime88 =
-                              await actions.generateNewLicenseMSFS(
+                          _model.licenseXplaneforBothSim =
+                              await actions.generateNewLicenseXPlaneforothSIM(
                             'lifetime',
-                            _model.currentUserId12,
+                            _model.currentUserId16,
                           );
-                          FFAppState().generatedCode =
-                              _model.generateCodeXplaneLifeTime88!;
                           FFAppState().generateCodeMSFS =
-                              _model.generateCodeMSFSLifeTime88!;
+                              _model.licensMSFSforBothSim!;
+                          FFAppState().generatedCode =
+                              _model.licenseXplaneforBothSim!;
                           safeSetState(() {});
 
-                          context.pushNamed(HomeMenuWidget.routeName);
+                          context.pushNamed(IPpageMSFSWidget.routeName);
 
                           await Future.delayed(
                             Duration(
@@ -297,9 +322,9 @@ class _SubscribePackageXplaneMSFSWidgetState
                             builder: (alertDialogContext) {
                               return WebViewAware(
                                 child: AlertDialog(
-                                  title: Text('Congratulations! '),
+                                  title: Text('Purchase Successful!'),
                                   content: Text(
-                                      'Here is your license key:${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
+                                      'Thank you for your purchase! You now have lifetime access to both simulators.  MSFS License Key:${FFAppState().generateCodeMSFS}     X-Plane License Key:${FFAppState().generatedCode}   Please make sure to save or screenshot your license keys for future reference.'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
@@ -335,7 +360,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                               child: AlertDialog(
                                 title: Text('License Already Active'),
                                 content: Text(
-                                    'You already own an active license associated with this account!  Your License Key: ${_model.existingLicense4}  If your code does not appear and you want to retrieve it: • For MSFS: Go to the MSFS In-App Purchase page and tap \'Restore Purchases\'. • For X-Plane: Go to the X-Plane In-App Purchase page and tap \'Restore Purchases\'.'),
+                                    'You already own an active license associated with this account!  Your License Key: ${_model.existingLicenseXplane}  If your code does not appear and you want to retrieve it: • For MSFS: Go to the MSFS In-App Purchase page and tap \'Restore Purchases\'. • For X-Plane: Go to the X-Plane In-App Purchase page and tap \'Restore Purchases\'.'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
@@ -348,7 +373,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                           },
                         );
 
-                        context.pushNamed(HomeMenuWidget.routeName);
+                        context.pushNamed(IPpageMSFSWidget.routeName);
                       }
 
                       safeSetState(() {});
