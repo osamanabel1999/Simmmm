@@ -137,7 +137,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           isDense: true,
-                          labelText: 'PC IP Adderss',
+                          labelText: 'PC IP Address',
                           labelStyle:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
@@ -249,7 +249,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                           obscureText: false,
                           decoration: InputDecoration(
                             isDense: true,
-                            labelText: 'Simbreif ID',
+                            labelText: 'Simbrief ID',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -693,7 +693,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Text(
-                                  'Don\'t have a license key? \nGet yours now to start.',
+                                  'Don\'t have active subscription? \nUpgrade now.',
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -735,7 +735,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                           context.pushNamed(SubscribeMSFSWidget.routeName);
                         },
                         child: Container(
-                          width: 180.0,
+                          width: 200.0,
                           height: 45.0,
                           decoration: BoxDecoration(
                             boxShadow: [
@@ -769,16 +769,21 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              FaIcon(
-                                FontAwesomeIcons.key,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 18.0,
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    18.0, 0.0, 10.0, 0.0),
+                                child: FaIcon(
+                                  FontAwesomeIcons.key,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 18.0,
+                                ),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 31.0, 0.0),
                                 child: Text(
-                                  'Buy Key',
+                                  'Subscribe Now',
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
@@ -940,40 +945,57 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                         ),
                       ),
                     ),
-                    FFButtonWidget(
-                      onPressed: () async {
-                        _model.extendResult1Month =
-                            await actions.extendLicenseMSFS(
-                          'N74DN6BU',
-                          '⁠1_month',
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              _model.extendResult1Month!,
-                              style: TextStyle(
-                                color: FlutterFlowTheme.of(context).primaryText,
+                    if (responsiveVisibility(
+                      context: context,
+                      phone: false,
+                      tablet: false,
+                      tabletLandscape: false,
+                      desktop: false,
+                    ))
+                      FFButtonWidget(
+                        onPressed: () async {
+                          _model.extendResult1Month =
+                              await actions.extendLicenseMSFS(
+                            'N74DN6BU',
+                            '⁠1_month',
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                _model.extendResult1Month!,
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
                               ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
                             ),
-                            duration: Duration(milliseconds: 4000),
-                            backgroundColor:
-                                FlutterFlowTheme.of(context).secondary,
-                          ),
-                        );
+                          );
 
-                        safeSetState(() {});
-                      },
-                      text: 'Button',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  font: GoogleFonts.interTight(
+                          safeSetState(() {});
+                        },
+                        text: 'Button',
+                        options: FFButtonOptions(
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    font: GoogleFonts.interTight(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .fontWeight,
@@ -981,22 +1003,13 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                         .titleSmall
                                         .fontStyle,
                                   ),
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
-                                ),
-                        elevation: 0.0,
-                        borderRadius: BorderRadius.circular(8.0),
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
-                    ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 13.0, 0.0, 0.0),
                       child: RichText(
                         textScaler: MediaQuery.of(context).textScaler,
                         text: TextSpan(

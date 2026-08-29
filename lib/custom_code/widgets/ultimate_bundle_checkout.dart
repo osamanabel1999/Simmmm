@@ -22,6 +22,8 @@ class UltimateBundleCheckout extends StatefulWidget {
     this.onBuyLifetime,
     this.onContactUs,
     this.onBuyBothSims,
+    this.onTermsOfUse,
+    this.onPrivacyPolicy,
   }) : super(key: key);
 
   final double? width;
@@ -34,6 +36,8 @@ class UltimateBundleCheckout extends StatefulWidget {
   final Future Function()? onBuyLifetime;
   final Future Function()? onContactUs;
   final Future Function()? onBuyBothSims;
+  final Future Function()? onTermsOfUse;
+  final Future Function()? onPrivacyPolicy;
 
   @override
   _UltimateBundleCheckoutState createState() => _UltimateBundleCheckoutState();
@@ -115,7 +119,7 @@ class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
               features: [
                 "Access to BOTH MSFS & X-Plane",
                 "Valid for 30 Days",
-                "Instant License Key Delivery",
+                "Unlock All Features Instantly",
               ],
               buttonText: "Get Monthly Pass",
               onTap: widget.onBuyMonthly,
@@ -134,7 +138,7 @@ class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
               features: [
                 "Access to BOTH MSFS & X-Plane",
                 "Valid for a Full Year (365 Days)",
-                "Instant License Key Delivery",
+                "Unlock All Features Instantly",
               ],
               buttonText: "Claim Yearly Pass",
               onTap: widget.onBuyYearly,
@@ -207,7 +211,7 @@ class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
 
             const SizedBox(height: 40),
 
-            // --- Footer (Contact Only) ---
+            // --- Footer (Contact & Legal Links) ---
             Divider(color: Colors.grey[800], thickness: 0.8),
             const SizedBox(height: 16),
             InkWell(
@@ -240,6 +244,58 @@ class _UltimateBundleCheckoutState extends State<UltimateBundleCheckout> {
                   ],
                 ),
               ),
+            ),
+            const SizedBox(height: 16),
+
+            // --- Legal Buttons (Terms of Use & Privacy Policy) ---
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () async {
+                    if (widget.onTermsOfUse != null) {
+                      await widget.onTermsOfUse!();
+                    }
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: Text(
+                      "Terms of Use",
+                      style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: 12,
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                Text(
+                  "•",
+                  style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                ),
+                InkWell(
+                  onTap: () async {
+                    if (widget.onPrivacyPolicy != null) {
+                      await widget.onPrivacyPolicy!();
+                    }
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: Text(
+                      "Privacy Policy",
+                      style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: 12,
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
           ],

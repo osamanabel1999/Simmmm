@@ -71,7 +71,7 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
             },
           ),
           title: Text(
-            'Subscription',
+            'X-Plane Access Plans',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.interTight(
                     fontWeight:
@@ -339,16 +339,25 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       context.pushNamed(
                           SubscribePackageXplaneMSFSWidget.routeName);
                     },
+                    onTermsOfUse: () async {},
+                    onPrivacyPolicy: () async {},
                   ),
                 ),
               ),
-              FlutterFlowAdBanner(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                height: 50.0,
-                showsTestAd: false,
-                iOSAdUnitID: 'ca-app-pub-7880697829268273/6177072322',
-                androidAdUnitID: 'ca-app-pub-7880697829268273/5581116466',
-              ),
+              if (responsiveVisibility(
+                context: context,
+                phone: false,
+                tablet: false,
+                tabletLandscape: false,
+                desktop: false,
+              ))
+                FlutterFlowAdBanner(
+                  width: MediaQuery.sizeOf(context).width * 1.0,
+                  height: 50.0,
+                  showsTestAd: false,
+                  iOSAdUnitID: 'ca-app-pub-7880697829268273/6177072322',
+                  androidAdUnitID: 'ca-app-pub-7880697829268273/5581116466',
+                ),
             ],
           ),
         ),

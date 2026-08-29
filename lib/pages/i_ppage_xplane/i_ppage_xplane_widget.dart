@@ -137,7 +137,7 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           isDense: true,
-                          labelText: 'PC IP Adderss',
+                          labelText: 'PC IP Address',
                           labelStyle:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
@@ -249,7 +249,7 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                           obscureText: false,
                           decoration: InputDecoration(
                             isDense: true,
-                            labelText: 'Simbreif ID',
+                            labelText: 'Simbrief ID',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -677,7 +677,7 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                       ),
                     ),
                     Text(
-                      'Don\'t have a license key? \nGet yours now to start.',
+                      'Don\'t have active subscription?\n Upgrade now.',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.inter(
@@ -709,7 +709,7 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                           context.pushNamed(SubscribeXplaneWidget.routeName);
                         },
                         child: Container(
-                          width: 180.0,
+                          width: 200.0,
                           height: 45.0,
                           decoration: BoxDecoration(
                             boxShadow: [
@@ -743,16 +743,21 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              FaIcon(
-                                FontAwesomeIcons.key,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 18.0,
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    18.0, 0.0, 10.0, 0.0),
+                                child: FaIcon(
+                                  FontAwesomeIcons.key,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 18.0,
+                                ),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 31.0, 0.0),
                                 child: Text(
-                                  'Buy Key',
+                                  'Subscribe Now',
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
