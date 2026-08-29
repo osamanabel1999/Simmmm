@@ -297,6 +297,8 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                           );
                         }
                       } else {
+                        context.pushNamed(IPpageXplaneWidget.routeName);
+
                         await showDialog(
                           context: context,
                           builder: (alertDialogContext) {

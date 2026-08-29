@@ -24,14 +24,16 @@ class SubscribePackageXplaneMSFSModel
   String? generateCodeXplaneandMSFSforbothsimYearKK;
   // Stores action output result for [Custom Action - generateNewLicenseMSFSforBothSIM] action in UltimateBundleCheckout widget.
   String? generateCodeXplaneandMSFSforbothSIMYearF;
-  // Stores action output result for [RevenueCat - Purchase] action in UltimateBundleCheckout widget.
-  bool? mSFSandXplanelifetime6;
   // Stores action output result for [Custom Action - getRevenueCatUserId] action in UltimateBundleCheckout widget.
-  String? currentUserId9;
-  // Stores action output result for [Custom Action - generateNewLicenseXPlaneforothSIM] action in UltimateBundleCheckout widget.
-  String? generateCodeXplaneandMSFSfotbothSIMlifetimeN;
-  // Stores action output result for [Custom Action - generateNewLicenseMSFSforBothSIM] action in UltimateBundleCheckout widget.
-  String? generateCodeXplaneandMSFforbothSIMSlifetimeG;
+  String? currentUserId12;
+  // Stores action output result for [Custom Action - checkMSFSLicense] action in UltimateBundleCheckout widget.
+  String? existingLicense4;
+  // Stores action output result for [RevenueCat - Purchase] action in UltimateBundleCheckout widget.
+  bool? mSFSandXplaneyearly2;
+  // Stores action output result for [Custom Action - generateNewLicenseXPlane] action in UltimateBundleCheckout widget.
+  String? generateCodeXplaneLifeTime88;
+  // Stores action output result for [Custom Action - generateNewLicenseMSFS] action in UltimateBundleCheckout widget.
+  String? generateCodeMSFSLifeTime88;
 
   @override
   void initState(BuildContext context) {}
