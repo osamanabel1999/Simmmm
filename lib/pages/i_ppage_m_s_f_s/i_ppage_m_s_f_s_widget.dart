@@ -609,6 +609,8 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                             FFAppState().generateCodeMSFS =
                                 _model.codeLicenseMSFSSTextController.text;
                             safeSetState(() {});
+
+                            context.pushNamed(HomePageMSFSWidget.routeName);
                           },
                           text: 'Connect',
                           options: FFButtonOptions(

@@ -600,6 +600,8 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                             FFAppState().SimbreifID = int.parse(
                                 _model.textFieldSimbreifIDTextController.text);
                             safeSetState(() {});
+
+                            context.pushNamed(IPpageXplaneWidget.routeName);
                           },
                           text: 'Connect',
                           options: FFButtonOptions(
