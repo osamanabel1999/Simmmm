@@ -145,7 +145,7 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                               child: AlertDialog(
                                 title: Text('Congratulations! '),
                                 content: Text(
-                                    'Here is your license key:${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
+                                    'Here is your Activation Code :${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
@@ -204,7 +204,7 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                               child: AlertDialog(
                                 title: Text('Congratulations! '),
                                 content: Text(
-                                    'Here is your license key:${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
+                                    'Here is your Activation Code :${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>

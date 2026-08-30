@@ -67,7 +67,7 @@ class _XplaneMsfsPageStatusCardState extends State<XplaneMsfsPageStatusCard> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            '${isMsfs ? 'MSFS' : 'X-Plane'} License Key copied to clipboard!'),
+            '${isMsfs ? 'MSFS' : 'X-Plane'} Activation Code copied to clipboard!'),
         duration: const Duration(seconds: 2),
       ),
     );
@@ -220,7 +220,7 @@ class _XplaneMsfsPageStatusCardState extends State<XplaneMsfsPageStatusCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'MSFS LICENSE KEY',
+                        'MSFS Activation Code',
                         style: TextStyle(
                           color: Color(0xFF95A1AC),
                           fontSize: 11,
@@ -282,7 +282,7 @@ class _XplaneMsfsPageStatusCardState extends State<XplaneMsfsPageStatusCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'X-PLANE LICENSE KEY',
+                        'X-PLANE Activation Code',
                         style: TextStyle(
                           color: Color(0xFF95A1AC),
                           fontSize: 11,

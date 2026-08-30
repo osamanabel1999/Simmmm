@@ -43,3 +43,4 @@ export '/subscription_managepage_allsim_yearly/subscription_managepage_allsim_ye
     show SubscriptionManagepageAllsimYearlyWidget;
 export '/subscription_managepage_allsim_lifetime/subscription_managepage_allsim_lifetime_widget.dart'
     show SubscriptionManagepageAllsimLifetimeWidget;
+export '/pdfmsfsquide/pdfmsfsquide_widget.dart' show PdfmsfsquideWidget;

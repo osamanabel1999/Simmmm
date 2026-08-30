@@ -473,7 +473,7 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                           obscureText: !_model.codeVisibility,
                           decoration: InputDecoration(
                             isDense: true,
-                            labelText: 'License Number',
+                            labelText: 'Activation Code',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -610,7 +610,7 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Your license has expired. Please renew your subscription.',
+                                    'Your access pass has expired. Tap below to subscribe.⁠',
                                     style: TextStyle(
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
@@ -625,7 +625,7 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Invalid or already activated license key.',
+                                    'Invalid or expired code. Please check and try again.',
                                     style: TextStyle(
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
@@ -835,9 +835,9 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                                         return WebViewAware(
                                           child: AlertDialog(
                                             title: Text(
-                                                'Your X-Plane License is Expired!'),
+                                                'Your X-Plane Access Pass Has Expired!'),
                                             content: Text(
-                                                'Your active X-Plane license key has expired. Please renew your subscription.'),
+                                                '⁠Your X-Plane access pass has expired. Tap below to subscribe.'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
@@ -880,7 +880,7 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                                             title: Text(
                                                 'X-Plane Subscription Restored!'),
                                             content: Text(
-                                                'Your X-Plane license key is:  ${_model.restoredCodeXPlane}'),
+                                                'Your X-Plane activation code is:  ${_model.restoredCodeXPlane}'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(

@@ -145,7 +145,7 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                               child: AlertDialog(
                                 title: Text('Congratulations! '),
                                 content: Text(
-                                    'Here is your license key:${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
+                                    'Here is your Activation Code :${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
@@ -204,7 +204,7 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                               child: AlertDialog(
                                 title: Text('Congratulations! '),
                                 content: Text(
-                                    'Here is your license key:${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
+                                    'Here is your Activation Code :${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
@@ -281,7 +281,7 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                                 child: AlertDialog(
                                   title: Text('Congratulations! '),
                                   content: Text(
-                                      'Here is your license key:${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
+                                      'Here is your Activation Code :${FFAppState().generateCodeMSFS} Keep it safe and enjoy full access!'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>

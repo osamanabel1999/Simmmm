@@ -473,7 +473,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                           obscureText: !_model.codeLicenseMSFSSVisibility,
                           decoration: InputDecoration(
                             isDense: true,
-                            labelText: 'License Number',
+                            labelText: 'Activation Code',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -613,7 +613,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Your license has expired. Please renew your subscription.',
+                                    'Your access pass has expired. Tap below to subscribe.',
                                     style: TextStyle(
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
@@ -628,7 +628,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Invalid or already activated license key.',
+                                    'Invalid or expired code. Please check and try again.',
                                     style: TextStyle(
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
@@ -861,7 +861,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                         return WebViewAware(
                                           child: AlertDialog(
                                             title: Text(
-                                                'Your MSFS License is Expired!'),
+                                                'Your MSFS Access Pass Has Expired!⁠'),
                                             content: Text(
                                                 'Your active MSFS license key has expired. Please renew your subscription.'),
                                             actions: [
@@ -906,7 +906,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                             title: Text(
                                                 'MSFS Subscription Restored!'),
                                             content: Text(
-                                                'Your MSFS license key is:  ${_model.restoredCodeMSFS}'),
+                                                'Your MSFS activation code is:⁠${_model.restoredCodeMSFS}'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
@@ -1056,7 +1056,8 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                               mouseCursor: SystemMouseCursors.click,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () async {
-                                  await launchURL('https://www.youtube.com/');
+                                  context
+                                      .pushNamed(PdfmsfsquideWidget.routeName);
                                 },
                             )
                           ],

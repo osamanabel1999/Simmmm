@@ -33789,7 +33789,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                               0.0),
                                                                           child:
                                                                               Text(
-                                                                            'License Number ',
+                                                                            'Activation Code',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   font: GoogleFonts.plusJakartaSans(
                                                                                     fontWeight: FontWeight.w500,
@@ -33902,7 +33902,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                               0.0),
                                                                           child:
                                                                               Text(
-                                                                            'License Expiry',
+                                                                            'Expiration Date',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   font: GoogleFonts.plusJakartaSans(
                                                                                     fontWeight: FontWeight.w500,

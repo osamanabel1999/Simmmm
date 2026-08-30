@@ -55,7 +55,7 @@ class _SubscriptionStatusCardState extends State<SubscriptionStatusCard> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('License Key copied to clipboard!'),
+        content: Text('Activation Code copied to clipboard!'),
         duration: Duration(seconds: 2),
       ),
     );
@@ -204,7 +204,7 @@ class _SubscriptionStatusCardState extends State<SubscriptionStatusCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'LICENSE KEY',
+                        'Activation Code',
                         style: TextStyle(
                           color: Color(0xFF95A1AC),
                           fontSize: 11,

@@ -300,6 +300,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: SubscriptionManagepageAllsimLifetimeWidget.routePath,
           builder: (context, params) =>
               SubscriptionManagepageAllsimLifetimeWidget(),
+        ),
+        FFRoute(
+          name: PdfmsfsquideWidget.routeName,
+          path: PdfmsfsquideWidget.routePath,
+          builder: (context, params) => PdfmsfsquideWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
