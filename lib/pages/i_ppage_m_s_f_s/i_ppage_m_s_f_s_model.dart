@@ -26,10 +26,6 @@ class IPpageMSFSModel extends FlutterFlowModel<IPpageMSFSWidget> {
   late bool codeLicenseMSFSSVisibility;
   String? Function(BuildContext, String?)?
       codeLicenseMSFSSTextControllerValidator;
-  // Stores action output result for [Custom Action - activateLicenseMSFS] action in Button widget.
-  String? statusMSFS;
-  // Stores action output result for [Custom Action - restoreLicenseMSFS] action in RichTextSpan widget.
-  String? restoredCodeMSFS;
   // Stores action output result for [Custom Action - extendLicenseMSFS] action in Button widget.
   String? extendResult1Month;
 

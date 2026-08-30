@@ -2,14 +2,11 @@ import '/flutter_flow/flutter_flow_ad_banner.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:webviewx_plus/webviewx_plus.dart';
 import 'subscribe_xplane_model.dart';
 export 'subscribe_xplane_model.dart';
 
@@ -43,8 +40,6 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -120,43 +115,10 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       _model.xplanemonthly =
                           await revenue_cat.purchasePackage('xplane_monthly');
                       if (_model.xplanemonthly == true) {
-                        _model.currentUserId =
-                            await actions.getRevenueCatUserId();
-                        _model.generateCodeXplane1Month =
-                            await actions.generateNewLicenseXPlane(
-                          '1_month',
-                          _model.currentUserId,
-                        );
-                        FFAppState().generatedCode =
-                            _model.generateCodeXplane1Month!;
+                        FFAppState().isProUserMSFS = true;
                         safeSetState(() {});
 
                         context.pushNamed(IPpageXplaneWidget.routeName);
-
-                        await Future.delayed(
-                          Duration(
-                            milliseconds: 500,
-                          ),
-                        );
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return WebViewAware(
-                              child: AlertDialog(
-                                title: Text('Congratulations! '),
-                                content: Text(
-                                    'Here is your Activation Code :${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -179,43 +141,10 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       _model.xplaneyearly =
                           await revenue_cat.purchasePackage('xplane_yearly');
                       if (_model.xplaneyearly == true) {
-                        _model.currentUserId1 =
-                            await actions.getRevenueCatUserId();
-                        _model.generateCodeXplane1Year =
-                            await actions.generateNewLicenseXPlane(
-                          '1_year',
-                          _model.currentUserId1,
-                        );
-                        FFAppState().generatedCode =
-                            _model.generateCodeXplane1Year!;
+                        FFAppState().isProUserMSFS = true;
                         safeSetState(() {});
 
                         context.pushNamed(IPpageXplaneWidget.routeName);
-
-                        await Future.delayed(
-                          Duration(
-                            milliseconds: 500,
-                          ),
-                        );
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return WebViewAware(
-                              child: AlertDialog(
-                                title: Text('Congratulations! '),
-                                content: Text(
-                                    'Here is your Activation Code :${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -235,99 +164,27 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       safeSetState(() {});
                     },
                     onBuyLifetime: () async {
-                      _model.currentUserId2 =
-                          await actions.getRevenueCatUserId();
-                      _model.existingLicense =
-                          await actions.checkXPlaneUserLicense(
-                        _model.currentUserId2,
-                      );
-                      _model.licensePlanResultXplaneB =
-                          await actions.checkXPlaneLicensePlan(
-                        _model.existingLicense,
-                      );
-                      _model.licenseSimTypeXplaneB =
-                          await actions.checkXplaneSimType(
-                        _model.existingLicense,
-                      );
-                      if ((_model.existingLicense == 'NOT_FOUND') &&
-                          (_model.licensePlanResultXplaneB == 'Lifetime') &&
-                          (_model.licenseSimTypeXplaneB == 'X-Plane')) {
-                        _model.xplanelifetime6 = await revenue_cat
-                            .purchasePackage('xplane_lifetime');
-                        if (_model.xplanelifetime6 == true) {
-                          _model.generateCodeXplaneLifeTime6 =
-                              await actions.generateNewLicenseXPlane(
-                            'lifetime',
-                            _model.currentUserId2,
-                          );
-                          FFAppState().generatedCode =
-                              _model.generateCodeXplaneLifeTime6!;
-                          safeSetState(() {});
-
-                          context.pushNamed(IPpageXplaneWidget.routeName);
-
-                          await Future.delayed(
-                            Duration(
-                              milliseconds: 500,
-                            ),
-                          );
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return WebViewAware(
-                                child: AlertDialog(
-                                  title: Text('Congratulations! '),
-                                  content: Text(
-                                      'Here is your license key:${FFAppState().generatedCode} Keep it safe and enjoy full access!'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Payment failed or was cancelled. Please try again.',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                            ),
-                          );
-                        }
-                      } else {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return WebViewAware(
-                              child: AlertDialog(
-                                title: Text('License Already Active'),
-                                content: Text(
-                                    'You already own a lifetime license associated with this account!  Your License Key: ${_model.existingLicense}  If your code does not appear, please tap \'Restore Purchases\' on the main screen.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
+                      _model.xplaneLifetime =
+                          await revenue_cat.purchasePackage('xplane_lifetime');
+                      if (_model.xplaneLifetime == true) {
+                        FFAppState().isProUserMSFS = true;
+                        safeSetState(() {});
 
                         context.pushNamed(IPpageXplaneWidget.routeName);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Payment failed or was cancelled. Please try again.',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                          ),
+                        );
                       }
 
                       safeSetState(() {});

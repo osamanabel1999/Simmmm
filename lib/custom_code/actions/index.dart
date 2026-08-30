@@ -84,3 +84,5 @@ export 'check_x_plane_license_expire_dateonly.dart'
     show checkXPlaneLicenseExpireDateonly;
 export 'check_m_s_f_s_license_expire_dateonly.dart'
     show checkMSFSLicenseExpireDateonly;
+export 'get_subscription_details_from_list.dart'
+    show getSubscriptionDetailsFromList;

@@ -25,10 +25,6 @@ class IPpageXplaneModel extends FlutterFlowModel<IPpageXplaneWidget> {
   TextEditingController? codeTextController;
   late bool codeVisibility;
   String? Function(BuildContext, String?)? codeTextControllerValidator;
-  // Stores action output result for [Custom Action - activateLicenseXPlane] action in Button widget.
-  String? statusXplane;
-  // Stores action output result for [Custom Action - restoreLicenseXPlane] action in RichTextSpan widget.
-  String? restoredCodeXPlane;
 
   @override
   void initState(BuildContext context) {

@@ -329,6 +329,24 @@ class FFAppState extends ChangeNotifier {
   set globalExpiryDate(String value) {
     _globalExpiryDate = value;
   }
+
+  bool _isProUserMSFS = false;
+  bool get isProUserMSFS => _isProUserMSFS;
+  set isProUserMSFS(bool value) {
+    _isProUserMSFS = value;
+  }
+
+  bool _isProUserXplane = false;
+  bool get isProUserXplane => _isProUserXplane;
+  set isProUserXplane(bool value) {
+    _isProUserXplane = value;
+  }
+
+  dynamic _usersubscription;
+  dynamic get usersubscription => _usersubscription;
+  set usersubscription(dynamic value) {
+    _usersubscription = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {
