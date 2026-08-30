@@ -5,7 +5,6 @@ import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'subscription_managepage_model.dart';
@@ -32,15 +31,6 @@ class _SubscriptionManagepageWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => SubscriptionManagepageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.currentPlanTypeMSFS = await actions.getPlanTypeMSFS(
-        FFAppState().generateCodeMSFS,
-      );
-      FFAppState().currentPlanTypeMSFS = FFAppState().currentPlanTypeMSFS;
-      safeSetState(() {});
-    });
   }
 
   @override

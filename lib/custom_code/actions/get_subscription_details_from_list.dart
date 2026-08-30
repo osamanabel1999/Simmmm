@@ -44,11 +44,7 @@ Future<dynamic> getSubscriptionDetailsFromList(String? simulatorType) async {
         String priceText = '\$0.00';
         String formattedDate = 'Lifetime';
 
-        // 1. استخراج السعر الحقيقي من المتجر لو متوفر في بيانات الـ Entitlement
-        // RevenueCat يوفر الـ productIdentifier لربط السعر
-        String productId = entitlement.productIdentifier.toLowerCase();
-
-        // 2. تحديد اسم المحاكي
+        // 1. تحديد اسم المحاكي بناءً على الـ Entitlement
         if (entitlementId == 'simulator_station_msfs_xplane') {
           simTitle = 'MSFS & X-PLANE';
         } else if (entitlementId == 'simulator_station_pro') {
@@ -57,38 +53,53 @@ Future<dynamic> getSubscriptionDetailsFromList(String? simulatorType) async {
           simTitle = 'X-PLANE';
         }
 
+        // 2. استخراج السعر الحقيقي للباقة من المتاجر
+        String productId = entitlement.productIdentifier;
+        if (productId.isNotEmpty) {
+          try {
+            List<StoreProduct> products =
+                await Purchases.getProducts([productId]);
+            if (products.isNotEmpty) {
+              priceText = products.first
+                  .priceString; // يرجع السعر مع عملة المستخدم (EGP 149.99)
+            }
+          } catch (e) {
+            debugPrint('Error fetching product price for $productId: $e');
+          }
+        }
+
         // 3. تحديد نوع الخطة
-        if (productId.contains('yearly') ||
-            productId.contains('annual') ||
-            productId.contains('1y')) {
+        String lowerProductId = productId.toLowerCase();
+        if (lowerProductId.contains('yearly') ||
+            lowerProductId.contains('annual') ||
+            lowerProductId.contains('1y')) {
           planType = 'Yearly Pass';
-        } else if (productId.contains('lifetime') ||
+        } else if (lowerProductId.contains('lifetime') ||
             entitlement.expirationDate == null) {
           planType = 'Lifetime Pass';
         } else {
           planType = 'Monthly Pass';
         }
 
-        // 4. استدعاء السعر المباشر للباقة المفعلة من سيرفر RevenueCat
-        try {
-          List<StoreProduct> products =
-              await Purchases.getProducts([entitlement.productIdentifier]);
-          if (products.isNotEmpty) {
-            priceText = products.first
-                .priceString; // يرجع السعر مع عملة حساب المستخدم (مثلاً $2.99 أو EGP 150)
-          }
-        } catch (e) {
-          debugPrint('Error fetching product price: $e');
-        }
+        // 4. معالجة وتنسيق تاريخ الانتهاء بأمان بدون Crashes
+        if (entitlement.expirationDate != null) {
+          try {
+            dynamic expDate = entitlement.expirationDate;
+            DateTime? parsedDate;
 
-        // 5. تنسيق تاريخ الانتهاء
-        if (entitlement.expirationDate != null &&
-            entitlement.expirationDate!.isNotEmpty) {
-          DateTime? parsedDate =
-              DateTime.tryParse(entitlement.expirationDate!)?.toLocal();
-          if (parsedDate != null) {
-            formattedDate =
-                "${parsedDate.year}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.day.toString().padLeft(2, '0')}";
+            if (expDate is DateTime) {
+              parsedDate = expDate;
+            } else if (expDate is String && expDate.isNotEmpty) {
+              parsedDate = DateTime.tryParse(expDate);
+            }
+
+            if (parsedDate != null) {
+              DateTime localDate = parsedDate.toLocal();
+              formattedDate =
+                  "${localDate.year}-${localDate.month.toString().padLeft(2, '0')}-${localDate.day.toString().padLeft(2, '0')}";
+            }
+          } catch (e) {
+            debugPrint('Error parsing date: $e');
           }
         } else {
           planType = 'Lifetime Pass';

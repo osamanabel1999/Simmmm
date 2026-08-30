@@ -293,8 +293,6 @@ class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
   bool mouseRegionHovered8 = false;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered9 = false;
-  // Stores action output result for [Custom Action - checkXPlaneLicenseExpireDateonly] action in Container widget.
-  String? globalExpiryDateXplane;
 
   @override
   void initState(BuildContext context) {}

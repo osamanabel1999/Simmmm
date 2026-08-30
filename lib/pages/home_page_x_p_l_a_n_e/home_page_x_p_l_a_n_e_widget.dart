@@ -39105,15 +39105,6 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                 onTap: () async {
                                   FFAppState().TabNumber = 13;
                                   safeSetState(() {});
-                                  _model.globalExpiryDateXplane = await actions
-                                      .checkXPlaneLicenseExpireDateonly(
-                                    FFAppState().generatedCode,
-                                  );
-                                  FFAppState().globalExpiryDate =
-                                      _model.globalExpiryDateXplane!;
-                                  safeSetState(() {});
-
-                                  safeSetState(() {});
                                 },
                                 child: Container(
                                   width:

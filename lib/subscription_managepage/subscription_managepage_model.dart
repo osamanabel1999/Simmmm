@@ -7,8 +7,6 @@ class SubscriptionManagepageModel
     extends FlutterFlowModel<SubscriptionManagepageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Custom Action - getPlanTypeMSFS] action in subscriptionManagepage widget.
-  String? currentPlanTypeMSFS;
   // Stores action output result for [Custom Action - restoreAllSubscriptions] action in SubscriptionStatusCard widget.
   dynamic restoreRes3;
 
