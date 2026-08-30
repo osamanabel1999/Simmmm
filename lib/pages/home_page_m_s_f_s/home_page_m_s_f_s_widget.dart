@@ -40763,8 +40763,8 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             child:
                                                                                 Text(
                                                                               valueOrDefault<String>(
-                                                                                _model.globalExpiryDateMSFS,
-                                                                                '-',
+                                                                                FFAppState().globalExpiryDate,
+                                                                                '.',
                                                                               ),
                                                                               textAlign: TextAlign.center,
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
