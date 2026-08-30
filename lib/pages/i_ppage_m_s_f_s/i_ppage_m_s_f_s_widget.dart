@@ -37,11 +37,6 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockPortrait();
-      final isEntitled =
-          await revenue_cat.isEntitled('simulator_station_pro') ?? false;
-      if (!isEntitled) {
-        await revenue_cat.loadOfferings();
-      }
     });
 
     _model.textFieldipPcTextController ??=

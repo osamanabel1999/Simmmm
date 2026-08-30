@@ -281,10 +281,6 @@ class HomePageXPLANEModel extends FlutterFlowModel<HomePageXPLANEWidget> {
   bool mouseRegionHovered2 = false;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered3 = false;
-  // Stores action output result for [Custom Action - checkXPlaneLicensePlan] action in option widget.
-  String? licensePlanResultXplane;
-  // Stores action output result for [Custom Action - checkXplaneSimType] action in option widget.
-  String? licenseSimTypeXplane;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered4 = false;
   // State field(s) for MouseRegion widget.

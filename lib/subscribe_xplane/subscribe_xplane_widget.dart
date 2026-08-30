@@ -115,9 +115,6 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       _model.xplanemonthly =
                           await revenue_cat.purchasePackage('xplane_monthly');
                       if (_model.xplanemonthly == true) {
-                        FFAppState().isProUserXplane = true;
-                        safeSetState(() {});
-
                         context.pushNamed(IPpageXplaneWidget.routeName);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -141,9 +138,6 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       _model.xplaneyearly =
                           await revenue_cat.purchasePackage('xplane_yearly');
                       if (_model.xplaneyearly == true) {
-                        FFAppState().isProUserXplane = true;
-                        safeSetState(() {});
-
                         context.pushNamed(IPpageXplaneWidget.routeName);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -167,9 +161,6 @@ class _SubscribeXplaneWidgetState extends State<SubscribeXplaneWidget> {
                       _model.xplaneLifetime =
                           await revenue_cat.purchasePackage('xplane_lifetime');
                       if (_model.xplaneLifetime == true) {
-                        FFAppState().isProUserXplane = true;
-                        safeSetState(() {});
-
                         context.pushNamed(IPpageXplaneWidget.routeName);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

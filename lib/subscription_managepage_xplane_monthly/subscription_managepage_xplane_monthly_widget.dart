@@ -119,7 +119,10 @@ class _SubscriptionManagepageXplaneMonthlyWidgetState
                     status: 'Active',
                     simulatorType: 'X-PLANE',
                     licenseKey: FFAppState().generatedCode,
-                    expiryDate: FFAppState().globalExpiryDate,
+                    expiryDate: getJsonField(
+                      FFAppState().usersubscription,
+                      r'''$.expiration_date''',
+                    ).toString(),
                     priceText: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
                           .getPackage('xplane_monthly')!

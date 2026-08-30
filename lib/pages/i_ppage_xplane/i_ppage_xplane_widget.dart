@@ -37,6 +37,12 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockPortrait();
+      _model.subResult1 = await actions.getSubscriptionDetailsFromList();
+      FFAppState().isProUserXplane = getJsonField(
+        _model.subResult1,
+        r'''$.is_active''',
+      );
+      safeSetState(() {});
     });
 
     _model.textFieldipPcTextController ??=
@@ -601,7 +607,7 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                                 _model.textFieldSimbreifIDTextController.text);
                             safeSetState(() {});
 
-                            context.pushNamed(IPpageXplaneWidget.routeName);
+                            context.pushNamed(HomePageXPLANEWidget.routeName);
                           },
                           text: 'Connect',
                           options: FFButtonOptions(

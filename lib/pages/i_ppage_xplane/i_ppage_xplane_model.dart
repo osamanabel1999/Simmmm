@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class IPpageXplaneModel extends FlutterFlowModel<IPpageXplaneWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - getSubscriptionDetailsFromList] action in IPpageXplane widget.
+  dynamic subResult1;
   // State field(s) for TextFieldipPc widget.
   FocusNode? textFieldipPcFocusNode;
   TextEditingController? textFieldipPcTextController;

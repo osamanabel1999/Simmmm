@@ -34374,75 +34374,9 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                             .transparent,
                                                                     onTap:
                                                                         () async {
-                                                                      _model.licensePlanResultXplane =
-                                                                          await actions
-                                                                              .checkXPlaneLicensePlan(
-                                                                        FFAppState()
-                                                                            .generatedCode,
-                                                                      );
-                                                                      _model.licenseSimTypeXplane =
-                                                                          await actions
-                                                                              .checkXplaneSimType(
-                                                                        FFAppState()
-                                                                            .generatedCode,
-                                                                      );
-                                                                      if ((_model.licensePlanResultXplane ==
-                                                                              'Monthly') &&
-                                                                          (_model.licenseSimTypeXplane !=
-                                                                              'BothSIM')) {
-                                                                        context.pushNamed(
-                                                                            SubscriptionManagepageXplaneMonthlyWidget.routeName);
-                                                                      } else if ((_model.licensePlanResultXplane ==
-                                                                              'Yearly') &&
-                                                                          (_model.licenseSimTypeXplane !=
-                                                                              'BothSIM')) {
-                                                                        context.pushNamed(
-                                                                            SubscriptionManagepageXplaneYearlyWidget.routeName);
-                                                                      } else if ((_model.licensePlanResultXplane ==
-                                                                              'Lifetime') &&
-                                                                          (_model.licenseSimTypeXplane !=
-                                                                              'BothSIM')) {
-                                                                        context.pushNamed(
-                                                                            SubscriptionManagepageXplaneLifetimeWidget.routeName);
-                                                                      } else if ((_model.licensePlanResultXplane ==
-                                                                              'Monthly') &&
-                                                                          (_model.licenseSimTypeXplane ==
-                                                                              'BothSIM')) {
-                                                                        context.pushNamed(
-                                                                            SubscriptionManagepageAllsimMonthlyWidget.routeName);
-                                                                      } else if ((_model.licensePlanResultXplane ==
-                                                                              'Yearly') &&
-                                                                          (_model.licenseSimTypeXplane ==
-                                                                              'BothSIM')) {
-                                                                        context.pushNamed(
-                                                                            SubscriptionManagepageAllsimYearlyWidget.routeName);
-                                                                      } else if ((_model.licensePlanResultXplane ==
-                                                                              'Lifetime') &&
-                                                                          (_model.licenseSimTypeXplane ==
-                                                                              'BothSIM')) {
-                                                                        context.pushNamed(
-                                                                            SubscriptionManagepageAllsimLifetimeWidget.routeName);
-                                                                      } else {
-                                                                        ScaffoldMessenger.of(context)
-                                                                            .showSnackBar(
-                                                                          SnackBar(
-                                                                            content:
-                                                                                Text(
-                                                                              'failed',
-                                                                              style: TextStyle(
-                                                                                color: FlutterFlowTheme.of(context).primaryText,
-                                                                              ),
-                                                                            ),
-                                                                            duration:
-                                                                                Duration(milliseconds: 4000),
-                                                                            backgroundColor:
-                                                                                FlutterFlowTheme.of(context).primaryBackground,
-                                                                          ),
-                                                                        );
-                                                                      }
-
-                                                                      safeSetState(
-                                                                          () {});
+                                                                      context.pushNamed(
+                                                                          SubscriptionManagepageXplaneMonthlyWidget
+                                                                              .routeName);
                                                                     },
                                                                     child: Row(
                                                                       mainAxisSize:
