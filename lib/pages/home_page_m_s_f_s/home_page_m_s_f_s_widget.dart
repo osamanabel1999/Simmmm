@@ -40763,7 +40763,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                             child:
                                                                                 Text(
                                                                               valueOrDefault<String>(
-                                                                                FFAppState().globalExpiryDate,
+                                                                                _model.globalExpiryDateMSFS,
                                                                                 '-',
                                                                               ),
                                                                               textAlign: TextAlign.center,

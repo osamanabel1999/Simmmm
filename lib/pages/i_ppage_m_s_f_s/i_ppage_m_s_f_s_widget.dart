@@ -1056,8 +1056,8 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                               mouseCursor: SystemMouseCursors.click,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () async {
-                                  context
-                                      .pushNamed(PdfmsfsquideWidget.routeName);
+                                  await launchURL(
+                                      'https://drive.google.com/file/d/1OCLUxDuiEHWIkCXdXE2sWZKgHPbgs5MO/view');
                                 },
                             )
                           ],

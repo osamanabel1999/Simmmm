@@ -968,7 +968,8 @@ class _IPpageXplaneWidgetState extends State<IPpageXplaneWidget> {
                               mouseCursor: SystemMouseCursors.click,
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () async {
-                                  await launchURL('https://www.youtube.com/');
+                                  await launchURL(
+                                      'https://youtu.be/ySdnK7DPZPU?si=74oNvfVnR9qX3gkO');
                                 },
                             )
                           ],
