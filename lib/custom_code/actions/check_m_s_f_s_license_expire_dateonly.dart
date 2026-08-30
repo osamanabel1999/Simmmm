@@ -22,7 +22,9 @@ Future<String?> checkMSFSLicenseExpireDateonly(String? licenseKey) async {
   const String tableId = 'tblse0E5FhASxuhmn';
 
   final String cleanKey = licenseKey.trim();
-  final String filterFormula = "NOT({LicenseKey} = '')";
+
+  // تعديل صيغة البحث لتطلب الكود بالتحديد من السيرفر
+  final String filterFormula = "{LicenseKey} = '$cleanKey'";
   final Uri url = Uri.parse(
       'https://api.airtable.com/v0/$baseId/$tableId?filterByFormula=${Uri.encodeComponent(filterFormula)}');
 
@@ -38,15 +40,12 @@ Future<String?> checkMSFSLicenseExpireDateonly(String? licenseKey) async {
       final data = json.decode(response.body);
       final List records = data['records'] ?? [];
 
-      for (var record in records) {
-        final fields = record['fields'] ?? {};
-        if (fields['LicenseKey']?.toString().trim() == cleanKey) {
-          // جلب تاريخ الانتهاء فقط كما هو مسجل في Airtable (تاريخ أو كلمة Lifetime)
-          final String expiryDate =
-              fields['ExpiryDateOnly']?.toString() ?? 'Lifetime';
+      if (records.isNotEmpty) {
+        final fields = records.first['fields'] ?? {};
+        final String expiryDate =
+            fields['ExpiryDateOnly']?.toString() ?? 'Lifetime';
 
-          return expiryDate;
-        }
+        return expiryDate;
       }
       return "NOT_FOUND";
     } else {
