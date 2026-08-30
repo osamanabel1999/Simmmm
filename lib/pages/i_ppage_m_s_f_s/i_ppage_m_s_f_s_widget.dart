@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import '/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +36,13 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockPortrait();
+      _model.msfsPageRes = await actions.restoreAllSubscriptions();
+      FFAppState().isProUserMSFS = getJsonField(
+        _model.msfsPageRes,
+        r'''$.is_msfs_active''',
+      );
+      FFAppState().usersubscription = _model.msfsPageRes!;
+      safeSetState(() {});
     });
 
     _model.textFieldipPcTextController ??=
@@ -823,7 +829,39 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                 mouseCursor: SystemMouseCursors.click,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    await revenue_cat.restorePurchases();
+                                    _model.restoreRes1 =
+                                        await actions.restoreAllSubscriptions();
+                                    FFAppState().isProUserXplane = getJsonField(
+                                      _model.restoreRes1,
+                                      r'''$.is_xplane_active''',
+                                    );
+                                    FFAppState().isProUserMSFS = getJsonField(
+                                      _model.restoreRes1,
+                                      r'''$.is_msfs_active''',
+                                    );
+                                    FFAppState().usersubscription =
+                                        _model.restoreRes1!;
+                                    safeSetState(() {});
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          getJsonField(
+                                            _model.restoreRes1,
+                                            r'''$.message''',
+                                          ).toString(),
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                      ),
+                                    );
+
+                                    safeSetState(() {});
                                   },
                               )
                             ],

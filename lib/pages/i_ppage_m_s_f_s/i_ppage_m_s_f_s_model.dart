@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class IPpageMSFSModel extends FlutterFlowModel<IPpageMSFSWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - restoreAllSubscriptions] action in IPpageMSFS widget.
+  dynamic msfsPageRes;
   // State field(s) for TextFieldipPc widget.
   FocusNode? textFieldipPcFocusNode;
   TextEditingController? textFieldipPcTextController;
@@ -26,6 +28,8 @@ class IPpageMSFSModel extends FlutterFlowModel<IPpageMSFSWidget> {
   late bool codeLicenseMSFSSVisibility;
   String? Function(BuildContext, String?)?
       codeLicenseMSFSSTextControllerValidator;
+  // Stores action output result for [Custom Action - restoreAllSubscriptions] action in RichTextSpan widget.
+  dynamic restoreRes1;
   // Stores action output result for [Custom Action - extendLicenseMSFS] action in Button widget.
   String? extendResult1Month;
 

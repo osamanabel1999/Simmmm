@@ -8,18 +8,28 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-// Automatic Imports for FlutterFlow
-
-// Required RevenueCat Import
 import 'package:purchases_flutter/purchases_flutter.dart';
 
-Future<dynamic> getSubscriptionDetailsFromList() async {
-  // قائمة الـ IDs المحددة مباشرة داخل الكود
-  final List<String> entitlementIds = [
-    'simulator_station_msfs_xplane',
-    'simulator_station_pro',
-    'simulator_station_xplane',
-  ];
+Future<dynamic> getSubscriptionDetailsFromList(String? simulatorType) async {
+  List<String> entitlementIds = [];
+
+  if (simulatorType == 'XPLANE') {
+    entitlementIds = [
+      'simulator_station_xplane',
+      'simulator_station_msfs_xplane',
+    ];
+  } else if (simulatorType == 'MSFS') {
+    entitlementIds = [
+      'simulator_station_pro',
+      'simulator_station_msfs_xplane',
+    ];
+  } else {
+    entitlementIds = [
+      'simulator_station_msfs_xplane',
+      'simulator_station_pro',
+      'simulator_station_xplane',
+    ];
+  }
 
   try {
     CustomerInfo customerInfo = await Purchases.getCustomerInfo();
@@ -29,24 +39,49 @@ Future<dynamic> getSubscriptionDetailsFromList() async {
           customerInfo.entitlements.all[entitlementId];
 
       if (entitlement != null && entitlement.isActive) {
-        String planType = 'Unknown';
+        String planType = 'Monthly';
+        String simTitle = 'X-PLANE';
+        String priceText = '\$0.00';
         String formattedDate = 'Lifetime';
 
+        // 1. استخراج السعر الحقيقي من المتجر لو متوفر في بيانات الـ Entitlement
+        // RevenueCat يوفر الـ productIdentifier لربط السعر
         String productId = entitlement.productIdentifier.toLowerCase();
 
-        if (productId.contains('monthly') || productId.contains('1m')) {
-          planType = 'Monthly';
-        } else if (productId.contains('yearly') ||
-            productId.contains('annual') ||
-            productId.contains('1y')) {
-          planType = 'Yearly';
-        } else if (productId.contains('lifetime') ||
-            entitlement.expirationDate == null) {
-          planType = 'Lifetime';
+        // 2. تحديد اسم المحاكي
+        if (entitlementId == 'simulator_station_msfs_xplane') {
+          simTitle = 'MSFS & X-PLANE';
+        } else if (entitlementId == 'simulator_station_pro') {
+          simTitle = 'MSFS 2020/2024';
         } else {
-          planType = 'Active Subscription';
+          simTitle = 'X-PLANE';
         }
 
+        // 3. تحديد نوع الخطة
+        if (productId.contains('yearly') ||
+            productId.contains('annual') ||
+            productId.contains('1y')) {
+          planType = 'Yearly Pass';
+        } else if (productId.contains('lifetime') ||
+            entitlement.expirationDate == null) {
+          planType = 'Lifetime Pass';
+        } else {
+          planType = 'Monthly Pass';
+        }
+
+        // 4. استدعاء السعر المباشر للباقة المفعلة من سيرفر RevenueCat
+        try {
+          List<StoreProduct> products =
+              await Purchases.getProducts([entitlement.productIdentifier]);
+          if (products.isNotEmpty) {
+            priceText = products.first
+                .priceString; // يرجع السعر مع عملة حساب المستخدم (مثلاً $2.99 أو EGP 150)
+          }
+        } catch (e) {
+          debugPrint('Error fetching product price: $e');
+        }
+
+        // 5. تنسيق تاريخ الانتهاء
         if (entitlement.expirationDate != null &&
             entitlement.expirationDate!.isNotEmpty) {
           DateTime? parsedDate =
@@ -56,15 +91,17 @@ Future<dynamic> getSubscriptionDetailsFromList() async {
                 "${parsedDate.year}-${parsedDate.month.toString().padLeft(2, '0')}-${parsedDate.day.toString().padLeft(2, '0')}";
           }
         } else {
-          planType = 'Lifetime';
+          planType = 'Lifetime Pass';
           formattedDate = 'Lifetime';
         }
 
         return {
           'is_active': true,
-          'active_entitlement': entitlementId,
+          'status': 'ACTIVE',
+          'simulator_type': simTitle,
           'plan_type': planType,
-          'expiration_date': formattedDate
+          'expiration_date': formattedDate,
+          'price_text': priceText,
         };
       }
     }
@@ -74,8 +111,10 @@ Future<dynamic> getSubscriptionDetailsFromList() async {
 
   return {
     'is_active': false,
-    'active_entitlement': 'none',
-    'plan_type': 'None',
-    'expiration_date': 'Not Active'
+    'status': 'INACTIVE',
+    'simulator_type': 'NO SIMULATOR',
+    'plan_type': 'No Active Plan',
+    'expiration_date': 'Not Active',
+    'price_text': '\$0.00',
   };
 }

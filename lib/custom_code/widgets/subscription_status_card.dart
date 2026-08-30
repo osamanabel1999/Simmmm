@@ -18,7 +18,6 @@ class SubscriptionStatusCard extends StatefulWidget {
     this.height,
     required this.status,
     required this.simulatorType,
-    required this.licenseKey,
     required this.expiryDate,
     required this.priceText,
     required this.planType,
@@ -32,7 +31,6 @@ class SubscriptionStatusCard extends StatefulWidget {
   final double? height;
   final String status;
   final String simulatorType;
-  final String licenseKey;
   final String expiryDate;
   final String priceText;
   final String planType;
@@ -46,28 +44,6 @@ class SubscriptionStatusCard extends StatefulWidget {
 }
 
 class _SubscriptionStatusCardState extends State<SubscriptionStatusCard> {
-  bool _copied = false;
-
-  void _copyToClipboard(String text) {
-    Clipboard.setData(ClipboardData(text: text));
-    setState(() {
-      _copied = true;
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Activation Code copied to clipboard!'),
-        duration: Duration(seconds: 2),
-      ),
-    );
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        setState(() {
-          _copied = false;
-        });
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final bool isActive =
@@ -198,66 +174,6 @@ class _SubscriptionStatusCardState extends State<SubscriptionStatusCard> {
                     padding: EdgeInsets.symmetric(vertical: 14.0),
                     child: Divider(color: Color(0xFF262D34), height: 1),
                   ),
-
-                  // License Key Copy Field
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Activation Code',
-                        style: TextStyle(
-                          color: Color(0xFF95A1AC),
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF14181B),
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: const Color(0xFF262D34)),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                widget.licenseKey,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontFamily: 'monospace',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () =>
-                                  _copyToClipboard(widget.licenseKey),
-                              icon: Icon(
-                                _copied
-                                    ? Icons.check_rounded
-                                    : Icons.content_copy_rounded,
-                                color: _copied
-                                    ? const Color(0xFF24D066)
-                                    : const Color(0xFF95A1AC),
-                                size: 18,
-                              ),
-                              constraints: const BoxConstraints(),
-                              padding: EdgeInsets.zero,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 14),
 
                   // Expiry Date Row
                   Row(

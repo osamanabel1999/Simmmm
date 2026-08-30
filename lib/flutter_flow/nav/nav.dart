@@ -266,10 +266,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               SubscriptionManagepageMSFSlifetimeWidget(),
         ),
         FFRoute(
-          name: SubscriptionManagepageXplaneMonthlyWidget.routeName,
-          path: SubscriptionManagepageXplaneMonthlyWidget.routePath,
-          builder: (context, params) =>
-              SubscriptionManagepageXplaneMonthlyWidget(),
+          name: SubscriptionManagepageWidget.routeName,
+          path: SubscriptionManagepageWidget.routePath,
+          builder: (context, params) => SubscriptionManagepageWidget(),
         ),
         FFRoute(
           name: SubscriptionManagepageXplaneYearlyWidget.routeName,

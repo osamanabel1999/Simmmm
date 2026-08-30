@@ -118,10 +118,6 @@ class _SubscriptionManagepageMSFSlifetimeWidgetState
                     height: double.infinity,
                     status: 'Active',
                     simulatorType: 'MSFS',
-                    licenseKey: valueOrDefault<String>(
-                      FFAppState().generateCodeMSFS,
-                      '-',
-                    ),
                     expiryDate: FFAppState().globalExpiryDate,
                     priceText: valueOrDefault<String>(
                       revenue_cat.offerings!.current!

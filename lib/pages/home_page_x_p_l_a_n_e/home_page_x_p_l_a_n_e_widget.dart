@@ -33772,232 +33772,6 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                         child:
                                                                             Icon(
                                                                           Icons
-                                                                              .line_style_outlined,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          size:
-                                                                              20.0,
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              12.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Text(
-                                                                            'Activation Code',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  font: GoogleFonts.plusJakartaSans(
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                  ),
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            20.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Text(
-                                                                          FFAppState()
-                                                                              .generatedCode,
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                font: GoogleFonts.inter(
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                ),
-                                                                                fontSize: 15.0,
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            InkWell(
-                                                              splashColor: Colors
-                                                                  .transparent,
-                                                              focusColor: Colors
-                                                                  .transparent,
-                                                              hoverColor: Colors
-                                                                  .transparent,
-                                                              highlightColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              onTap: () async {
-                                                                context.pushNamed(
-                                                                    IPpageXplaneWidget
-                                                                        .routeName);
-                                                              },
-                                                              child: Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBackground,
-                                                                  border: Border
-                                                                      .all(
-                                                                    color: Color(
-                                                                        0xFF1C1111),
-                                                                  ),
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          8.0,
-                                                                          0.0,
-                                                                          8.0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            12.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .calendar_month_sharp,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          size:
-                                                                              20.0,
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              12.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Text(
-                                                                            'Expiration Date',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  font: GoogleFonts.plusJakartaSans(
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                  ),
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            20.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Text(
-                                                                          FFAppState()
-                                                                              .globalExpiryDate,
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                font: GoogleFonts.inter(
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                ),
-                                                                                fontSize: 15.0,
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            InkWell(
-                                                              splashColor: Colors
-                                                                  .transparent,
-                                                              focusColor: Colors
-                                                                  .transparent,
-                                                              hoverColor: Colors
-                                                                  .transparent,
-                                                              highlightColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              onTap: () async {
-                                                                context.pushNamed(
-                                                                    IPpageXplaneWidget
-                                                                        .routeName);
-                                                              },
-                                                              child: Container(
-                                                                width: double
-                                                                    .infinity,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBackground,
-                                                                  border: Border
-                                                                      .all(
-                                                                    color: Color(
-                                                                        0xFF1C1111),
-                                                                  ),
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          8.0,
-                                                                          0.0,
-                                                                          8.0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            12.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
                                                                               .phonelink_sharp,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).primaryText,
@@ -34375,7 +34149,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                     onTap:
                                                                         () async {
                                                                       context.pushNamed(
-                                                                          SubscriptionManagepageXplaneMonthlyWidget
+                                                                          SubscriptionManagepageWidget
                                                                               .routeName);
                                                                     },
                                                                     child: Row(
@@ -34474,53 +34248,72 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                           8.0,
                                                                           0.0,
                                                                           8.0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            12.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .help_outline,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          size:
-                                                                              20.0,
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        child:
-                                                                            Padding(
+                                                                  child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      await launchURL(
+                                                                          'https://youtu.be/ySdnK7DPZPU?si=74oNvfVnR9qX3gkO');
+                                                                    },
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
                                                                               12.0,
                                                                               0.0,
                                                                               0.0,
                                                                               0.0),
                                                                           child:
-                                                                              Text(
-                                                                            'Tutorial',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  font: GoogleFonts.plusJakartaSans(
+                                                                              Icon(
+                                                                            Icons.help_outline,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            size:
+                                                                                20.0,
+                                                                          ),
+                                                                        ),
+                                                                        Expanded(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                12.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              'Tutorial',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    font: GoogleFonts.plusJakartaSans(
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                    ),
+                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    fontSize: 14.0,
+                                                                                    letterSpacing: 0.0,
                                                                                     fontWeight: FontWeight.w500,
                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                   ),
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  fontSize: 14.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                ),
+                                                                            ),
                                                                           ),
                                                                         ),
-                                                                      ),
-                                                                    ],
+                                                                      ],
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),

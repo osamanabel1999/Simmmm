@@ -115,9 +115,6 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                       _model.mSFSmonthly =
                           await revenue_cat.purchasePackage('\$rc_monthly');
                       if (_model.mSFSmonthly == true) {
-                        FFAppState().isProUserMSFS = true;
-                        safeSetState(() {});
-
                         context.pushNamed(IPpageMSFSWidget.routeName);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -141,9 +138,6 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                       _model.mSFSyearly =
                           await revenue_cat.purchasePackage('\$rc_annual');
                       if (_model.mSFSyearly == true) {
-                        FFAppState().isProUserMSFS = true;
-                        safeSetState(() {});
-
                         context.pushNamed(IPpageMSFSWidget.routeName);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -167,9 +161,6 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                       _model.mSFSLifTime =
                           await revenue_cat.purchasePackage('\$rc_lifetime');
                       if (_model.mSFSLifTime == true) {
-                        FFAppState().isProUserMSFS = true;
-                        safeSetState(() {});
-
                         context.pushNamed(IPpageMSFSWidget.routeName);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

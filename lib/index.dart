@@ -31,8 +31,8 @@ export '/subscription_managepage_m_s_f_syearly/subscription_managepage_m_s_f_sye
     show SubscriptionManagepageMSFSyearlyWidget;
 export '/subscription_managepage_m_s_f_slifetime/subscription_managepage_m_s_f_slifetime_widget.dart'
     show SubscriptionManagepageMSFSlifetimeWidget;
-export '/subscription_managepage_xplane_monthly/subscription_managepage_xplane_monthly_widget.dart'
-    show SubscriptionManagepageXplaneMonthlyWidget;
+export '/subscription_managepage/subscription_managepage_widget.dart'
+    show SubscriptionManagepageWidget;
 export '/subscription_managepage_xplane_yearly/subscription_managepage_xplane_yearly_widget.dart'
     show SubscriptionManagepageXplaneYearlyWidget;
 export '/subscription_managepage_xplane_lifetime/subscription_managepage_xplane_lifetime_widget.dart'

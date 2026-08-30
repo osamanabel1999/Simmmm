@@ -126,11 +126,6 @@ class _SubscribePackageXplaneMSFSWidgetState
                       _model.mSFSandXplanemonthly = await revenue_cat
                           .purchasePackage('msfs_xplane_monthly');
                       if (_model.mSFSandXplanemonthly == true) {
-                        FFAppState().isProUserMSFS = true;
-                        safeSetState(() {});
-                        FFAppState().isProUserXplane = true;
-                        safeSetState(() {});
-
                         context.pushNamed(HomeMenuWidget.routeName);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -154,11 +149,6 @@ class _SubscribePackageXplaneMSFSWidgetState
                       _model.mSFSandXplaneyearly1 = await revenue_cat
                           .purchasePackage('msfs_xplane_yearly');
                       if (_model.mSFSandXplaneyearly1 == true) {
-                        FFAppState().isProUserMSFS = true;
-                        safeSetState(() {});
-                        FFAppState().isProUserXplane = true;
-                        safeSetState(() {});
-
                         context.pushNamed(HomeMenuWidget.routeName);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -182,11 +172,6 @@ class _SubscribePackageXplaneMSFSWidgetState
                       _model.mSFSandXplaneLifetime = await revenue_cat
                           .purchasePackage('msfs_xplane_lifetime');
                       if (_model.mSFSandXplaneLifetime == true) {
-                        FFAppState().isProUserMSFS = true;
-                        safeSetState(() {});
-                        FFAppState().isProUserXplane = true;
-                        safeSetState(() {});
-
                         context.pushNamed(HomeMenuWidget.routeName);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

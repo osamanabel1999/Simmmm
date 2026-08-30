@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 class IPpageXplaneModel extends FlutterFlowModel<IPpageXplaneWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Custom Action - getSubscriptionDetailsFromList] action in IPpageXplane widget.
-  dynamic subResult1;
+  // Stores action output result for [Custom Action - restoreAllSubscriptions] action in IPpageXplane widget.
+  dynamic xplanePageRes;
   // State field(s) for TextFieldipPc widget.
   FocusNode? textFieldipPcFocusNode;
   TextEditingController? textFieldipPcTextController;
@@ -27,6 +27,8 @@ class IPpageXplaneModel extends FlutterFlowModel<IPpageXplaneWidget> {
   TextEditingController? codeTextController;
   late bool codeVisibility;
   String? Function(BuildContext, String?)? codeTextControllerValidator;
+  // Stores action output result for [Custom Action - restoreAllSubscriptions] action in RichTextSpan widget.
+  dynamic restoreRes2;
 
   @override
   void initState(BuildContext context) {
