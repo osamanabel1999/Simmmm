@@ -110,7 +110,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                     ),
                     yearlyPrice: valueOrDefault<String>(
                       revenue_cat.offerings!.current!
-                          .getPackage('msfs_xplane_yearly')!
+                          .getPackage('X plane and MSFS monthly Pass')!
                           .storeProduct
                           .priceString,
                       '-',
@@ -147,7 +147,7 @@ class _SubscribePackageXplaneMSFSWidgetState
                     },
                     onBuyYearly: () async {
                       _model.mSFSandXplaneyearly1 = await revenue_cat
-                          .purchasePackage('msfs_xplane_yearly');
+                          .purchasePackage('X plane and MSFS monthly Pass');
                       if (_model.mSFSandXplaneyearly1 == true) {
                         context.pushNamed(HomeMenuWidget.routeName);
                       } else {
