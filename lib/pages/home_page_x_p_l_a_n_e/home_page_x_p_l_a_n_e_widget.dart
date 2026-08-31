@@ -34149,7 +34149,7 @@ class _HomePageXPLANEWidgetState extends State<HomePageXPLANEWidget> {
                                                                     onTap:
                                                                         () async {
                                                                       context.pushNamed(
-                                                                          SubscriptionManagepageWidget
+                                                                          SubscriptionManagepageAllsimLifetimeWidget
                                                                               .routeName);
                                                                     },
                                                                     child: Row(

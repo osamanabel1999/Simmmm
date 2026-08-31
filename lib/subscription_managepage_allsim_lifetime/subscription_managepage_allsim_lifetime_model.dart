@@ -9,10 +9,6 @@ class SubscriptionManagepageAllsimLifetimeModel
 
   // Stores action output result for [Custom Action - getPlanTypeMSFS] action in subscriptionManagepageAllsimLifetime widget.
   String? currentPlanTypeMSFS;
-  // Stores action output result for [Custom Action - restoreLicenseMSFS] action in XplaneMsfsPageStatusCard widget.
-  String? restoredCodeMSFS2;
-  // Stores action output result for [Custom Action - restoreLicenseXPlane] action in XplaneMsfsPageStatusCard widget.
-  String? restoredCodeXPlane3;
 
   @override
   void initState(BuildContext context) {}

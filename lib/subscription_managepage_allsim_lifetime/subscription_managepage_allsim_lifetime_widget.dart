@@ -3,12 +3,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:webviewx_plus/webviewx_plus.dart';
 import 'subscription_managepage_allsim_lifetime_model.dart';
 export 'subscription_managepage_allsim_lifetime_model.dart';
 
@@ -112,174 +110,12 @@ class _SubscriptionManagepageAllsimLifetimeWidgetState
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
-                  child: custom_widgets.XplaneMsfsPageStatusCard(
+                  child: custom_widgets.SmartSubscriptionWidget(
                     width: double.infinity,
                     height: double.infinity,
-                    status: 'Active',
-                    simulatorType: 'X-PLANE & MSFS',
-                    msfsLicenseKey: valueOrDefault<String>(
-                      FFAppState().generateCodeMSFS,
-                      '-',
-                    ),
-                    xplaneLicenseKey: FFAppState().generatedCode,
-                    expiryDate: FFAppState().globalExpiryDate,
-                    priceText: valueOrDefault<String>(
-                      revenue_cat.offerings!.current!
-                          .getPackage('msfs_xplane_lifetime')!
-                          .storeProduct
-                          .priceString,
-                      '-',
-                    ),
-                    planType: valueOrDefault<String>(
-                      revenue_cat.offerings!.current!
-                          .getPackage('msfs_xplane_lifetime')!
-                          .storeProduct
-                          .title,
-                      '-',
-                    ),
-                    onRestoreMsfsPressed: () async {
-                      _model.restoredCodeMSFS2 =
-                          await actions.restoreLicenseMSFS();
-                      if (_model.restoredCodeMSFS2 == 'License Expired.') {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return WebViewAware(
-                              child: AlertDialog(
-                                title: Text('Your MSFS License is Expired!'),
-                                content: Text(
-                                    'Your active MSFS license key has expired. Please renew your subscription.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      } else if (_model.restoredCodeMSFS2 ==
-                          'No subscription found for this device.') {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return WebViewAware(
-                              child: AlertDialog(
-                                title: Text('No MSFS Subscription Found!'),
-                                content: Text(
-                                    'No MSFS subscription found for this device.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      } else {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return WebViewAware(
-                              child: AlertDialog(
-                                title: Text('MSFS Subscription Restored!'),
-                                content: Text(
-                                    'Your MSFS license key is:  ${_model.restoredCodeMSFS2}'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      }
-
-                      safeSetState(() {});
-                    },
-                    onRestoreXplanePressed: () async {
-                      _model.restoredCodeXPlane3 =
-                          await actions.restoreLicenseXPlane();
-                      if (_model.restoredCodeXPlane3 == 'License Expired.') {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return WebViewAware(
-                              child: AlertDialog(
-                                title: Text('Your X-Plane License is Expired!'),
-                                content: Text(
-                                    'Your active X-Plane license key has expired. Please renew your subscription.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      } else if (_model.restoredCodeXPlane3 ==
-                          'No subscription found for this device.') {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return WebViewAware(
-                              child: AlertDialog(
-                                title: Text('No X-Plane Subscription Found!'),
-                                content: Text(
-                                    'No X-Plane subscription found for this device.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      } else {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return WebViewAware(
-                              child: AlertDialog(
-                                title: Text('X-Plane Subscription Restored!'),
-                                content: Text(
-                                    'Your X-Plane license key is:  ${_model.restoredCodeXPlane3}'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      }
-
-                      safeSetState(() {});
-                    },
-                    onManageAppleSubscription: () async {
-                      await launchURL(
-                          'https://apps.apple.com/account/subscriptions');
-                    },
-                    onSupportPressed: () async {
-                      await launchURL('https://discord.gg/3jJkuQeKaz');
-                    },
+                    onRestorePressed: () async {},
+                    onManageAppleSubscription: () async {},
+                    onSupportPressed: () async {},
                     onPrivacyPolicyPressed: () async {},
                   ),
                 ),

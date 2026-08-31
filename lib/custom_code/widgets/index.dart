@@ -16,3 +16,4 @@ export 'flight_plan_page_widget.dart' show FlightPlanPageWidget;
 export 'top_banner_widget.dart' show TopBannerWidget;
 export 'subscription_status_card.dart' show SubscriptionStatusCard;
 export 'xplane_msfs_page_status_card.dart' show XplaneMsfsPageStatusCard;
+export 'smart_subscription_widget.dart' show SmartSubscriptionWidget;
