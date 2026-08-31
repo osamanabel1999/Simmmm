@@ -40957,7 +40957,7 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                         onTap:
                                                                             () async {
                                                                           context
-                                                                              .pushNamed(SubscriptionManagepageAllsimLifetimeWidget.routeName);
+                                                                              .pushNamed(SubscriptionManageForALLWidget.routeName);
                                                                         },
                                                                         child:
                                                                             Row(

@@ -41,6 +41,6 @@ export '/subscription_managepage_allsim_monthly/subscription_managepage_allsim_m
     show SubscriptionManagepageAllsimMonthlyWidget;
 export '/subscription_managepage_allsim_yearly/subscription_managepage_allsim_yearly_widget.dart'
     show SubscriptionManagepageAllsimYearlyWidget;
-export '/subscription_managepage_allsim_lifetime/subscription_managepage_allsim_lifetime_widget.dart'
-    show SubscriptionManagepageAllsimLifetimeWidget;
+export '/subscription_manage_for_a_l_l/subscription_manage_for_a_l_l_widget.dart'
+    show SubscriptionManageForALLWidget;
 export '/pdfmsfsquide/pdfmsfsquide_widget.dart' show PdfmsfsquideWidget;

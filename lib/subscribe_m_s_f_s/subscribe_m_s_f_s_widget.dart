@@ -187,8 +187,12 @@ class _SubscribeMSFSWidgetState extends State<SubscribeMSFSWidget> {
                       context.pushNamed(
                           SubscribePackageXplaneMSFSWidget.routeName);
                     },
-                    onTermsOfUse: () async {},
-                    onPrivacyPolicy: () async {},
+                    onTermsOfUse: () async {
+                      context.pushNamed(TermsOFuseWidget.routeName);
+                    },
+                    onPrivacyPolicy: () async {
+                      context.pushNamed(PrivacyPolicyPageWidget.routeName);
+                    },
                   ),
                 ),
               ),

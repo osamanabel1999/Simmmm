@@ -3,35 +3,35 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'subscription_managepage_allsim_lifetime_model.dart';
-export 'subscription_managepage_allsim_lifetime_model.dart';
+import 'subscription_manage_for_a_l_l_model.dart';
+export 'subscription_manage_for_a_l_l_model.dart';
 
-class SubscriptionManagepageAllsimLifetimeWidget extends StatefulWidget {
-  const SubscriptionManagepageAllsimLifetimeWidget({super.key});
+class SubscriptionManageForALLWidget extends StatefulWidget {
+  const SubscriptionManageForALLWidget({super.key});
 
-  static String routeName = 'subscriptionManagepageAllsimLifetime';
-  static String routePath = '/subscriptionManagepageAllsimLifetime';
+  static String routeName = 'subscriptionManageForALL';
+  static String routePath = '/subscriptionManageForALL';
 
   @override
-  State<SubscriptionManagepageAllsimLifetimeWidget> createState() =>
-      _SubscriptionManagepageAllsimLifetimeWidgetState();
+  State<SubscriptionManageForALLWidget> createState() =>
+      _SubscriptionManageForALLWidgetState();
 }
 
-class _SubscriptionManagepageAllsimLifetimeWidgetState
-    extends State<SubscriptionManagepageAllsimLifetimeWidget> {
-  late SubscriptionManagepageAllsimLifetimeModel _model;
+class _SubscriptionManageForALLWidgetState
+    extends State<SubscriptionManageForALLWidget> {
+  late SubscriptionManageForALLModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model =
-        createModel(context, () => SubscriptionManagepageAllsimLifetimeModel());
+    _model = createModel(context, () => SubscriptionManageForALLModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -113,10 +113,16 @@ class _SubscriptionManagepageAllsimLifetimeWidgetState
                   child: custom_widgets.SmartSubscriptionWidget(
                     width: double.infinity,
                     height: double.infinity,
-                    onRestorePressed: () async {},
-                    onManageAppleSubscription: () async {},
-                    onSupportPressed: () async {},
-                    onPrivacyPolicyPressed: () async {},
+                    onManageAppleSubscription: () async {
+                      await launchURL(
+                          'https://apps.apple.com/account/subscriptions');
+                    },
+                    onSupportPressed: () async {
+                      await launchURL('https://discord.gg/3jJkuQeKaz');
+                    },
+                    onPrivacyPolicyPressed: () async {
+                      context.pushNamed(PrivacyPolicyPageWidget.routeName);
+                    },
                   ),
                 ),
               ),

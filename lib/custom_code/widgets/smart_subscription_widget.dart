@@ -17,7 +17,6 @@ class SmartSubscriptionWidget extends StatefulWidget {
     Key? key,
     this.width,
     this.height,
-    this.onRestorePressed,
     this.onManageAppleSubscription,
     this.onSupportPressed,
     this.onPrivacyPolicyPressed,
@@ -25,7 +24,6 @@ class SmartSubscriptionWidget extends StatefulWidget {
 
   final double? width;
   final double? height;
-  final Future Function()? onRestorePressed;
   final Future Function()? onManageAppleSubscription;
   final Future Function()? onSupportPressed;
   final Future Function()? onPrivacyPolicyPressed;
@@ -267,36 +265,6 @@ class _SmartSubscriptionWidgetState extends State<SmartSubscriptionWidget> {
                     ),
 
                   const SizedBox(height: 8),
-
-                  // الأزرار السفلية
-                  ElevatedButton.icon(
-                    onPressed: () async {
-                      if (widget.onRestorePressed != null) {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        await widget.onRestorePressed!();
-                        await _fetchSubscriptionData();
-                      }
-                    },
-                    icon: const Icon(Icons.refresh_rounded, size: 20),
-                    label: const Text('Restore License'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4B39EF),
-                      foregroundColor: Colors.white,
-                      minimumSize: const Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      elevation: 2,
-                      textStyle: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 12),
 
                   OutlinedButton.icon(
                     onPressed: () async {

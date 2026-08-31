@@ -22,21 +22,13 @@ class IPpageMSFSModel extends FlutterFlowModel<IPpageMSFSWidget> {
   TextEditingController? textFieldIVAOidTextController;
   String? Function(BuildContext, String?)?
       textFieldIVAOidTextControllerValidator;
-  // State field(s) for CodeLicenseMSFSS widget.
-  FocusNode? codeLicenseMSFSSFocusNode;
-  TextEditingController? codeLicenseMSFSSTextController;
-  late bool codeLicenseMSFSSVisibility;
-  String? Function(BuildContext, String?)?
-      codeLicenseMSFSSTextControllerValidator;
   // Stores action output result for [Custom Action - restoreAllSubscriptions] action in RichTextSpan widget.
   dynamic restoreRes1;
   // Stores action output result for [Custom Action - extendLicenseMSFS] action in Button widget.
   String? extendResult1Month;
 
   @override
-  void initState(BuildContext context) {
-    codeLicenseMSFSSVisibility = false;
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {
@@ -48,8 +40,5 @@ class IPpageMSFSModel extends FlutterFlowModel<IPpageMSFSWidget> {
 
     textFieldIVAOidFocusNode?.dispose();
     textFieldIVAOidTextController?.dispose();
-
-    codeLicenseMSFSSFocusNode?.dispose();
-    codeLicenseMSFSSTextController?.dispose();
   }
 }

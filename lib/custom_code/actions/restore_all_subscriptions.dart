@@ -12,7 +12,7 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 
 Future<dynamic> restoreAllSubscriptions() async {
   try {
-    // 1. استعادة المشتريات من سيرفر RevenueCat/Apple
+    // 1. Restore purchases from RevenueCat/Apple servers
     CustomerInfo customerInfo = await Purchases.restorePurchases();
 
     bool isXplaneActive = false;
@@ -25,7 +25,7 @@ Future<dynamic> restoreAllSubscriptions() async {
     String priceText = '\$0.00';
     String responseMessage = '';
 
-    // 2. فحص الباقة المجمعة (Bundle) أولاً
+    // 2. Check Bundle package first
     EntitlementInfo? bundleEnt =
         customerInfo.entitlements.all['simulator_station_msfs_xplane'];
     if (bundleEnt != null) {
@@ -57,7 +57,7 @@ Future<dynamic> restoreAllSubscriptions() async {
       }
     }
 
-    // 3. فحص باقة MSFS المستقلة
+    // 3. Check standalone MSFS package
     EntitlementInfo? msfsEnt =
         customerInfo.entitlements.all['simulator_station_pro'];
     if (msfsEnt != null) {
@@ -87,7 +87,7 @@ Future<dynamic> restoreAllSubscriptions() async {
       }
     }
 
-    // 4. فحص باقة X-Plane المستقلة
+    // 4. Check standalone X-Plane package
     EntitlementInfo? xplaneEnt =
         customerInfo.entitlements.all['simulator_station_xplane'];
     if (xplaneEnt != null) {
@@ -124,19 +124,19 @@ Future<dynamic> restoreAllSubscriptions() async {
 
     bool hasAnyActive = isXplaneActive || isMsfsActive;
 
-    // 5. صياغة الرسالة التلقائية بناءً على النتيجة
+    // 5. Construct automated response message based on result
     if (isXplaneActive && isMsfsActive) {
       responseMessage =
-          'تم استعادة اشتراك الباقة المجمعة (MSFS & X-Plane) بنجاح!';
+          'Bundle subscription (MSFS & X-Plane) successfully restored!';
     } else if (isXplaneActive) {
-      responseMessage = 'تم استعادة اشتراك محاكي X-Plane بنجاح!';
+      responseMessage = 'X-Plane subscription successfully restored!';
     } else if (isMsfsActive) {
-      responseMessage = 'تم استعادة اشتراك محاكي MSFS بنجاح!';
+      responseMessage = 'MSFS subscription successfully restored!';
     } else if (hasExpiredSubscription) {
       responseMessage =
-          'اشتراكك السابق قد انتهى، يرجى تجديد الاشتراك لاستخدام المحاكي.';
+          'Your previous subscription has expired. Please renew to continue using the simulator.';
     } else {
-      responseMessage = 'لم نجد أي اشتراكات مرتبطة بهذا الحساب.';
+      responseMessage = 'No active subscriptions found for this account.';
     }
 
     return {
@@ -163,6 +163,7 @@ Future<dynamic> restoreAllSubscriptions() async {
     'plan_type': 'No Active Plan',
     'expiration_date': 'Not Active',
     'price_text': '\$0.00',
-    'message': 'حدث خطأ أثناء الاتصال بالمتجر، يرجى المحاولة لاحقاً.',
+    'message':
+        'An error occurred while connecting to the store. Please try again later.',
   };
 }

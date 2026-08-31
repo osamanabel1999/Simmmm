@@ -22,18 +22,11 @@ class IPpageXplaneModel extends FlutterFlowModel<IPpageXplaneWidget> {
   TextEditingController? textFieldIVAOidTextController;
   String? Function(BuildContext, String?)?
       textFieldIVAOidTextControllerValidator;
-  // State field(s) for Code widget.
-  FocusNode? codeFocusNode;
-  TextEditingController? codeTextController;
-  late bool codeVisibility;
-  String? Function(BuildContext, String?)? codeTextControllerValidator;
   // Stores action output result for [Custom Action - restoreAllSubscriptions] action in RichTextSpan widget.
   dynamic restoreRes2;
 
   @override
-  void initState(BuildContext context) {
-    codeVisibility = false;
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {
@@ -45,8 +38,5 @@ class IPpageXplaneModel extends FlutterFlowModel<IPpageXplaneWidget> {
 
     textFieldIVAOidFocusNode?.dispose();
     textFieldIVAOidTextController?.dispose();
-
-    codeFocusNode?.dispose();
-    codeTextController?.dispose();
   }
 }

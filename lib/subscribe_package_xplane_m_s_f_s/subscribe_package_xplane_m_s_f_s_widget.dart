@@ -194,9 +194,13 @@ class _SubscribePackageXplaneMSFSWidgetState
                     onContactUs: () async {
                       await launchURL('https://discord.gg/3jJkuQeKaz');
                     },
-                    onBuyBothSims: () async {},
+                    onBuyBothSims: () async {
+                      context.pushNamed(TermsOFuseWidget.routeName);
+                    },
                     onTermsOfUse: () async {},
-                    onPrivacyPolicy: () async {},
+                    onPrivacyPolicy: () async {
+                      context.pushNamed(PrivacyPolicyPageWidget.routeName);
+                    },
                   ),
                 ),
               ),

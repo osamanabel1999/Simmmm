@@ -56,10 +56,6 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
     _model.textFieldIVAOidTextController ??=
         TextEditingController(text: FFAppState().ivaoVatsimID.toString());
     _model.textFieldIVAOidFocusNode ??= FocusNode();
-
-    _model.codeLicenseMSFSSTextController ??=
-        TextEditingController(text: FFAppState().generateCodeMSFS);
-    _model.codeLicenseMSFSSFocusNode ??= FocusNode();
   }
 
   @override
@@ -466,135 +462,6 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                             .asValidator(context),
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
-                      child: Container(
-                        width: double.infinity,
-                        child: TextFormField(
-                          controller: _model.codeLicenseMSFSSTextController,
-                          focusNode: _model.codeLicenseMSFSSFocusNode,
-                          autofocus: false,
-                          enabled: true,
-                          obscureText: !_model.codeLicenseMSFSSVisibility,
-                          decoration: InputDecoration(
-                            isDense: true,
-                            labelText: 'Activation Code',
-                            labelStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                            alignLabelWithHint: false,
-                            hintText: 'JOSBJD',
-                            hintStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
-                                  ),
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(0.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(0.0),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(0.0),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(0.0),
-                            ),
-                            filled: true,
-                            fillColor: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            suffixIcon: InkWell(
-                              onTap: () async {
-                                safeSetState(() =>
-                                    _model.codeLicenseMSFSSVisibility =
-                                        !_model.codeLicenseMSFSSVisibility);
-                              },
-                              focusNode: FocusNode(skipTraversal: true),
-                              child: Icon(
-                                _model.codeLicenseMSFSSVisibility
-                                    ? Icons.visibility_outlined
-                                    : Icons.visibility_off_outlined,
-                                size: 22,
-                              ),
-                            ),
-                          ),
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.inter(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                          cursorColor: FlutterFlowTheme.of(context).primaryText,
-                          enableInteractiveSelection: true,
-                          validator: _model
-                              .codeLicenseMSFSSTextControllerValidator
-                              .asValidator(context),
-                        ),
-                      ),
-                    ),
                     if (FFAppState().isProUserMSFS == true)
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -607,8 +474,6 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                                 _model.textFieldIVAOidTextController.text);
                             FFAppState().SimbreifID = int.parse(
                                 _model.textFieldSimbreifIDTextController.text);
-                            FFAppState().generateCodeMSFS =
-                                _model.codeLicenseMSFSSTextController.text;
                             safeSetState(() {});
 
                             context.pushNamed(HomePageMSFSWidget.routeName);
