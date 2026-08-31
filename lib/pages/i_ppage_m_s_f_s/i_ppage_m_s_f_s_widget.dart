@@ -864,7 +864,7 @@ class _IPpageMSFSWidgetState extends State<IPpageMSFSWidget> {
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () async {
                                   await launchURL(
-                                      'https://drive.google.com/file/d/1OCLUxDuiEHWIkCXdXE2sWZKgHPbgs5MO/view');
+                                      'https://drive.google.com/file/d/13S8EGP7eU6V6-sOWKmko6e1al8YxRJPy/view?usp=sharing');
                                 },
                             )
                           ],

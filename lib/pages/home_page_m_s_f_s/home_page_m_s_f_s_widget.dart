@@ -937,30 +937,23 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                               ],
                             ),
                           ),
-                          if (responsiveVisibility(
-                            context: context,
-                            phone: false,
-                            tablet: false,
-                            tabletLandscape: false,
-                            desktop: false,
-                          ))
-                            Container(
-                              width: double.infinity,
-                              height: 50.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: FlutterFlowAdBanner(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                height: 50.0,
-                                showsTestAd: false,
-                                iOSAdUnitID:
-                                    'ca-app-pub-7880697829268273/6177072322',
-                                androidAdUnitID:
-                                    'ca-app-pub-7880697829268273/5581116466',
-                              ),
+                          Container(
+                            width: double.infinity,
+                            height: 50.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                             ),
+                            child: FlutterFlowAdBanner(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              height: 50.0,
+                              showsTestAd: false,
+                              iOSAdUnitID:
+                                  'ca-app-pub-7880697829268273/6177072322',
+                              androidAdUnitID:
+                                  'ca-app-pub-7880697829268273/5581116466',
+                            ),
+                          ),
                           Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -41044,44 +41037,54 @@ class _HomePageMSFSWidgetState extends State<HomePageMSFSWidget> {
                                                                           0.0,
                                                                           8.0),
                                                                       child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                12.0,
-                                                                                0.0,
-                                                                                0.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Icon(
-                                                                              Icons.help_outline,
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              size: 20.0,
-                                                                            ),
-                                                                          ),
-                                                                          Expanded(
-                                                                            child:
-                                                                                Padding(
+                                                                          InkWell(
+                                                                        splashColor:
+                                                                            Colors.transparent,
+                                                                        focusColor:
+                                                                            Colors.transparent,
+                                                                        hoverColor:
+                                                                            Colors.transparent,
+                                                                        highlightColor:
+                                                                            Colors.transparent,
+                                                                        onTap:
+                                                                            () async {
+                                                                          await launchURL(
+                                                                              'https://drive.google.com/file/d/13S8EGP7eU6V6-sOWKmko6e1al8YxRJPy/view?usp=sharing');
+                                                                        },
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                                                                              child: Text(
-                                                                                'Tutorial',
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      font: GoogleFonts.plusJakartaSans(
+                                                                              child: Icon(
+                                                                                Icons.help_outline,
+                                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                                size: 20.0,
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                                child: Text(
+                                                                                  'Tutorial',
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        font: GoogleFonts.plusJakartaSans(
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                        ),
+                                                                                        color: FlutterFlowTheme.of(context).primaryText,
+                                                                                        fontSize: 14.0,
+                                                                                        letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w500,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                       ),
-                                                                                      color: FlutterFlowTheme.of(context).primaryText,
-                                                                                      fontSize: 14.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                    ),
+                                                                                ),
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ],
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
                                                                   ),
